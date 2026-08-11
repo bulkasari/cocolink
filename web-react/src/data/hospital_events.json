@@ -147,7 +147,7 @@
       "hudActive": 3,
       "action": {
         "enabled": true,
-        "at": 2.0,
+        "at": 4.0,
         "icon": "👂",
         "label": "귀 가만히대고 참기"
       },
@@ -159,10 +159,15 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "곰돌이 청진기 검사",
       "hudActive": 3,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 2.0,
+        "icon": "🩺",
+        "label": "가만히 잘 참기"
+      },
       "sensory": {
         "enabled": true,
-        "at": 1.0,
+        "at": 5.0,
         "icon": "🐻",
         "text": "곰돌이도 안 아파해요!"
       }
@@ -173,10 +178,15 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "곰돌이 목 검사",
       "hudActive": 3,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 2.0,
+        "icon": "😮",
+        "label": "아~ 입 벌리고 참기"
+      },
       "sensory": {
         "enabled": true,
-        "at": 1.0,
+        "at": 2.0,
         "icon": "💡",
         "text": "반짝! 빛이 비춰요!"
       }
@@ -187,7 +197,12 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "곰돌이 귀 검사",
       "hudActive": 3,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 4.0,
+        "icon": "👂",
+        "label": "귀 가만히대고 참기"
+      },
       "sensory": null
     },
     {
