@@ -109,7 +109,7 @@
       "hudActive": 3,
       "action": {
         "enabled": true,
-        "at": 2.0,
+        "at": 5.6,
         "icon": "🩺",
         "label": "가만히 잘 참기"
       },
@@ -126,7 +126,12 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "목 안 손전등 검사",
       "hudActive": 3,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 2.0,
+        "icon": "😮",
+        "label": "아~ 입 벌리고 참기"
+      },
       "sensory": {
         "enabled": true,
         "at": 1.0,
@@ -140,7 +145,12 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "귓속 이경 검사",
       "hudActive": 3,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 2.0,
+        "icon": "👂",
+        "label": "귀 가만히대고 참기"
+      },
       "sensory": null
     },
     {
