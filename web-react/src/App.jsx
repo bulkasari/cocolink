@@ -99,7 +99,7 @@ export default function App() {
 
     if (node.type === 'video') {
       setScreen('video');
-      setClipLabel(node.label || '');
+      setClipLabel({ section: node.section || '', sub: node.subLabel || node.label || '' });
       setShowSkip(!!node.skip);
       setShowTap(false);
       setProgress(0);
@@ -352,7 +352,16 @@ export default function App() {
             </div>
           )}
 
-          <div id="clip-label">{clipLabel}</div>
+          <div id="clip-label">
+            {typeof clipLabel === 'object' ? (
+              <>
+                <div className="clip-section-title">{clipLabel.section}</div>
+                <div className="clip-sub-title">{clipLabel.sub}</div>
+              </>
+            ) : (
+              clipLabel
+            )}
+          </div>
           {showSkip && <button id="skip-btn" onClick={skipVideo}>건너뛰기 ›</button>}
           {showTap && (
             <div
