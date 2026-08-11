@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CocoLink — 소아과 병원 적응 에피소드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0d1a; --surface: #161628; --accent: #7c6fff; --accent2: #ff6fa8; --accent3: #4fd8c5;
+    --text: #f0eeff; --text-dim: #9b99c2; --hud-bg: rgba(22, 22, 40, 0.92);
+    --card-bg: rgba(255,255,255,0.07); --card-hover: rgba(255,255,255,0.14);
+    --radius: 20px; --glow: 0 0 24px rgba(124,111,255,0.5);
+  }
+  html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Nunito', sans-serif; overflow: hidden; user-select: none; }
+  #app { display: flex; flex-direction: column; height: 100vh; width: 100vw; position: relative; }
+  #hud { position: absolute; top: 0; left: 0; right: 0; z-index: 100; background: var(--hud-bg); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(124,111,255,0.2); padding: 10px 20px; display: flex; align-items: center; justify-content: center; gap: 6px; transition: opacity 0.4s; }
+  #hud.hidden { opacity: 0; pointer-events: none; }
+  .hud-logo { font-size: 15px; font-weight: 900; color: var(--accent); margin-right: 16px; }
+  .hud-steps { display: flex; align-items: center; gap: 4px; }
+  .hud-step { display: flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 30px; font-size: 13px; font-weight: 700; background: rgba(255,255,255,0.06); border: 1.5px solid transparent; transition: all 0.35s; color: var(--text-dim); white-space: nowrap; }
+  .hud-step.active { background: rgba(124,111,255,0.2); border-color: var(--accent); color: var(--text); box-shadow: 0 0 12px rgba(124,111,255,0.35); animation: pulse-step 1.5s ease-in-out infinite; }
+  .hud-step.done { background: rgba(79,216,197,0.12); border-color: var(--accent3); color: var(--accent3); }
+  .hud-arrow { color: var(--text-dim); font-size: 14px; opacity: 0.4; }
+  @keyframes pulse-step { 0%, 100% { box-shadow: 0 0 12px rgba(124,111,255,0.35); } 50% { box-shadow: 0 0 22px rgba(124,111,255,0.7); } }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+  .screen.active { opacity: 1; pointer-events: all; }
+  #screen-intro { background: radial-gradient(ellipse at 50% 30%, #1a1040 0%, #0d0d1a 70%); gap: 24px; }
+  .intro-badge { font-size: 72px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+  .intro-title { font-size: 42px; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .intro-sub { font-size: 17px; color: var(--text-dim); max-width: 440px; text-align: center; line-height: 1.6; }
+  .btn-start { margin-top: 12px; padding: 18px 52px; border-radius: 50px; border: none; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 20px; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; box-shadow: 0 6px 30px rgba(124,111,255,0.5); transition: transform 0.2s; }
+  .btn-start:hover { transform: scale(1.05); }
+  #screen-step-label { background: radial-gradient(ellipse at 50% 50%, #161030 0%, #0d0d1a 80%); gap: 20px; }
+  .step-label-icon { font-size: 64px; }
+  .step-label-num { font-size: 14px; font-weight: 800; letter-spacing: 3px; color: var(--accent); }
+  .step-label-title { font-size: 34px; font-weight: 900; text-align: center; }
+  .step-label-desc { font-size: 16px; color: var(--text-dim); text-align: center; max-width: 480px; }
+  #screen-video { background: #000; }
+  #player-wrap { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding-top: 56px; }
+  #main-video { width: 100%; height: 100%; object-fit: contain; }
+  #sensory-popup { position: absolute; top: 72px; left: 50%; transform: translateX(-50%) translateY(-20px); background: rgba(20,18,50,0.95); border: 2px solid var(--accent); border-radius: var(--radius); padding: 14px 28px; display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 900; color: var(--text); box-shadow: var(--glow); opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 200; }
+  #sensory-popup.show { opacity: 1; transform: translateX(-50%) translateY(0px); }
+  #choices-overlay { position: absolute; inset: 0; top: 56px; background: rgba(10,8,28,0.88); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; opacity: 0; pointer-events: none; transition: opacity 0.4s; z-index: 150; }
+  #choices-overlay.show { opacity: 1; pointer-events: all; }
+  .choices-question { font-size: 24px; font-weight: 800; text-align: center; }
+  .choices-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+  .choice-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 180px; height: 180px; border-radius: var(--radius); background: var(--card-bg); border: 2.5px solid rgba(124,111,255,0.3); cursor: pointer; transition: all 0.2s; }
+  .choice-card:hover { transform: scale(1.06); border-color: var(--accent); box-shadow: var(--glow); }
+  .choice-icon { font-size: 52px; }
+  .choice-label { font-size: 18px; font-weight: 800; text-align: center; }
+  #screen-schedule { background: radial-gradient(ellipse at 50% 40%, #1a1040 0%, #0d0d1a 75%); gap: 32px; }
+  .schedule-title { font-size: 26px; font-weight: 900; color: var(--accent); }
+  .schedule-cards { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .sched-card { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 22px 20px; border-radius: var(--radius); background: var(--card-bg); border: 2px solid rgba(124,111,255,0.2); width: 120px; }
+  .sched-icon { font-size: 40px; }
+  .sched-label { font-size: 15px; font-weight: 700; text-align: center; }
+  #screen-ending { background: radial-gradient(ellipse at 50% 40%, #1a1040 0%, #0d0d1a 80%); gap: 20px; }
+  .ending-badge { font-size: 90px; }
+  .ending-title { font-size: 40px; font-weight: 900; background: linear-gradient(135deg, #ffd700, var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .btn-restart { padding: 14px 40px; border-radius: 50px; border: 2px solid var(--accent); cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 800; background: transparent; color: var(--text); }
+  #loading { position: absolute; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s; }
+  #loading.done { opacity: 0; pointer-events: none; }
+  .spinner { width: 48px; height: 48px; border: 4px solid rgba(124,111,255,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #progress-bar { position: absolute; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0%; z-index: 120; }
+  #skip-btn { position: absolute; bottom: 20px; right: 20px; z-index: 130; padding: 8px 22px; border-radius: 30px; border: 1.5px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; opacity: 0; pointer-events: none; }
+  #skip-btn.show { opacity: 1; pointer-events: all; }
+  #clip-label { position: absolute; top: 66px; left: 16px; z-index: 120; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.4); }
+  #tap-continue { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); z-index: 130; font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.7); opacity: 0; pointer-events: none; }
+  #tap-continue.show { opacity: 1; pointer-events: all; }
+</style>
+</head>
+<body>
+
+<div id="loading"><div class="spinner"></div></div>
+
+<div id="app">
+  <div id="hud" class="hidden">
+    <span class="hud-logo">🐻 CocoLink</span>
+    <div class="hud-steps">
+      <div class="hud-step" id="hud-1"><span class="icon">🏥</span> 입구</div>
+      <span class="hud-arrow">›</span>
+      <div class="hud-step" id="hud-2"><span class="icon">📋</span> 접수</div>
+      <span class="hud-arrow">›</span>
+      <div class="hud-step" id="hud-3"><span class="icon">🩺</span> 진료</div>
+      <span class="hud-arrow">›</span>
+      <div class="hud-step" id="hud-4"><span class="icon">💉</span> 주사</div>
+      <span class="hud-arrow">›</span>
+      <div class="hud-step" id="hud-5"><span class="icon">🎁</span> 보상</div>
+    </div>
+  </div>
+
+  <div id="progress-bar"></div>
+
+  <div id="screen-intro" class="screen active">
+    <div class="intro-badge">🐻</div>
+    <h1 class="intro-title">CocoLink</h1>
+    <p class="intro-sub">소아과 병원 적응 인터랙티브 에피소드<br>발달지연·자폐스펙트럼 아동을 위한 4단계 체험</p>
+    <button class="btn-start" id="btn-start">시작하기 ▶</button>
+  </div>
+
+  <div id="screen-step-label" class="screen">
+    <div class="step-label-icon" id="step-icon">🎬</div>
+    <div class="step-label-num" id="step-num">STEP 1</div>
+    <div class="step-label-title" id="step-title">Pre-Story</div>
+    <div class="step-label-desc" id="step-desc">병원이 어떤 곳인지 동화로 만나봐요!</div>
+  </div>
+
+  <div id="screen-schedule" class="screen">
+    <div class="schedule-title">🗓️ 오늘 병원에서는요~</div>
+    <div class="schedule-cards">
+      <div class="sched-card"><div class="sched-icon">🏥</div><div class="sched-label">1단계<br>병원 입구</div></div>
+      <div class="sched-card"><div class="sched-icon">📋</div><div class="sched-label">2단계<br>접수 대기</div></div>
+      <div class="sched-card"><div class="sched-icon">🩺</div><div class="sched-label">3단계<br>의사 진료</div></div>
+      <div class="sched-card"><div class="sched-icon">💉</div><div class="sched-label">4단계<br>건강 주사</div></div>
+      <div class="sched-card"><div class="sched-icon">🎁</div><div class="sched-label">5단계<br>칭찬 보상</div></div>
+    </div>
+  </div>
+
+  <div id="screen-video" class="screen">
+    <div id="player-wrap">
+      <video id="main-video" playsinline preload="auto"></video>
+      <div id="sensory-popup">
+        <span class="sensory-icon" id="sensory-icon">❄️</span>
+        <span id="sensory-text">조금 차가울 수 있어요!</span>
+      </div>
+      <div id="choices-overlay">
+        <div class="choices-question" id="choices-question">어떻게 할까요?</div>
+        <div class="choices-row" id="choices-row"></div>
+      </div>
+      <div id="clip-label"></div>
+      <button id="skip-btn">건너뛰기 ›</button>
+      <div id="tap-continue">👆 화면을 탭하세요</div>
+    </div>
+  </div>
+
+  <div id="screen-ending" class="screen">
+    <div class="ending-badge">🏅</div>
+    <div class="ending-title">진료 성공!</div>
+    <p style="color:var(--text-dim);font-size:18px;">오늘 정말 용감하고 멋졌어요! 🐻💕</p>
+    <button class="btn-restart" id="btn-restart">처음부터 다시 🔄</button>
+  </div>
+</div>
+
+<script>
+const MOVIE_BASE = '../Movie/Hospital/';
+
+const EPISODE = [
+  { type: 'stepLabel', icon: '🐻', num: 'STEP 1', title: 'Pre-Story', desc: '병원이 어떤 곳인지 동화로 먼저 만나봐요!' },
+  { type: 'video', id: '1-1', file: '1-1.mp4', label: 'Step1 · 기침과 열', skip: true },
+  { type: 'video', id: '1-2', file: '1-2.mp4', label: 'Step1 · 병원 건물', skip: true },
+  { type: 'video', id: '1-3', file: '1-3.mp4', label: 'Step1 · 의사 선생님은 친구', skip: true },
+  { type: 'schedule' },
+  { type: 'stepLabel', icon: '🎠', num: 'STEP 3', title: 'Model-First', desc: '곰돌이가 먼저 병원을 경험해요! 같이 구경해요 😊' },
+  { type: 'video', id: '3-1', file: '3-1.mp4', label: 'Step3 · 곰돌이 도착', skip: true },
+  { type: 'video', id: '3-2', file: '3-2.mp4', label: 'Step3 · 곰돌이 진료', skip: true },
+  { type: 'video', id: '3-3', file: '3-3.mp4', label: 'Step3 · 곰돌이 칭찬', skip: true },
+  { type: 'stepLabel', icon: '🏥', num: 'STEP 4', title: '나의 병원 체험!', desc: '이제 직접 경험해봐요! 선택하면서 함께해요 🌟' },
+  { type: 'video', id: 'C1_Arrive', file: 'C1_Arrive.mp4', label: 'C1 · 병원 도착', hudActive: 1, skip: false, afterEnd: 'choice-c1' },
+  { type: 'choice', id: 'choice-c1', question: '간호사 선생님이 손을 흔들어요!\n어떻게 할까요? 👋', options: [ { icon: '👋', label: '인사하기', next: 'C1_HiPath' }, { icon: '🙈', label: '숨기', next: 'C1_HidePath' } ] },
+  { type: 'video', id: 'C1_HiPath', file: 'C1_HiPath.mp4', label: 'C1 · 인사 루트', skip: false },
+  { type: 'video', id: 'C1_HidePath', file: 'C1_HidePath.mp4', label: 'C1 · 숨기 루트', skip: false },
+  { type: 'video', id: 'C2_Reception', file: 'C2_Reception.mp4', label: 'C2 · 접수', hudActive: 2, skip: false },
+  { type: 'video', id: 'C2_WaitingRoom', file: 'C2_WaitingRoom.mp4', label: 'C2 · 대기실 탐색', hudActive: 2, skip: false },
+  { type: 'video', id: 'C3_NameCall', file: 'C3_NameCall.mp4', label: 'C3 · 이름 호명', skip: false },
+  { type: 'video', id: 'C4_DoctorGreet', file: 'C4_DoctorGreet.mp4', label: 'C4 · 의사 인사', hudActive: 3, skip: false, afterEnd: 'choice-c5-route' },
+  { type: 'choice', id: 'choice-c5-route', question: '의사 선생님이 진료를 시작해요!\n어떤 방법으로 해볼까요?', options: [ { icon: '🩺', label: '검사해봐요\n(5-A 신뢰 루트)', next: 'C5A_Stethoscope' }, { icon: '🐻', label: '곰돌이 먼저요!\n(5-B 달래기 루트)', next: 'C5B_Stethoscope' } ] },
+  { type: 'video', id: 'C5A_Stethoscope', file: 'C5A_Stethoscope.mp4', label: 'C5A · 청진기', hudActive: 3, skip: false, sensory: { icon: '❄️', text: '조금 차가울 수 있어요!' }, at: 1 },
+  { type: 'video', id: 'C5A_Throat', file: 'C5A_Throat.mp4', label: 'C5A · 손전등', hudActive: 3, skip: false, sensory: { icon: '💡', text: '반짝! 빛이 비춰요!' }, at: 1 },
+  { type: 'video', id: 'C5A_Ear', file: 'C5A_Ear.mp4', label: 'C5A · 이경', hudActive: 3, skip: false },
+  { type: 'video', id: 'C5B_Stethoscope', file: 'C5A_Stethoscope.mp4', label: 'C5B · 곰돌이 먼저 (청진기)', hudActive: 3, skip: false, sensory: { icon: '🐻', text: '곰돌이도 안 아파해요!' }, at: 1 },
+  { type: 'video', id: 'C5B_Throat', file: 'C5A_Throat.mp4', label: 'C5B · 손전등', hudActive: 3, skip: false, sensory: { icon: '💡', text: '반짝! 빛이 비춰요!' }, at: 1 },
+  { type: 'video', id: 'C5B_Ear', file: 'C5A_Ear.mp4', label: 'C5B · 이경', hudActive: 3, skip: false },
+  { type: 'video', id: 'C5C_Notice', file: 'C5C_Notice.mp4', label: 'C5C · 주사 예고', hudActive: 4, skip: false, sensory: { icon: '🌵', text: '따끔! (3초면 끝나요)' }, at: 2 },
+  { type: 'video', id: 'C5C_AlcWipe', file: 'C5C_AlcWipe.mp4', label: 'C5C · 알코올 솜', hudActive: 4, skip: false, sensory: { icon: '❄️', text: '차가울 거예요~' }, at: 0.5 },
+  { type: 'video', id: 'C5C_Injection', file: 'C5C_Injection.mp4', label: 'C5C · 주사', hudActive: 4, skip: false },
+  { type: 'video', id: 'C5C_Bandage', file: 'C5C_Bandage.mp4', label: 'C5C · 반창고', hudActive: 4, skip: false },
+  { type: 'video', id: 'C6_Farewell', file: 'C6_Farewell.mp4', label: 'C6 · 작별 인사', hudActive: 5, skip: false },
+  { type: 'ending' }
+];
+
+const episodeById = {};
+EPISODE.forEach((node, i) => { if (node.id) episodeById[node.id] = i; });
+
+const screens = {
+  intro: document.getElementById('screen-intro'),
+  stepLabel: document.getElementById('screen-step-label'),
+  schedule: document.getElementById('screen-schedule'),
+  video: document.getElementById('screen-video'),
+  ending: document.getElementById('screen-ending')
+};
+
+const hud = document.getElementById('hud');
+const hudSteps = [null, document.getElementById('hud-1'), document.getElementById('hud-2'), document.getElementById('hud-3'), document.getElementById('hud-4'), document.getElementById('hud-5')];
+const mainVideo = document.getElementById('main-video');
+const sensoryPopup = document.getElementById('sensory-popup');
+const sensoryIcon = document.getElementById('sensory-icon');
+const sensoryText = document.getElementById('sensory-text');
+const choicesOverlay = document.getElementById('choices-overlay');
+const choicesQ = document.getElementById('choices-question');
+const choicesRow = document.getElementById('choices-row');
+const clipLabel = document.getElementById('clip-label');
+const skipBtn = document.getElementById('skip-btn');
+const tapContinue = document.getElementById('tap-continue');
+const progressBar = document.getElementById('progress-bar');
+const loading = document.getElementById('loading');
+
+const stepIcon = document.getElementById('step-icon');
+const stepNum = document.getElementById('step-num');
+const stepTitle = document.getElementById('step-title');
+const stepDesc = document.getElementById('step-desc');
+
+let cursor = 0;
+let currentNode = null;
+let sensoryTimer = null, scheduleTimer = null, labelTimer = null;
+
+function showScreen(name) {
+  Object.entries(screens).forEach(([k, el]) => el.classList.toggle('active', k === name));
+}
+
+function setHudStep(active) {
+  hudSteps.forEach((el, i) => {
+    if (!el) return;
+    el.classList.remove('active', 'done');
+    if (i < active) el.classList.add('done');
+    else if (i === active) el.classList.add('active');
+  });
+}
+
+function showHud(show) { hud.classList.toggle('hidden', !show); }
+
+function updateProgress() {
+  if (!mainVideo.duration) return;
+  progressBar.style.width = ((mainVideo.currentTime / mainVideo.duration) * 100) + '%';
+}
+
+function clearSensory() {
+  if (sensoryTimer) clearTimeout(sensoryTimer);
+  sensoryPopup.classList.remove('show');
+}
+
+function showSensory(icon, text, delay) {
+  clearSensory();
+  sensoryTimer = setTimeout(() => {
+    sensoryIcon.textContent = icon;
+    sensoryText.textContent = text;
+    sensoryPopup.classList.add('show');
+    sensoryTimer = setTimeout(() => sensoryPopup.classList.remove('show'), 3000);
+  }, delay * 1000);
+}
+
+function advance(targetId) {
+  clearSensory();
+  choicesOverlay.classList.remove('show');
+  tapContinue.classList.remove('show');
+  skipBtn.classList.remove('show');
+  if (targetId) cursor = episodeById[targetId];
+  playNode(EPISODE[cursor]);
+}
+
+const resumeAfterBranch = {
+  'C1_HiPath': 'C2_Reception',
+  'C1_HidePath': 'C2_Reception',
+  'C5B_Stethoscope': 'C5B_Throat',
+  'C5B_Throat': 'C5B_Ear',
+  'C5B_Ear': 'C5C_Notice',
+  'C5A_Ear': 'C5C_Notice'
+};
+
+function nextAfterNode(node) {
+  if (node.afterEnd) { advance(node.afterEnd); return; }
+  if (resumeAfterBranch[node.id]) { advance(resumeAfterBranch[node.id]); return; }
+  cursor++;
+  while (cursor < EPISODE.length && EPISODE[cursor].type === 'choice') cursor++;
+  if (cursor >= EPISODE.length) { playNode({ type: 'ending' }); return; }
+  playNode(EPISODE[cursor]);
+}
+
+function playNode(node) {
+  currentNode = node;
+  clearSensory();
+
+  if (node.type === 'stepLabel') {
+    showHud(false); showScreen('stepLabel');
+    stepIcon.textContent = node.icon; stepNum.textContent = node.num;
+    stepTitle.textContent = node.title; stepDesc.textContent = node.desc;
+    if (labelTimer) clearTimeout(labelTimer);
+    labelTimer = setTimeout(() => { cursor++; playNode(EPISODE[cursor]); }, 3200);
+    return;
+  }
+
+  if (node.type === 'schedule') {
+    showHud(false); showScreen('schedule');
+    if (scheduleTimer) clearTimeout(scheduleTimer);
+    scheduleTimer = setTimeout(() => { cursor++; playNode(EPISODE[cursor]); }, 4000);
+    return;
+  }
+
+  if (node.type === 'choice') {
+    choicesQ.textContent = node.question;
+    choicesRow.innerHTML = '';
+    node.options.forEach(opt => {
+      const card = document.createElement('div');
+      card.className = 'choice-card';
+      card.innerHTML = `<div class="choice-icon">${opt.icon}</div><div class="choice-label">${opt.label.replace(/\n/g,'<br>')}</div>`;
+      card.addEventListener('click', () => advance(opt.next));
+      choicesRow.appendChild(card);
+    });
+    choicesOverlay.classList.add('show');
+    return;
+  }
+
+  if (node.type === 'ending') {
+    showHud(false); progressBar.style.width = '100%'; showScreen('ending');
+    return;
+  }
+
+  if (node.type === 'video') {
+    showScreen('video'); showHud(true);
+    choicesOverlay.classList.remove('show'); tapContinue.classList.remove('show');
+    if (node.hudActive) setHudStep(node.hudActive);
+    clipLabel.textContent = node.label || '';
+    mainVideo.src = MOVIE_BASE + node.file;
+    mainVideo.currentTime = 0;
+    progressBar.style.width = '0%';
+    skipBtn.classList.toggle('show', !!node.skip);
+    if (node.sensory) showSensory(node.sensory.icon, node.sensory.text, node.at || 1);
+    mainVideo.play().catch(() => tapContinue.classList.add('show'));
+    return;
+  }
+}
+
+mainVideo.addEventListener('ended', () => { clearSensory(); nextAfterNode(currentNode); });
+mainVideo.addEventListener('timeupdate', updateProgress);
+skipBtn.addEventListener('click', (e) => { e.stopPropagation(); mainVideo.pause(); clearSensory(); nextAfterNode(currentNode); });
+tapContinue.addEventListener('click', () => { tapContinue.classList.remove('show'); mainVideo.play(); });
+mainVideo.addEventListener('click', () => {
+  if (mainVideo.paused && mainVideo.ended) nextAfterNode(currentNode);
+  else if (mainVideo.paused) { mainVideo.play(); tapContinue.classList.remove('show'); }
+});
+
+document.getElementById('btn-start').addEventListener('click', () => { cursor = 0; playNode(EPISODE[0]); });
+document.getElementById('btn-restart').addEventListener('click', () => {
+  cursor = 0; showScreen('intro'); showHud(false); progressBar.style.width = '0%';
+  hudSteps.forEach(el => { if(el) el.classList.remove('active','done'); });
+});
+
+window.addEventListener('load', () => { setTimeout(() => loading.classList.add('done'), 400); });
+</script>
+</body>
+</html>
