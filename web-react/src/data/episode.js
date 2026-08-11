@@ -3,7 +3,7 @@ import hospitalEvents from './hospital_events.json';
 export const MOVIE_BASE = `${import.meta.env.BASE_URL}Movie/Hospital/`;
 
 // Quick map for JSON events
-const eventMap = {};
+export const eventMap = {};
 hospitalEvents.hospital_events.forEach(ev => {
   eventMap[ev.id] = ev;
 });

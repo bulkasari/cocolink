@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { EPISODE, MOVIE_BASE, episodeById, RESUME_AFTER_BRANCH } from './data/episode';
+import { EPISODE, MOVIE_BASE, episodeById, RESUME_AFTER_BRANCH, eventMap } from './data/episode';
 import './App.css';
 
 const HUD_STEPS = [
@@ -98,6 +98,14 @@ export default function App() {
     }
 
     if (node.type === 'video') {
+      // Dynamic merge from eventMap in hospital_events.json
+      if (node.id && eventMap[node.id]) {
+        const ev = eventMap[node.id];
+        if (ev.action) node.action = ev.action;
+        if (ev.actions) node.actions = ev.actions;
+        if (ev.sensory) node.sensory = ev.sensory;
+      }
+
       setScreen('video');
       setClipLabel({ section: node.section || '', sub: node.subLabel || node.label || '' });
       setShowSkip(!!node.skip);
@@ -105,11 +113,14 @@ export default function App() {
       setProgress(0);
       setActionPrompt(null);
       preloadDone.current = false;
+      actionDone.current = false;
       if (node.actions && Array.isArray(node.actions)) {
         node.actions.forEach(a => { a.triggered = false; });
       }
       if (node.hudActive) setHudActive(node.hudActive);
-      if (node.sensory) showSensoryMsg(node.sensory.icon, node.sensory.text, node.at || 1);
+      if (node.sensory && node.sensory.enabled !== false) {
+        showSensoryMsg(node.sensory.icon, node.sensory.text, node.sensory.at || node.at || 1);
+      }
 
       const target = inactiveRef.current;
       const old = activeRef.current;
@@ -195,7 +206,7 @@ export default function App() {
           }
           setActionPrompt(trigger);
         }
-      } else if (node && node.action && !actionDone.current) {
+      } else if (node && node.action && node.action.enabled && !actionDone.current) {
         if (v.currentTime >= node.action.at) {
           v.pause();
           actionDone.current = true;
