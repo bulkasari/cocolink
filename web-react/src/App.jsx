@@ -150,6 +150,7 @@ export default function App() {
 
   // ── Advance cursor → play node ───────────────────────────────────────
   useEffect(() => {
+    if (cursor < 0) return;
     if (cursor >= EPISODE.length) {
       playNode({ type: 'ending' });
       return;
@@ -211,7 +212,8 @@ export default function App() {
   }, []);
 
   const handleStart = useCallback(() => {
-    setCursor(0);
+    setCursor(-1);
+    setTimeout(() => setCursor(0), 10);
   }, []);
 
   // ── Render ──────────────────────────────────────────────────────────
@@ -273,76 +275,74 @@ export default function App() {
         </div>
       )}
 
-      {/* Video */}
-      {screen === 'video' && (
-        <div id="screen-video" className="screen active">
-          <div id="player-wrap">
-            <video
-              ref={videoARef}
-              className="video-layer"
-              playsInline
-              muted
-              autoPlay
-              preload="auto"
-              onEnded={() => handleVideoEnded(videoARef.current)}
-              onTimeUpdate={() => handleTimeUpdate(videoARef.current)}
-              onError={(e) => console.error('[Video Error A]:', e.target.error, e.target.src)}
-            />
-            <video
-              ref={videoBRef}
-              className="video-layer"
-              playsInline
-              muted
-              autoPlay
-              preload="auto"
-              onEnded={() => handleVideoEnded(videoBRef.current)}
-              onTimeUpdate={() => handleTimeUpdate(videoBRef.current)}
-              onError={(e) => console.error('[Video Error B]:', e.target.error, e.target.src)}
-            />
+      {/* Video Container (always mounted so refs are non-null) */}
+      <div id="screen-video" className={`screen ${screen === 'video' ? 'active' : ''}`} style={screen !== 'video' ? { display: 'none' } : {}}>
+        <div id="player-wrap">
+          <video
+            ref={videoARef}
+            className="video-layer"
+            playsInline
+            muted
+            autoPlay
+            preload="auto"
+            onEnded={() => handleVideoEnded(videoARef.current)}
+            onTimeUpdate={() => handleTimeUpdate(videoARef.current)}
+            onError={(e) => console.error('[Video Error A]:', e.target.error, e.target.src)}
+          />
+          <video
+            ref={videoBRef}
+            className="video-layer"
+            playsInline
+            muted
+            autoPlay
+            preload="auto"
+            onEnded={() => handleVideoEnded(videoBRef.current)}
+            onTimeUpdate={() => handleTimeUpdate(videoBRef.current)}
+            onError={(e) => console.error('[Video Error B]:', e.target.error, e.target.src)}
+          />
 
-            {/* Sensory popup */}
-            {sensory && (
-              <div id="sensory-popup" className="show">
-                <span>{sensory.icon}</span>
-                <span>{sensory.text}</span>
-              </div>
-            )}
+          {/* Sensory popup */}
+          {sensory && (
+            <div id="sensory-popup" className="show">
+              <span>{sensory.icon}</span>
+              <span>{sensory.text}</span>
+            </div>
+          )}
 
-            {/* PECS choice overlay */}
-            {choices && (
-              <div id="choices-overlay" className="show">
-                <div className="choices-question">{choices.question}</div>
-                <div className="choices-row">
-                  {choices.options.map(opt => (
-                    <div key={opt.next} className="choice-card" onClick={() => { setChoices(null); advance(opt.next); }}>
-                      <div className="choice-icon">{opt.icon}</div>
-                      <div className="choice-label">{opt.label.replace(/\n/g, '\n')}</div>
-                    </div>
-                  ))}
-                </div>
+          {/* PECS choice overlay */}
+          {choices && (
+            <div id="choices-overlay" className="show">
+              <div className="choices-question">{choices.question}</div>
+              <div className="choices-row">
+                {choices.options.map(opt => (
+                  <div key={opt.next} className="choice-card" onClick={() => { setChoices(null); advance(opt.next); }}>
+                    <div className="choice-icon">{opt.icon}</div>
+                    <div className="choice-label">{opt.label.replace(/\n/g, '\n')}</div>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
+          )}
 
-            <div id="clip-label">{clipLabel}</div>
-            {showSkip && <button id="skip-btn" onClick={skipVideo}>건너뛰기 ›</button>}
-            {showTap && (
-              <div
-                id="tap-continue"
-                className="show"
-                onClick={() => {
-                  setShowTap(false);
-                  if (activeRef.current) {
-                    activeRef.current.muted = false;
-                    activeRef.current.play();
-                  }
-                }}
-              >
-                👆 화면을 탭하여 재생하기
-              </div>
-            )}
-          </div>
+          <div id="clip-label">{clipLabel}</div>
+          {showSkip && <button id="skip-btn" onClick={skipVideo}>건너뛰기 ›</button>}
+          {showTap && (
+            <div
+              id="tap-continue"
+              className="show"
+              onClick={() => {
+                setShowTap(false);
+                if (activeRef.current) {
+                  activeRef.current.muted = false;
+                  activeRef.current.play();
+                }
+              }}
+            >
+              👆 화면을 탭하여 재생하기
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Ending */}
       {screen === 'ending' && (
