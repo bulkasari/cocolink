@@ -6,12 +6,27 @@
 
 ---
 
-## 1. 전체 파이프라인 구조 (4-Step Pipeline Flow)
+## 🎨 참조 에셋 라이브러리 (Graphic Reference Assets)
 
-```
-[ Step 1. Pre-Story ] ➔ [ Step 2. Visual Schedule ] ➔ [ Step 3. Model-First ] ➔ [ Step 4. Interactive Simulation ]
-  (3인칭 개념 사전 학습)     (상시 시각 일정표 활성화)       (곰돌이 병원 체험 관찰)         (1인칭 실사 6개 챕터 체험)
-```
+> **💡 영상/이미지 AI 생성 시 사용할 3D 애니메이션 & 실사 레퍼런스 이미지 분리 구조:**
+
+### 1. 🎬 Step 1 ~ Step 3 전용 (3D 애니메이션 스타일: `Graphic/hospital/animation/`)
+* 🐻 **아기 곰돌이 '코코' (주인공):** [`Graphic/hospital/animation/coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/animation/coco_bear_character_turnaround.png)
+* 🐻 **엄마 곰돌이 '엄마 코코':** [`Graphic/hospital/animation/mother_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/animation/mother_bear_character_turnaround.png)
+* 👨‍⚕️ **의사 곰돌이 '드림 선생님':** [`Graphic/hospital/animation/doctor_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/animation/doctor_bear_character_turnaround.png)
+* 🐰 **간호사 토끼 '분홍이':** [`Graphic/hospital/animation/nurse_rabbit_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/animation/nurse_rabbit_character_turnaround.png)
+* 🏥 **[입구] 3D 외관:** [`Graphic/hospital/animation/hospital_exterior_background.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/animation/hospital_exterior_background.png)
+* 📋 **[접수/대기실] 3D 대기실:** [`Graphic/hospital/animation/reception_waiting_background.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/animation/reception_waiting_background.png)
+* 🚪 **[복도] 3D 복도:** [`Graphic/hospital/animation/clinic_hallway_background.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/animation/clinic_hallway_background.png)
+* 🩺 **[진료실] 3D 진료실:** [`Graphic/hospital/animation/doctor_room_background.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/animation/doctor_room_background.png)
+
+### 2. 📸 Step 4 전용 (1인칭 실사 스타일: `Graphic/hospital/real/`)
+* 👨‍⚕️ **실사 의사 선생님:** [`Graphic/hospital/real/real_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_turnaround.png)
+* 👩‍⚕️ **실사 간호사 선생님:** [`Graphic/hospital/real/real_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_nurse_turnaround.png)
+* 🏥 **[입구] 실사 외관:** [`Graphic/hospital/real/real_hospital_exterior.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_hospital_exterior.png)
+* 📋 **[접수/대기실] 실사 대기실:** [`Graphic/hospital/real/real_reception_waiting.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_reception_waiting.png)
+* 🚪 **[복도] 실사 복도:** [`Graphic/hospital/real/real_clinic_hallway.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_clinic_hallway.png)
+* 🩺 **[진료실] 실사 진료실:** [`Graphic/hospital/real/real_doctor_room.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_room.png)
 
 ---
 
@@ -21,6 +36,7 @@
 > **형식:** 30초 3인칭 2D/3D 부드러운 파스텔 톤 애니메이션
 
 ### 1-1. 기침과 열 (아픈 상태 이해)
+* **참조 캐릭터:** 🐻 [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/coco_bear_character_turnaround.png), 🐻 [`mother_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/mother_bear_character_turnaround.png)
 * **길이:** 8초 | **구도:** 3인칭 풀 샷
 * **콘티:** 곰돌이 캐릭터 '코코'가 콜록콜록 기침을 하며 이마에 빨간 열 아이콘이 뜸. 엄마 곰돌이가 다정하게 안아주며 "열이 나네? 의사 선생님 만나러 가자!" 하고 말함.
 * **AI 비디오 프롬프트:**
@@ -30,6 +46,7 @@
     > `3D 귀여운 파스텔 애니메이션 스타일. 머리 위에 빛나는 빨간 열 아이콘이 뜬 채 콜록콜록 기침하는 푹신한 아기 곰돌이. 따뜻한 엄마 곰돌이가 아기 곰돌이를 다정하게 안아줌. 귀엽고 친근한 카툰 스타일, 부드러운 파스텔 조명, 8초`
 
 ### 1-2. 병원 건물의 모습 (장소 인지)
+* **참조 이미지:** 🏥 [`hospital_exterior_background.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital_exterior_background.png), 👨‍⚕️ [`doctor_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/doctor_bear_character_turnaround.png), 🐰 [`nurse_rabbit_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/nurse_rabbit_character_turnaround.png)
 * **길이:** 8초 | **구도:** 3인칭 와이드 샷
 * **콘티:** 알록달록한 동물이 그려진 소아과 병원 건물 전경. 유리 자동문이 열리고, 의사와 간호사 캐릭터가 손을 흔들며 환하게 웃음.
 * **AI 비디오 프롬프트:**
@@ -39,6 +56,7 @@
     > `3D 귀여운 애니메이션 스타일. 귀여운 동물 벽화가 그려진 알록달록하고 화사한 소아과 병원 건물 외관. 유리 자동문이 부드럽게 열림. 입구에서 친근한 남성 의사와 여성 간호사가 기쁘게 손을 흔듦. 따뜻하게 환영하는 분위기, 8초`
 
 ### 1-3. 의사 선생님은 친구예요 (안전감 형성)
+* **참조 이미지:** 🩺 [`doctor_room_background.png`](file:///d:/Github/Unity/cocolink/Graphic/doctor_room_background.png), 👨‍⚕️ [`doctor_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/doctor_bear_character_turnaround.png), 🐻 [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/coco_bear_character_turnaround.png)
 * **길이:** 14초 | **구도:** 3인칭 미디엄 샷
 * **콘티:** 의사 선생님이 청진기로 곰돌이의 가슴 소리를 듣고, 칭찬 스티커를 주며 웃음. "의사 선생님은 우리 아픈 곳을 낫게 해주는 친절한 친구예요!" 나레이션.
 * **AI 비디오 프롬프트:**
@@ -66,32 +84,35 @@
 
 ## 🎬 STEP 3: Model-First (곰돌이의 병원 체험 관찰)
 
-> **목적:** 관찰 학습(Modeling)을 통해 실제 기구 검사 및 진료 과정을 3인칭으로 먼저 보여주어 공포 완화.  
-> **형식:** 3인칭 실사/3D 혼합 45초 숏폼 비디오
+> **목적:** 관찰 학습(Modeling)을 통해 실제 기구 검사 및 진료 과정을 3인칭 3D 애니메이션으로 먼저 보여주어 공포 완화.  
+> **형식:** 3인칭 3D 캐주얼 애니메이션 (Step 1과 동일한 그래픽 스타일)
 
 ### 3-1. 곰돌이 진료실 입장
-* **길이:** 10초 | **콘티:** 곰돌이 인형이 진료실 의자에 앉음. 의사 선생님이 다정하게 인사하고 곰돌이 귀를 만져줌.
+* **참조 이미지:** 🩺 [`doctor_room_background.png`](file:///d:/Github/Unity/cocolink/Graphic/doctor_room_background.png), 👨‍⚕️ [`doctor_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/doctor_bear_character_turnaround.png), 🐻 [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/coco_bear_character_turnaround.png)
+* **길이:** 10초 | **콘티:** 아기 곰돌이 '코코'가 진료실 의자에 앉음. 의사 곰돌이 '드림 선생님'이 다정하게 인사하고 코코 귀를 가볍게 만져줌.
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
-    > `First-person POV seated perspective, a kind Korean male pediatrician sitting a cute teddy bear plush toy on the clinic chair, gently touching its ear and smiling warmly. Cozy medical clinic room, photorealistic, 10 seconds`
+    > `3D casual animated style, Mario 3D World aesthetic, smooth toy-like vinyl texture. A kind doctor bear in white coat sitting a cute chubby teddy bear Coco on a clinic chair, gently touching its ear with a warm smile. Cozy animated pediatric doctor room background, 10 seconds`
   * **[한글 해석 및 전달 의미]:**
-    > `1인칭 시점 앉은 구도. 친절한 한국인 남성 소아과 의사가 진료실 의자에 귀여운 곰돌이 인형을 앉히고, 귀를 부드럽게 만져주며 따뜻하게 미소 지음. 아늑한 소아과 진료실, 실사 화질, 10초`
+    > `3D 캐주얼 애니메이션 스타일 (마리오 3D 월드 감성, 매끈한 장난감 비닐 질감). 흰 가운의 친절한 의사 곰돌이가 귀여운 아기 곰돌이 코코를 진료실 의자에 앉히고, 귀를 부드럽게 만져주며 따뜻하게 미소 지음. 아늑한 3D 소아과 진료실 배경, 10초`
 
 ### 3-2. 곰돌이 청진기 & 이경 검사
-* **길이:** 15초 | **콘티:** 의사가 곰돌이 가슴에 청진기를 대고 "차갑지 않지? 간지럽지?" 하며 웃음. 귀를 이경으로 살짝 비춰봄. 곰돌이가 가만히 잘 참음.
+* **참조 이미지:** 🩺 [`doctor_room_background.png`](file:///d:/Github/Unity/cocolink/Graphic/doctor_room_background.png), 👨‍⚕️ [`doctor_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/doctor_bear_character_turnaround.png), 🐻 [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/coco_bear_character_turnaround.png)
+* **길이:** 15초 | **콘티:** 의사 곰돌이가 코코 가슴에 청진기를 대고 "차갑지 않지? 간지럽지?" 하며 웃음. 귀를 이경으로 살짝 비춰봄. 코코가 가만히 잘 참음.
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
-    > `First-person POV, a friendly Korean male pediatrician placing a toy dinosaur stethoscope on a teddy bear's chest with a playful smiling face, then gently shining a light into its ear with an otoscope. Warm clinic background, photorealistic, 15 seconds`
+    > `3D casual animated style, Mario 3D World aesthetic. A friendly doctor bear placing a toy dinosaur stethoscope on teddy bear Coco's chest with a playful smile, then gently shining a light into its ear with an otoscope. Warm 3D clinic background, 15 seconds`
   * **[한글 해석 및 전달 의미]:**
-    > `1인칭 시점. 친근한 한국인 남성 소아과 의사가 장난스러운 미소로 공룡 장난감 청진기를 곰돌이 가슴에 대고, 이어서 이경으로 귀 안에 부드럽게 빛을 비춰봄. 따뜻한 진료실 배경, 실사 화질, 15초`
+    > `3D 캐주얼 애니메이션 스타일. 친근한 의사 곰돌이가 장난스러운 미소로 공룡 장난감 청진기를 곰돌이 코코 가슴에 대고, 이어서 이경으로 귀 안에 부드럽게 빛을 비춰봄. 코코가 가만히 잘 참음. 따뜻한 3D 진료실 배경, 15초`
 
 ### 3-3. 곰돌이 칭찬 스티커 획득
-* **길이:** 20초 | **콘티:** 의사가 "우와! 곰돌이 정말 용감하다!" 하고 별 스티커를 곰돌이 이마에 붙여줌. 곰돌이가 기뻐함.
+* **참조 이미지:** 🩺 [`doctor_room_background.png`](file:///d:/Github/Unity/cocolink/Graphic/doctor_room_background.png), 👨‍⚕️ [`doctor_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/doctor_bear_character_turnaround.png), 🐻 [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/coco_bear_character_turnaround.png)
+* **길이:** 20초 | **콘티:** 의사 곰돌이가 "우와! 코코 정말 용감하다!" 하고 별 스티커를 코코 이마에 붙여줌. 코코가 기뻐하며 엄지척!
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
-    > `First-person POV, a joyful Korean male pediatrician placing a shiny star reward sticker on a teddy bear's forehead and giving a clear thumbs up gesture toward camera. Celebration feeling, photorealistic 8k, 20 seconds`
+    > `3D casual animated style, Mario 3D World aesthetic. A joyful doctor bear placing a shiny star reward sticker on teddy bear Coco's forehead and giving a thumbs up. Cute celebration animation, bright colors, 20 seconds`
   * **[한글 해석 및 전달 의미]:**
-    > `1인칭 시점. 기쁜 한국인 남성 소아과 의사가 곰돌이 이마에 반짝이는 별 보상 스티커를 붙여주고 카메라를 향해 명확한 엄지척을 해줌. 축하하는 분위기, 실사 8k, 20초`
+    > `3D 캐주얼 애니메이션 스타일. 기쁜 의사 곰돌이가 곰돌이 코코 이마에 반짝이는 별 보상 스티커를 붙여주고 엄지척을 해줌. 코코가 기뻐함. 귀여운 축하 애니메이션, 화사한 색감, 20초`
 * **전환 나레이션:** "곰돌이도 해냈어요! 이제 OO이 차례예요! 준비됐나요?" ➔ **Step 4(1인칭 실사)로 전환!**
 
 ---
@@ -108,6 +129,7 @@
 * **[일정표 상태]:** `[ 🏥 1. 입구 ]` 하이라이트
 
 #### 🎬 C1_Arrive — 병원 입구 도착 (5초)
+* **참조 이미지:** 🏥 [`real_hospital_exterior.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_hospital_exterior.png), 👩‍⚕️ [`real_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_nurse_turnaround.png)
 * **카메라 워크:** Slow Dolly-In (1인칭 아이 눈높이 전진)
 * **콘티:** 자동문이 열리고 파스텔 핑크 스크럽의 간호사 선생님이 접수대 너머에서 손을 흔듦.
 * **AI 비디오 프롬프트:**
@@ -121,6 +143,8 @@
   * **[모드 B (무언어)]**: `[👋 인사하기]` / `[🤝 손잡기]` (2개로 제한)
 
 * **분기 클립:**
+* **카메라 워크:** Slow Dolly-In (1인칭 아이 눈높이 전진)
+* **콘티:** 자동문이 열리고 파스텔 핑크 스크럽의 간호사 선생님이 접수대 너머에서 손을 흔듦.
   * `C1_HiPath` (3초): 간호사 엄지척 ("어서 와~!") | Static Shot
     * **[영문]:** `First-person POV static shot, friendly Korean female pediatric nurse giving big warm smile and thumbs up directly at camera lens, photorealistic, 3s`
     * **[한글]:** `1인칭 시점 고정 샷. 파스텔 핑크 스크럽의 친근한 한국인 여성 간호사가 카메라 렌즈를 정면으로 바라보며 환하게 웃고 엄지척을 선명하게 보여주는 장면. 실사 화질, 3초`
@@ -135,6 +159,7 @@
 * **[일정표 상태]:** `[ 📋 2. 접수 ]` 하이라이트
 
 #### 🎬 C2_Reception — 접수 창구 (5초)
+* **참조 이미지:** 📋 [`real_reception_waiting.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_reception_waiting.png), 👩‍⚕️ [`real_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_nurse_turnaround.png)
 * **카메라 워크:** Static Eye-Level
 * **콘티:** 간호사 선생님이 클립보드를 들고 "이름이 뭐예요?" 물어보며 진료 카드를 건넴.
 * **AI 비디오 프롬프트:**
@@ -145,6 +170,7 @@
 * **인터랙션 (PECS):** `[🗣️ 이름 말하기]` 또는 `[🤐 고개 끄덕이기]` 그림 카드 탭
 
 #### 🎬 C2_WaitingRoom — 대기실 탐색 (6초)
+* **참조 이미지:** 📋 [`real_reception_waiting.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_reception_waiting.png)
 * **카메라 워크:** Slow Pan Left-to-Right
 * **콘티:** 알록달록 대기실 둘러보기.
 * **AI 비디오 프롬프트:**
@@ -159,6 +185,7 @@
 ### 📍 챕터 3: 이름 호명 & 복도 이동
 
 #### 🎬 C3_NameCall — 이름 호명 & 복도 걷기 (5초)
+* **참조 이미지:** 🚪 [`real_clinic_hallway.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_clinic_hallway.png), 👩‍⚕️ [`real_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_nurse_turnaround.png)
 * **카메라 워크:** Hold ➔ Dolly-In Walk
 * **콘티:** 간호사 선생님이 진료실 문 앞에서 이름을 부름. 복도를 타고 진료실로 다가가는 POV 이동.
 * **AI 비디오 프롬프트:**
@@ -174,6 +201,7 @@
 * **[일정표 상태]:** `[ 🩺 3. 진료 ]` 하이라이트
 
 #### 🎬 C4_DoctorGreet — 의사 인사 & 자리 안내 (5초)
+* **참조 이미지:** 🩺 [`real_doctor_room.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_room.png), 👨‍⚕️ [`real_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_turnaround.png)
 * **카메라 워크:** Dolly-In Reveal ➔ Static
 * **콘티:** 진료실 문이 열리고 둥근 안경과 흰 가운의 의사 선생님이 정면 카메라를 보고 환하게 인사. "어서 와~ 의자에 앉아볼까?"
 * **AI 비디오 프롬프트:**
@@ -187,6 +215,7 @@
 ### 📍 챕터 5: 진료 과정 (선택 검사 및 주사)
 
 #### 5-A: 신뢰 루트 (기구 검사)
+* **참조 이미지:** 🩺 [`real_doctor_room.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_room.png), 👨‍⚕️ [`real_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_turnaround.png)
 * **감각 사전 예고 팝업:** 🩺 청진기 ➔ ❄️ `차갑다!` / 🔦 손전등 ➔ 💡 `반짝!`
 * `C5A_Stethoscope` (6초): 청진기 손목 시연 ➔ 카메라 가슴에 대기 (Static + Object Approach)
   * **[영문]:** `First-person POV static shot. Friendly Korean male pediatrician demonstrates toy dinosaur stethoscope on his own wrist showing 'Not cold!', then slowly moves stethoscope toward camera lens with gentle smile. Eye contact throughout, photorealistic, 6s`
@@ -198,61 +227,54 @@
   * **[영문]:** `First-person POV static shot. Friendly Korean male pediatrician holds otoscope in center frame with gentle smile and eye contact, then slowly moves it toward right side of frame (approaching ear position). Photorealistic, 4s`
   * **[한글]:** `1인칭 시점 고정 샷. 친근한 한국인 남성 소아과 의사가 이경을 중앙에 들고 카메라와 눈맞춤 후, 이경을 화면 오른쪽 측면(아이 귀 위치)으로 천천히 이동시키는 연출. 실사 화질, 4초`
 
-#### 5-B: 달래기 루트 (곰돌이 매개 ➔ 복식 호흡)
-* `C5B_BearFirst` (6초): 곰돌이에 청진기 먼저 시연 ➔ "네 차례야~"
-  * **[영문]:** `First-person POV static medium shot. Kind Korean male pediatrician listens to teddy bear's chest with stethoscope, then holds bear out toward camera lens saying 'Now it's your turn~'. Eye contact at end, photorealistic, 6s`
-  * **[한글]:** `1인칭 시점 고정 미디엄 샷. 친절한 한국인 남성 소아과 의사가 곰돌이 가슴에 청진기를 대고 진료한 후, 곰돌이를 카메라 렌즈 쪽으로 내밀며 "이번엔 네 차례야~"라고 유도. 마지막에 카메라와 눈맞춤, 실사 화질, 6초`
+#### 5-B: 달래기 루트 (곰돌이 인형 매개 ➔ 복식 호흡)
+* **참조 이미지:** 🩺 [`real_doctor_room.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_room.png), 👨‍⚕️ [`real_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_turnaround.png), 🐻 [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/animation/coco_bear_character_turnaround.png)
+* `C5B_BearFirst` (6초): 곰돌이 인형에 청진기 먼저 시연 ➔ "곰돌이도 안 아파해~ 이제 네 차례야!"
+  * **[영문]:** `First-person POV static medium shot. Kind Korean male pediatrician listens to a small teddy bear plush toy's chest with stethoscope first showing it's safe, then gently holds bear out toward camera lens saying 'Now it's your turn~'. Eye contact at end, photorealistic, 6s`
+  * **[한글]:** `1인칭 시점 고정 미디엄 샷. 친절한 한국인 남성 소아과 의사가 곰돌이 애착 인형 가슴에 청진기를 대고 시연하며 안심시킨 후, 곰돌이 인형을 카메라 렌즈 쪽으로 내밀며 "곰돌이도 잘 참았지? 이제 OO이 차례야~"라고 유도. 마지막에 카메라와 눈맞춤, 실사 화질, 6초`
 * `C5B_Breathing` (5초): 풍선 부풀리기 QTE (3초 누르고 있기)
   * **[영문]:** `First-person POV static medium shot. Friendly Korean male pediatrician looks directly into camera lens, cheerfully demonstrates deep breathing with puffed cheeks, exhaling with 'whoosh'. Encouraging eye contact, photorealistic, 5s`
   * **[한글]:** `1인칭 시점 고정 미디엄 샷. 친근한 한국인 남성 소아과 의사가 카메라 렌즈를 정면으로 바라보며 코로 들이마셔 볼을 부풀린 후 입으로 "후~" 내쉬는 심호흡을 시연. 카메라와 눈맞춤 유지, 실사 화질, 5초`
 
 #### 5-C: 주사 맞기 (7단계 공포 완화)
+* **참조 이미지:** 🩺 [`real_doctor_room.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_room.png), 👩‍⚕️ [`real_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_nurse_turnaround.png)
 * **[일정표 상태]:** `[ 💉 4. 주사 ]` 하이라이트
 * **감각 사전 예고 팝업:** 💉 주사기 ➔ 🌵 `따끔! (3초면 끝나요)`
 * `C5C_Notice` (5초): "오늘 건강 주사 맞아야 해" 사전 예고
   * **[영문]:** `First-person POV static medium shot. Kind Korean male pediatrician speaks directly to camera lens with gentle serious but warm expression saying 'Today you need a small shot'. Patient trustworthy tone, photorealistic, 5s`
   * **[한글]:** `1인칭 시점 고정 미디엄 샷. 친절한 한국인 남성 소아과 의사가 카메라 렌즈를 정면으로 바라보며 부드럽지만 진지하고 따뜻한 표정으로 "오늘 주사를 맞아야 해"라고 알림. 차분하고 신뢰감 있는 톤, 실사 화질, 5초`
-* `C5C_ShowTools` (6초): 알코올 솜 ➔ 반창고 ➔ 주사기 하나씩 보여주기 (탐색 탭)
-  * **[영문]:** `First-person POV static shot. Friendly Korean female nurse in pink scrubs sequentially shows medical tray items toward camera lens: alcohol swab pad, colorful bandage, small syringe. Eye contact between reveals, photorealistic, 6s`
-  * **[한글]:** `1인칭 시점 고정 샷. 파스텔 핑크 스크럽의 친근한 한국인 여성 간호사가 의료 쟁반의 알코올 솜, 반창고, 주사기를 순서대로 카메라 렌즈 쪽으로 들어 보임. 아이템 제시 사이 간호사와 눈맞춤, 실사 화질, 6초`
-* `C5C_BreathPre` (6초): 풍선 호흡 QTE
-  * **[영문]:** `First-person POV static medium shot. Kind Korean female nurse cheerfully demonstrates balloon breathing looking directly into camera lens - inhaling with puffed cheeks, exhaling with 'whoosh'. Direct eye contact, photorealistic, 6s`
-  * **[한글]:** `1인칭 시점 고정 미디엄 샷. 파스텔 핑크 스크럽의 친절한 한국인 여성 간호사가 카메라 렌즈를 바라보며 볼을 부풀려 들이마시고 내쉬는 풍선 호흡 시연. 지속적인 카메라 눈맞춤, 실사 화질, 6초`
+* `C5C_ShowTools` (5초): 작은 주사기 보여주기 & 안심시키기
+  * **[영문]:** `First-person POV static shot. Friendly Korean female nurse in pink scrubs holds up a small pediatric syringe gently showing it toward camera lens with warm reassuring smile. Direct eye contact, photorealistic, 5s`
+  * **[한글]:** `1인칭 시점 고정 샷. 파스텔 핑크 스크럽의 친근한 한국인 여성 간호사가 작은 소아용 주사기를 들어 카메라 렌즈 방향으로 부드럽게 보이며 안심시키는 환한 미소를 지음. 지속적인 카메라 눈맞춤, 실사 화질, 5초`
 * `C5C_ArmChoice` (4초): 🦾 오른팔 / 💪 왼팔 선택 (자율 통제감)
   * **[영문]:** `First-person POV static medium shot. Friendly Korean female nurse looks directly into camera, alternately extends left and right hands toward camera from sides saying 'Which arm do you want?'. Eye contact throughout, photorealistic, 4s`
   * **[한글]:** `1인칭 시점 고정 미디엄 샷. 친근한 한국인 여성 간호사가 카메라를 정면으로 바라보며 왼손과 오른손을 번갈아 카메라 쪽으로 내밀어 선택권을 줌. 카메라 눈맞춤 유지, 실사 화질, 4초`
-* `C5C_AlcWipe` (5초): "차가울 거야~" 알코올 솜 닦기
-  * **[영문]:** `First-person POV close-up of child's arm, static camera. Korean female nurse shows alcohol swab pad from above then slowly lowers swab down toward camera (arm surface). Object descending approach, photorealistic, 5s`
-  * **[한글]:** `아이 팔 클로즈업 1인칭 시점. 고정 카메라. 간호사가 알코올 솜을 위에서 보인 후 카메라(팔 표면) 쪽으로 위에서 아래로 천천히 내리는 하강 연출. 실사 화질, 5초`
-* `C5C_Injection` (7초): 💪 버티기 QTE (주사기는 화면 가장자리 작게 연출 ➔ 간호사 얼굴 필프레임 환한 미소)
-  * **[영문]:** `First-person POV static close-up of child's arm. Nurse looks warmly at camera saying 'Breathe in and out~'. Subtle motion at far edge of frame. Cut to: nurse's face filling frame with huge joyful smile saying 'All done!!'. Photorealistic, 7s`
-  * **[한글]:** `1인칭 시점 아이 팔 고정 클로즈업. 간호사가 카메라를 따뜻하게 보며 호흡 유도. 화면 가장자리에 미묘한 동작 후 컷: 간호사 얼굴이 화면을 가득 채우며 "끝났어!!" 환하게 웃음. 실사 화질, 7초`
-* `C5C_Bandage` (5초): 반창고 선택 (공룡/별/하트) + 감정 체크 (`😭아팠어요` / `😊괜찮았어요`)
-  * **[영문]:** `First-person POV static medium shot. Cheerful Korean female nurse looks directly into camera with big smile, holds up 3 cute bandage options toward camera center. Direct eye contact throughout, photorealistic, 5s`
-  * **[한글]:** `1인칭 시점 고정 미디엄 샷. 쾌활한 한국인 여성 간호사가 카메라를 직접 바라보며 큰 미소로 반창고 3종을 카메라 중앙으로 들어 보임. 내내 카메라 눈맞춤, 실사 화질, 5초`
+* `C5C_AlcWipe` (5초): "차가울 거야~" 어깨/상반신 알코올 솜 닦기
+  * **[영문]:** `First-person POV close-up of child's upper arm and shoulder deltoid area, static camera. Korean female nurse shows alcohol swab pad then gently wipes the upper arm shoulder area. Soft careful touch, photorealistic, 5s`
+  * **[한글]:** `아이 어깨 및 상반신 팔(삼각근) 클로즈업 1인칭 시점. 고정 카메라. 간호사가 알코올 솜을 보인 후 아이의 어깨/상반신 팔 부위를 부드럽게 닦아주는 연출. 부드러운 손길, 실사 화질, 5초`
+* `C5C_Injection` (7초): 💪 버티기 QTE (어깨 삼각근 접종 ➔ 간호사 얼굴 필프레임 환한 미소)
+  * **[영문]:** `First-person POV static close-up of child's upper arm and shoulder area. Nurse looks warmly at camera saying 'Breathe in and out~'. Subtle gentle motion at upper shoulder area edge. Cut to: nurse's face filling frame with huge joyful smile saying 'All done!!'. Photorealistic, 7s`
+  * **[한글]:** `1인칭 시점 아이 어깨/상반신 팔 고정 클로즈업. 간호사가 카메라를 따뜻하게 보며 호흡 유도. 어깨 삼각근 부위에 미묘한 접종 동작 후 컷: 간호사 얼굴이 화면을 가득 채우며 "끝났어!!" 환하게 웃음. 실사 화질, 7초`
+* `C5C_Bandage` (5초): 귀여운 캐릭터 반창고 붙여주기
+  * **[영문]:** `First-person POV close-up of child's arm, static camera shot. Friendly Korean female nurse carefully places a cute colorful character bandage over the injection site on child's arm, then looks up at camera lens with a warm joyful smile saying 'You did so great!'. Photorealistic, 5s`
+  * **[한글]:** `아이 팔 클로즈업 1인칭 시점 고정 샷. 친근한 한국인 여성 간호사가 주사 맞은 부위에 귀여운 캐릭터 반창고를 정성스럽게 붙여준 후, 카메라 렌즈를 올려다보며 "정말 잘했어!" 하고 따뜻하게 미소 지음. 실사 화질, 5초`
 
 ---
 
 ### 📍 챕터 6: 보상 & 귀가
 
+* **참조 이미지:** 🩺 [`real_doctor_room.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_room.png), 👨‍⚕️ [`real_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_turnaround.png)
 * **[일정표 상태]:** `[ 🎁 5. 보상 ]` 하이라이트
 
-#### 🎬 C6_Reward — 스티커 보상 선택 (5초)
-* **카메라 워크:** Static Medium + Object Offer
-* **콘티:** 의사 선생님이 환하게 웃으며 엄지척! 반짝이는 스티커 3종을 카메라 렌즈 앞으로 내묾.
+#### 🎬 C6_Farewell — 의사 & 간호사 작별 인사 (5초)
+* **참조 이미지:** 🩺 [`real_doctor_room.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_room.png), 👨‍⚕️ [`real_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_doctor_turnaround.png), 👩‍⚕️ [`real_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/hospital/real/real_nurse_turnaround.png)
+* **카메라 워크:** Static Medium Two-Shot
+* **콘티:** 의사 선생님과 간호사 선생님이 함께 카메라 앞에 서서 "오늘 정말 용감하게 잘했어! 다음에 또 만나자~" 하고 환하게 웃으며 엄지척과 손을 흔듦 ➔ 🎉 진료 성공 배지 획득 엔딩 화면!
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
-    > `First-person POV static medium shot, joyful Korean male pediatrician looks directly into camera lens with big warm smile and thumbs up, holding out 3 shiny reward stickers toward camera center frame. Celebration atmosphere, photorealistic, 5 seconds`
+    > `First-person POV static medium two-shot, friendly Korean male pediatrician in white lab coat and female nurse in pastel pink scrubs standing side by side, looking directly into camera lens with proud genuine smiles. Both giving warm thumbs up and waving goodbye enthusiastically directly at camera. Cozy clinic background, photorealistic cinematic quality, 5 seconds`
   * **[한글 해석 및 전달 의미]:**
-    > `1인칭 시점 고정 미디엄 샷. 기쁜 표정의 한국인 남성 소아과 의사가 카메라 렌즈를 직접 바라보며 환한 미소와 엄지척을 취하고, 빛나는 보상 스티커 3종을 카메라 중앙 앞으로 내묾. 축하 분위기, 실사 화질, 5초`
-
-#### 🎬 C6_Farewell — 작별 인사 (4초) & 엔딩
-* **콘티:** 의사 선생님이 "다음에 또 와! 선생님이 기다릴게~" 손 흔듦 ➔ 🎉 진료 성공 배지 획득 엔딩 화면!
-* **AI 비디오 프롬프트:**
-  * **[영문 입력용]:**
-    > `First-person POV static medium shot, warm friendly Korean male pediatrician looks directly into camera lens with big genuine smile, waving goodbye enthusiastically directly at camera. Cozy clinic background, photorealistic, 4 seconds`
-  * **[한글 해석 및 전달 의미]:**
-    > `1인칭 시점 고정 미디엄 샷. 따뜻하고 친근한 한국인 남성 소아과 의사가 카메라 렌즈를 내내 정면으로 바라보며 진심 어린 미소로 카메라를 향해 손을 흔들어 작별 인사. 실사 화질, 4초`
+    > `1인칭 시점 고정 미디엄 투샷. 흰 가운의 친근한 한국인 남성 소아과 의사와 파스텔 핑크 스크럽의 여성 간호사가 나란히 서서 카메라 렌즈를 내내 정면으로 바라보며 대견한 미소를 지음. 두 사람 모두 카메라를 향해 따뜻한 엄지척과 열정적인 손을 흔들어 작별 인사. 아늑한 진료실 배경, 실사 영화 화질, 5초`
 
 ---
 
@@ -267,5 +289,5 @@
 | **Step 4 (C2)** | `C2_Reception / WaitingRoom` | 1인칭 실사 비디오 | ✅ 완비 |
 | **Step 4 (C3)** | `C3_NameCall` | 1인칭 실사 비디오 | ✅ 완비 |
 | **Step 4 (C4)** | `C4_DoctorGreet` | 1인칭 실사 비디오 | ✅ 완비 |
-| **Step 4 (C5)** | `C5A (3클립) / C5B (2클립) / C5C (7클립)` | 1인칭 실사 비디오 | ✅ 완비 |
-| **Step 4 (C6)** | `C6_Reward / Farewell` | 1인칭 실사 비디오 | ✅ 완비 |
+| **Step 4 (C5)** | `C5A (3클립) / C5B (2클립) / C5C (6클립)` | 1인칭 실사 비디오 | ✅ 완비 |
+| **Step 4 (C6)** | `C6_Farewell` | 1인칭 실사 비디오 | ✅ 완비 |
