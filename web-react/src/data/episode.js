@@ -1,5 +1,4 @@
-// CocoLink Hospital Episode Data
-export const MOVIE_BASE = '/cocolink/Movie/Hospital/';
+export const MOVIE_BASE = `${import.meta.env.BASE_URL}Movie/Hospital/`;
 
 export const EPISODE = [
   { type: 'stepLabel', icon: '🐻', num: 'STEP 1', title: 'Pre-Story', desc: '병원이 어떤 곳인지 동화로 먼저 만나봐요!' },
