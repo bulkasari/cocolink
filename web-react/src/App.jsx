@@ -105,7 +105,9 @@ export default function App() {
       setProgress(0);
       setActionPrompt(null);
       preloadDone.current = false;
-      actionDone.current = false;
+      if (node.actions && Array.isArray(node.actions)) {
+        node.actions.forEach(a => { a.triggered = false; });
+      }
       if (node.hudActive) setHudActive(node.hudActive);
       if (node.sensory) showSensoryMsg(node.sensory.icon, node.sensory.text, node.at || 1);
 
@@ -182,7 +184,18 @@ export default function App() {
 
       const node = currentNodeRef.current;
       // Check interactive action prompt pause
-      if (node && node.action && !actionDone.current) {
+      if (node && node.actions && Array.isArray(node.actions) && !actionDone.current) {
+        const trigger = node.actions.find(a => !a.triggered && v.currentTime >= a.at);
+        if (trigger) {
+          v.pause();
+          trigger.triggered = true;
+          // check if all actions triggered
+          if (node.actions.every(a => a.triggered)) {
+            actionDone.current = true;
+          }
+          setActionPrompt(trigger);
+        }
+      } else if (node && node.action && !actionDone.current) {
         if (v.currentTime >= node.action.at) {
           v.pause();
           actionDone.current = true;
