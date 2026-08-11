@@ -212,6 +212,8 @@ export default function App() {
   }, []);
 
   const handleStart = useCallback(() => {
+    if (videoARef.current) videoARef.current.muted = false;
+    if (videoBRef.current) videoBRef.current.muted = false;
     setCursor(-1);
     setTimeout(() => setCursor(0), 10);
   }, []);
@@ -282,8 +284,6 @@ export default function App() {
             ref={videoARef}
             className="video-layer"
             playsInline
-            muted
-            autoPlay
             preload="auto"
             onEnded={() => handleVideoEnded(videoARef.current)}
             onTimeUpdate={() => handleTimeUpdate(videoARef.current)}
@@ -293,8 +293,6 @@ export default function App() {
             ref={videoBRef}
             className="video-layer"
             playsInline
-            muted
-            autoPlay
             preload="auto"
             onEnded={() => handleVideoEnded(videoBRef.current)}
             onTimeUpdate={() => handleTimeUpdate(videoBRef.current)}
