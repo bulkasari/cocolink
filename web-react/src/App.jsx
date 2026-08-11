@@ -22,6 +22,7 @@ export default function App() {
   const [showTap, setShowTap] = useState(false);
   const [progress, setProgress] = useState(0);
   const [clipLabel, setClipLabel] = useState('');
+  const [actionPrompt, setActionPrompt] = useState(null);
 
   const videoARef = useRef(null);
   const videoBRef = useRef(null);
@@ -31,6 +32,7 @@ export default function App() {
   const labelTimer = useRef(null);
   const scheduleTimer = useRef(null);
   const preloadDone = useRef(false);
+  const actionDone = useRef(false);
   const currentNodeRef = useRef(null); // stale closure 방지용 ref
 
   // Build id->index map
@@ -101,7 +103,9 @@ export default function App() {
       setShowSkip(!!node.skip);
       setShowTap(false);
       setProgress(0);
+      setActionPrompt(null);
       preloadDone.current = false;
+      actionDone.current = false;
       if (node.hudActive) setHudActive(node.hudActive);
       if (node.sensory) showSensoryMsg(node.sensory.icon, node.sensory.text, node.at || 1);
 
@@ -166,6 +170,7 @@ export default function App() {
   const handleVideoEnded = useCallback((v) => {
     if (v !== activeRef.current) return;
     clearSensory();
+    setActionPrompt(null);
     nextAfterNode(currentNodeRef.current); // ref로 최신 값 참조
   }, [clearSensory, nextAfterNode]);
 
@@ -174,6 +179,17 @@ export default function App() {
     if (v.duration) {
       const pct = (v.currentTime / v.duration) * 100;
       setProgress(pct);
+
+      const node = currentNodeRef.current;
+      // Check interactive action prompt pause
+      if (node && node.action && !actionDone.current) {
+        if (v.currentTime >= node.action.at) {
+          v.pause();
+          actionDone.current = true;
+          setActionPrompt(node.action);
+        }
+      }
+
       // Preload at 50%
       if (!preloadDone.current && pct >= 50) {
         preloadDone.current = true;
@@ -302,6 +318,22 @@ export default function App() {
             <div id="sensory-popup" className="show">
               <span>{sensory.icon}</span>
               <span>{sensory.text}</span>
+            </div>
+          )}
+
+          {/* Action Prompt Overlay */}
+          {actionPrompt && (
+            <div id="action-overlay" className="show">
+              <button
+                className="action-btn"
+                onClick={() => {
+                  setActionPrompt(null);
+                  if (activeRef.current) activeRef.current.play();
+                }}
+              >
+                <span className="action-icon">{actionPrompt.icon}</span>
+                <span className="action-text">{actionPrompt.label}</span>
+              </button>
             </div>
           )}
 
