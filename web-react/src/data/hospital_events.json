@@ -9,7 +9,7 @@
       "afterEnd": "choice-c1",
       "action": {
         "enabled": true,
-        "at": 3.0,
+        "at": 0.0,
         "icon": "🚪",
         "label": "병원 들어가기"
       },
@@ -37,7 +37,12 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "접수하기",
       "hudActive": 2,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 3.0,
+        "icon": "🗣️",
+        "label": "이름 말하기"
+      },
       "sensory": null
     },
     {
