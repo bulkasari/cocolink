@@ -229,10 +229,18 @@ export default function App() {
   // ── Render ──────────────────────────────────────────────────────────
   return (
     <div id="app" onClick={screen === 'intro' ? handleStart : undefined} style={screen === 'intro' ? { cursor: 'pointer' } : {}}>
-      {/* HUD */}
+      {/* HUD Bar (Top Navigation) */}
       {screen === 'video' && (
         <div id="hud">
-          <span className="hud-logo">🐻 CocoLink</span>
+          <div className="hud-left">
+            <span className="hud-logo">🐻 CocoLink</span>
+            {typeof clipLabel === 'object' && clipLabel.section && (
+              <div className="hud-current-info">
+                <span className="hud-section-badge">{clipLabel.section}</span>
+                <span className="hud-sub-title">| {clipLabel.sub}</span>
+              </div>
+            )}
+          </div>
           <div className="hud-steps">
             {HUD_STEPS.map((s, i) => (
               <>
@@ -352,16 +360,7 @@ export default function App() {
             </div>
           )}
 
-          <div id="clip-label">
-            {typeof clipLabel === 'object' ? (
-              <>
-                <div className="clip-section-title">{clipLabel.section}</div>
-                <div className="clip-sub-title">{clipLabel.sub}</div>
-              </>
-            ) : (
-              clipLabel
-            )}
-          </div>
+
           {showSkip && <button id="skip-btn" onClick={skipVideo}>건너뛰기 ›</button>}
           {showTap && (
             <div

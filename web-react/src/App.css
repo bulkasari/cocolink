@@ -34,13 +34,36 @@ html, body {
 /* HUD */
 #hud {
   position: absolute; top: 0; left: 0; right: 0; z-index: 100;
-  background: var(--hud-bg);
+  background: rgba(12, 10, 32, 0.95);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(124,111,255,0.2);
-  padding: 10px 20px;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
+  border-bottom: 1px solid rgba(124,111,255,0.3);
+  padding: 10px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.hud-logo { font-size: 15px; font-weight: 900; color: var(--accent); margin-right: 16px; }
+.hud-left {
+  display: flex; align-items: center; gap: 12px;
+}
+.hud-logo { font-size: 16px; font-weight: 900; color: var(--accent); white-space: nowrap; }
+.hud-current-info {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.hud-section-badge {
+  font-size: 15px;
+  font-weight: 900;
+  color: #FDE047; /* 밝은 개나리 노란색으로 강조 */
+  white-space: nowrap;
+}
+.hud-sub-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  opacity: 0.9;
+  white-space: nowrap;
+}
 .hud-steps { display: flex; align-items: center; gap: 4px; }
 .hud-step {
   display: flex; align-items: center; gap: 6px;
