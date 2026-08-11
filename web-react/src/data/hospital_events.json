@@ -39,7 +39,7 @@
       "hudActive": 2,
       "action": {
         "enabled": true,
-        "at": 3.0,
+        "at": 4.5,
         "icon": "🗣️",
         "label": "이름 말하기"
       },
@@ -51,7 +51,12 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "대기실 구경",
       "hudActive": 2,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 3.0,
+        "icon": "🪑",
+        "label": "대기하기"
+      },
       "sensory": null
     },
     {
