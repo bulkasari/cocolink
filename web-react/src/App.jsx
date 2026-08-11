@@ -117,10 +117,18 @@ export default function App() {
       const old = activeRef.current;
       if (!target) return;
 
-      target.src = MOVIE_BASE + node.file;
+      const videoUrl = MOVIE_BASE + node.file;
+      console.log('[CocoLink Video] Loading:', videoUrl);
+      target.src = videoUrl;
+      target.load();
       target.currentTime = 0;
       const p = target.play();
-      if (p !== undefined) p.catch(() => setShowTap(true));
+      if (p !== undefined) {
+        p.catch((err) => {
+          console.warn('[CocoLink Video] Auto-play blocked or waiting user click:', err);
+          setShowTap(true);
+        });
+      }
 
       // crossfade
       target.style.opacity = '1';
@@ -271,6 +279,7 @@ export default function App() {
               preload="auto"
               onEnded={() => handleVideoEnded(videoARef.current)}
               onTimeUpdate={() => handleTimeUpdate(videoARef.current)}
+              onError={(e) => console.error('[Video Error A]:', e.target.error, e.target.src)}
             />
             <video
               ref={videoBRef}
@@ -279,6 +288,7 @@ export default function App() {
               preload="auto"
               onEnded={() => handleVideoEnded(videoBRef.current)}
               onTimeUpdate={() => handleTimeUpdate(videoBRef.current)}
+              onError={(e) => console.error('[Video Error B]:', e.target.error, e.target.src)}
             />
 
             {/* Sensory popup */}
