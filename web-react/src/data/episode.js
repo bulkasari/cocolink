@@ -3,11 +3,11 @@ export const MOVIE_BASE = `${import.meta.env.BASE_URL}Movie/Hospital/`;
 export const EPISODE = [
   { type: 'stepLabel', icon: '🐻', num: 'STEP 1', title: 'Pre-Story', desc: '병원이 어떤 곳인지 동화로 먼저 만나봐요!' },
   { type: 'video', id: '1-1', file: '1-1.mp4', label: 'Step1 · 기침과 열', skip: true },
-  { type: 'video', id: '1-2', file: '1-2.mp4', label: 'Step1 · 병원 건물', skip: true, action: { at: 4, icon: '🚪', label: '자동문 열기' } },
+  { type: 'video', id: '1-2', file: '1-2.mp4', label: 'Step1 · 병원 건물', skip: true },
   { type: 'video', id: '1-3', file: '1-3.mp4', label: 'Step1 · 의사 선생님은 친구', skip: true },
   { type: 'schedule' },
   { type: 'stepLabel', icon: '🎠', num: 'STEP 3', title: 'Model-First', desc: '곰돌이가 먼저 병원을 경험해요! 같이 구경해요 😊' },
-  { type: 'video', id: '3-1', file: '3-1.mp4', label: 'Step3 · 곰돌이 도착', skip: true, action: { at: 5, icon: '🚶', label: '진료실 들어가기' } },
+  { type: 'video', id: '3-1', file: '3-1.mp4', label: 'Step3 · 곰돌이 도착', skip: true },
   { type: 'video', id: '3-2', file: '3-2.mp4', label: 'Step3 · 곰돌이 진료', skip: true },
   { type: 'video', id: '3-3', file: '3-3.mp4', label: 'Step3 · 곰돌이 칭찬', skip: true },
   { type: 'stepLabel', icon: '🏥', num: 'STEP 4', title: '나의 병원 체험!', desc: '이제 직접 경험해봐요! 선택하면서 함께해요 🌟' },
