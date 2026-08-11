@@ -53,7 +53,7 @@
       "hudActive": 2,
       "action": {
         "enabled": true,
-        "at": 3.0,
+        "at": 5.5,
         "icon": "🪑",
         "label": "대기하기"
       },
@@ -64,7 +64,12 @@
       "file": "C3_NameCall.mp4",
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "내 이름 호명 듣기",
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 2.0,
+        "icon": "🚪",
+        "label": "진료실 가기"
+      },
       "sensory": null
     },
     {
