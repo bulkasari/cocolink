@@ -147,7 +147,7 @@
       "hudActive": 3,
       "action": {
         "enabled": true,
-        "at": 4.0,
+        "at": 3.0,
         "icon": "👂",
         "label": "귀 가만히대고 참기"
       },
@@ -161,15 +161,15 @@
       "hudActive": 3,
       "action": {
         "enabled": true,
-        "at": 2.0,
+        "at": 5.6,
         "icon": "🩺",
         "label": "가만히 잘 참기"
       },
       "sensory": {
         "enabled": true,
-        "at": 5.0,
-        "icon": "🐻",
-        "text": "곰돌이도 안 아파해요!"
+        "at": 1.0,
+        "icon": "❄️",
+        "text": "조금 차가울 수 있어요!"
       }
     },
     {
@@ -199,7 +199,7 @@
       "hudActive": 3,
       "action": {
         "enabled": true,
-        "at": 4.0,
+        "at": 3.0,
         "icon": "👂",
         "label": "귀 가만히대고 참기"
       },
