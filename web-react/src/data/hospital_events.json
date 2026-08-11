@@ -224,7 +224,12 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "예방 주사 맞기",
       "hudActive": 4,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 2.0,
+        "icon": "💉",
+        "label": "용감하게 꾹 참기"
+      },
       "sensory": null
     },
     {
@@ -242,7 +247,12 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "칭찬 스티커",
       "hudActive": 5,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 2.0,
+        "icon": "👋",
+        "label": "감사합니다 인사하기"
+      },
       "sensory": null
     }
   ]
