@@ -207,8 +207,38 @@ export default function App() {
   const skipVideo = useCallback(() => {
     activeRef.current?.pause();
     clearSensory();
+    setActionPrompt(null);
     setCurrentNode(prev => { nextAfterNode(prev); return prev; });
   }, [clearSensory, nextAfterNode]);
+
+  // ── Keyboard Test Shortcuts ─────────────────────────────────────────
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // 오른쪽 화살표 또는 N키: 다음 단계로 강제 이동
+      if (e.key === 'ArrowRight' || e.key === 'n' || e.key === 'N') {
+        e.preventDefault();
+        activeRef.current?.pause();
+        clearSensory();
+        setActionPrompt(null);
+        setCursor(prev => Math.min(prev + 1, EPISODE.length - 1));
+      }
+      // 왼쪽 화살표 또는 P키: 이전 단계로 이동
+      else if (e.key === 'ArrowLeft' || e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        activeRef.current?.pause();
+        clearSensory();
+        setActionPrompt(null);
+        setCursor(prev => Math.max(prev - 1, 0));
+      }
+      // 스페이스바: 현재 영상 건너뛰기
+      else if (e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        skipVideo();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [clearSensory, skipVideo]);
 
   const handleRestart = useCallback(() => {
     setCurrentNode(null);
