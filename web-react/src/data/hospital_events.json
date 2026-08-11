@@ -82,22 +82,22 @@
       "actions": [
         {
           "enabled": true,
-          "at": 1.5,
+          "at": 0.2,
           "icon": "🚪",
           "label": "문 열기"
         },
-        {
+         {
           "enabled": true,
-          "at": 3.0,
-          "icon": "🪑",
-          "label": "의자에 앉기"
+          "at": 2.5,
+          "icon": "👋",
+          "label": "인사하기"
         },
         {
           "enabled": true,
           "at": 4.5,
-          "icon": "👋",
-          "label": "인사하기"
-        }
+          "icon": "🪑",
+          "label": "의자에 앉기"
+        }       
       ],
       "sensory": null
     },
@@ -107,7 +107,12 @@
       "section": "🌟 3단계 · 내가 직접 체험하기",
       "subLabel": "청진기 가슴 검사",
       "hudActive": 3,
-      "action": null,
+      "action": {
+        "enabled": true,
+        "at": 2.0,
+        "icon": "🩺",
+        "label": "가만히 잘 참기"
+      },
       "sensory": {
         "enabled": true,
         "at": 1.0,
