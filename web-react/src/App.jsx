@@ -122,11 +122,16 @@ export default function App() {
       target.src = videoUrl;
       target.load();
       target.currentTime = 0;
+      target.muted = false; // try unmuted playback since user interacted
       const p = target.play();
       if (p !== undefined) {
         p.catch((err) => {
-          console.warn('[CocoLink Video] Auto-play blocked or waiting user click:', err);
-          setShowTap(true);
+          console.warn('[CocoLink Video] Auto-play unmuted failed, falling back to muted playback:', err);
+          target.muted = true;
+          target.play().catch((err2) => {
+            console.warn('[CocoLink Video] Muted play also failed:', err2);
+            setShowTap(true);
+          });
         });
       }
 
@@ -276,6 +281,8 @@ export default function App() {
               ref={videoARef}
               className="video-layer"
               playsInline
+              muted
+              autoPlay
               preload="auto"
               onEnded={() => handleVideoEnded(videoARef.current)}
               onTimeUpdate={() => handleTimeUpdate(videoARef.current)}
@@ -285,6 +292,8 @@ export default function App() {
               ref={videoBRef}
               className="video-layer"
               playsInline
+              muted
+              autoPlay
               preload="auto"
               onEnded={() => handleVideoEnded(videoBRef.current)}
               onTimeUpdate={() => handleTimeUpdate(videoBRef.current)}
@@ -316,7 +325,21 @@ export default function App() {
 
             <div id="clip-label">{clipLabel}</div>
             {showSkip && <button id="skip-btn" onClick={skipVideo}>건너뛰기 ›</button>}
-            {showTap && <div id="tap-continue" className="show" onClick={() => { setShowTap(false); activeRef.current?.play(); }}>👆 화면을 탭하세요</div>}
+            {showTap && (
+              <div
+                id="tap-continue"
+                className="show"
+                onClick={() => {
+                  setShowTap(false);
+                  if (activeRef.current) {
+                    activeRef.current.muted = false;
+                    activeRef.current.play();
+                  }
+                }}
+              >
+                👆 화면을 탭하여 재생하기
+              </div>
+            )}
           </div>
         </div>
       )}
