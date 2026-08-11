@@ -76,19 +76,11 @@ export default function App() {
     if (node.type === 'stepLabel') {
       setScreen('stepLabel');
       setStepData(node);
-      if (labelTimer.current) clearTimeout(labelTimer.current);
-      labelTimer.current = setTimeout(() => {
-        setCursor(prev => prev + 1);
-      }, 3200);
       return;
     }
 
     if (node.type === 'schedule') {
       setScreen('schedule');
-      if (scheduleTimer.current) clearTimeout(scheduleTimer.current);
-      scheduleTimer.current = setTimeout(() => {
-        setCursor(prev => prev + 1);
-      }, 4000);
       return;
     }
 
@@ -259,6 +251,9 @@ export default function App() {
           <div className="step-label-num">{stepData.num}</div>
           <div className="step-label-title">{stepData.title}</div>
           <div className="step-label-desc">{stepData.desc}</div>
+          <button className="btn-next-step" onClick={() => setCursor(prev => prev + 1)}>
+            다음 단계로 이동하기 ▶
+          </button>
         </div>
       )}
 
@@ -274,6 +269,9 @@ export default function App() {
               </div>
             ))}
           </div>
+          <button className="btn-next-step" onClick={() => setCursor(prev => prev + 1)} style={{ marginTop: '24px' }}>
+            체험 시작하기 ▶
+          </button>
         </div>
       )}
 
