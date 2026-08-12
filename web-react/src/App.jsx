@@ -300,7 +300,7 @@ export default function App() {
               <>
                 {i > 0 && <span key={`arrow-${s.id}`} className="hud-arrow">›</span>}
                 <div key={s.id} className={`hud-step ${hudActive === s.id ? 'active' : hudActive > s.id ? 'done' : ''}`}>
-                  <span>{s.icon}</span> {s.label}
+                  <span>{s.icon}</span> <span className="hud-step-text">{s.label}</span>
                 </div>
               </>
             ))}
