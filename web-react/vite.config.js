@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// GitHub Pages: https://bulkasari.github.io/cocolink/
+// Custom Domain: https://link.metaspacehub.com/ or https://bulkasari.github.io/
 export default defineConfig({
   plugins: [react()],
-  base: '/cocolink/',
+  base: '/',
 })
+
