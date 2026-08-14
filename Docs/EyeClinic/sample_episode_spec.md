@@ -10,8 +10,8 @@
 * **핵심 점진적 실사화 파이프라인:**
   1. **Step 1:** `2D 파스텔 수채화 동화` (병원은 눈을 시원하게 해주는 안전한 곳이라는 개념 형성)
   2. **Step 2:** `2D 단순 UI 일정표` (언제 집에 가는지 직관적 시각 안내)
-  3. **Step 3:** `3D 캐주얼 모델링 시연` (입체 기계에 턱을 대고 바람/열기구를 체험하는 완충 브릿지)
-  4. **Step 4:** `1인칭 실사 비디오` (PECS 카드 선택 + 4대 감각 사전 예고 + QTE)
+  3. **Step 3:** `3D 캐주얼 모델링 시연` (입체 기계에 턱을 대고 열기구를 체험하는 완충 브릿지)
+  4. **Step 4:** `1인칭 실사 비디오` (PECS 카드 선택 + 감각 사전 예고 + QTE)
 
 ---
 
@@ -24,7 +24,7 @@
 * **아이 (사용자):** 1인칭 관찰자 및 당사자.
 
 #### 🎨 캐릭터 일관성 유지용 턴어라운드 시트 (Model Sheet)
-* 2D 동화 코코: `Graphic/eyeclinic/2d_storybook/coco_bear_2d_storybook.png`
+* 2D 동화 코코: `Graphic/eyeclinic/2d_storybook/coco_bear_bonobono_style.jpg`
 * 3D 캐주얼 코코: `Graphic/eyeclinic/3d_animation/coco_bear_3d_turnaround.png`
 * 실사 안과 의사: `Graphic/eyeclinic/real/real_eye_doctor_turnaround.png`
 * 실사 검안사: `Graphic/eyeclinic/real/real_optometrist_nurse_turnaround.png`
@@ -43,12 +43,11 @@
 
 1. `Step 1 (2D 동화)`: 눈이 침침해요 ➔ 안과 소개 ➔ 별 안경 선물
 2. `Step 2 (2D 일정표)`: 5단계 UI 상시 노출 (`입구 ➔ 접수 ➔ 기계 ➔ 진료 ➔ 보상`)
-3. `Step 3 (3D 시연)`: 턱받침 대기 ➔ 열기구 & 바람 검사 ➔ 별 선글라스 획득
+3. `Step 3 (3D 시연)`: 턱받침 대기 ➔ 🎈 열기구 보기 ➔ 별 선글라스 획득
 4. `Step 4 (1인칭 실사)`:
    * `C1_Arrive`: 안과 입장 & 검안사 손인사 (선택: 인사 vs 숨기)
    * `C2_Reception & WaitingRoom`: 접수 & 그림 시력표 동물 찾기 탐색
    * `C3_ChinRest & BalloonView`: 턱 대기 3초 유지 QTE & 🎈 열기구 보기
-   * `C3_AirPuff`: 안압 검사 (🌬️ 바람 칙! 사전 예고)
    * `C4_ChartMatch`: PECS 그림 시력표 맞추기 (🦆 오리 / 🦋 나비 / 🚗 차)
    * `C5_DoctorGreet & SlitLamp`: 진료실 입장 & 💡 불빛/세극등 검사
    * `C6_Reward & Farewell`: 멋진 별 선글라스 스티커 획득 & 작별 인사

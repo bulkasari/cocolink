@@ -106,14 +106,14 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
   * **[한글 해석 및 전달 의미]:**
     > `3D 캐주얼 애니메이션 스타일 (마리오 3D 월드 감성, 매끄러운 비닐 장난감 질감). 동화 속 코코와 똑같은 밝은 노란 목 스카프를 맨 귀여운 갈색 아기 곰돌이가 친근한 3D 안과 검사기 턱받침에 턱을 올리고 이마를 댐. 간호사 토끼가 칭찬하며 머리를 쓰다듬어 줌, 10초`
 
-### 3-2. 곰돌이 열기구 보기 & 바람 검사 (3D 시연)
+### 3-2. 곰돌이 열기구 보기 (3D 시연)
 * **참조 에셋:** 🎈 [`eyeclinic_3d_autorefrac_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/eyeclinic_3d_autorefrac_room.png)
-* **길이:** 15초 | **콘티:** 3D 기계 렌즈 속 빨간 열기구를 바라보는 코코. "퐁!" 하고 가벼운 공기 바람이 나오자 눈을 깜빡이며 "간지러워!" 방긋 웃음.
+* **길이:** 15초 | **콘티:** 3D 기계 렌즈 속 빨간 열기구를 바라보는 코코. 열기구가 또렷해지자 "우와! 빨간 열기구 찾았다!" 방긋 웃음.
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
-    > `3D casual animated style. Teddy bear Coco with yellow scarf looks inside 3D machine lens seeing a cute floating red hot air balloon. A tiny gentle puff of air pops out, Coco blinks playfully and giggles finding it ticklish. Fun and stress-free medical animation, 15 seconds`
+    > `3D casual animated style. Teddy bear Coco with yellow scarf looks inside 3D machine lens seeing a cute floating red hot air balloon. The balloon becomes clear and bright, Coco smiles happily. Fun and stress-free medical animation, 15 seconds`
   * **[한글 해석 및 전달 의미]:**
-    > `3D 캐주얼 애니메이션 스타일. 노란 스카프의 곰돌이 코코가 3D 기계 렌즈 속 둥실 떠 있는 빨간 열기구를 바라봄. 작고 부드러운 바람이 퐁 나오자 코코가 눈을 깜빡이며 간지럽다는 듯 방긋 웃음. 유쾌하고 편안한 검사 애니메이션, 15초`
+    > `3D 캐주얼 애니메이션 스타일. 노란 스카프의 곰돌이 코코가 3D 기계 렌즈 속 둥실 떠 있는 빨간 열기구를 바라봄. 열기구가 또렷하고 밝아지자 코코가 기쁘게 방긋 웃음. 유쾌하고 편안한 검사 애니메이션, 15초`
 
 ### 3-3. 곰돌이 멋진 별 선글라스 획득 (3D 시연)
 * **참조 에셋:** 🦉 [`doctor_owl_3d_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/doctor_owl_3d_turnaround.png), 🐻 [`coco_bear_3d_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/coco_bear_3d_turnaround.png)
@@ -123,7 +123,7 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
     > `3D casual animated style. Joyful doctor owl in white coat puts shiny gold star sunglasses on teddy bear Coco and gives a high-five. Coco does a cute victory V-sign. Bright confetti and sparkles celebrating success, 20 seconds`
   * **[한글 해석 및 전달 의미]:**
     > `3D 캐주얼 애니메이션 스타일. 흰 가운의 의사 부엉이 선생님이 곰돌이 코코에게 반짝이는 금빛 별 선글라스를 씌워주고 하이파이브를 침. 코코가 기뻐하며 브이 포즈를 취함. 축하 파티클 효과, 20초`
-* **전환 나레이션:** *"코코도 열기구를 신나게 봤어요! 이제 우리 차례예요! 출발해볼까요?"* ➔ **Step 4(1인칭 실사)로 전환!**
+* **전환 나레이션:** *"코코도 열기구를 신나게 찾았어요! 이제 우리 차례예요! 출발해볼까요?"* ➔ **Step 4(1인칭 실사)로 전환!**
 
 ---
 
@@ -213,23 +213,13 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 #### 🎬 C3_BalloonView — 열기구 보기 자동굴절검사 (6초)
 * **감각 사전 예고 팝업:** 🎈 `열기구 찾기!`
 * **카메라 워크:** Machine Lens POV (렌즈 속 시야)
-* **콘티:** 렌즈 안으로 붉은 열기구와 푸른 초원이 보임. 초점이 흐려졌다 선명해지는 연출. "열기구가 둥실둥실~ 가만히 3초만 바라보자!"
+* **콘티:** 렌즈 안으로 붉은 열기구와 푸른 초원이 보임. 초점이 흐려졌다 선명해지는 연출. "열기구가 둥실둥실~ 가만히 3초만 바라보자!" ➔ 검안사 선생님이 "열기구 정말 잘 봤어요! 백 점!" 환하게 칭찬.
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
-    > `First-person POV looking through an autorefractor lens view. A colorful red hot air balloon floats over a green grassy country road landscape. The image slightly blurs and comes back into crisp sharp focus smoothly. Calm visual, photorealistic, 6 seconds`
+    > `First-person POV looking through an autorefractor lens view. A colorful red hot air balloon floats over a green grassy country road landscape. The image slightly blurs and comes back into crisp sharp focus smoothly. Cut to: female optometrist giving enthusiastic thumbs up saying 'Awesome job!'. Calm visual, photorealistic, 6 seconds`
   * **[한글 해석 및 전달 의미]:**
-    > `자동굴절검사기 렌즈 속을 들여다보는 1인칭 시점. 초원 도로 위로 떠 있는 알록달록한 빨간 열기구. 이미지가 살짝 흐려졌다가 부드럽게 또렷해짐. 차분하고 흥미로운 시각 연출, 실사 화질, 6초`
+    > `자동굴절검사기 렌즈 속을 들여다보는 1인칭 시점. 초원 도로 위로 떠 있는 알록달록한 빨간 열기구. 이미지가 살짝 흐려졌다가 부드럽게 또렷해짐. 컷: 여성 검안사가 크게 웃으며 엄지척을 해줌. 차분하고 흥미로운 시각 연출, 실사 화질, 6초`
 * **인터랙션:** 화면 속 🎈 열기구 터치 ➔ 초점 맞추기 성공!
-
-#### 🎬 C3_AirPuff — 안압 검사 (바람 칙!) (5초)
-* **감각 사전 예고 팝업:** 🌬️ `바람 칙! (안 아파요, 시원해요)`
-* **카메라 워크:** Static Machine POV
-* **콘티:** 검안사 선생님이 "시원한 바람이 칙! 나올 거야. 하나, 둘, 셋!" 예고 후 가벼운 공기 분사. "우와! 깜짝 안 놀라고 정말 잘 참았어!"
-* **AI 비디오 프롬프트:**
-  * **[영문 입력용]:**
-    > `First-person POV looking at eye tonometer instrument nozzle. Female optometrist beside machine counts with fingers '1, 2, 3' with warm encouraging smile. A tiny gentle puff effect. Optometrist smiles broadly giving enthusiastic thumbs up saying 'Awesome job!'. Photorealistic, 5 seconds`
-  * **[한글 해석 및 전달 의미]:**
-    > `안압 측정기 노즐을 바라보는 1인칭 시점. 기계 옆의 여성 검안사가 손가락으로 '하나, 둘, 셋'을 세며 격려하는 미소를 지음. 미세하고 부드러운 바람 효과 후 검안사가 크게 웃으며 엄지척을 해줌. 실사 화질, 5초`
 
 ---
 
@@ -322,10 +312,10 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 | :--- | :--- | :---: | :--- |
 | **Step 1** | `PreStory_1~3` | **2D 보노보노풍 동화** (30초) | 눈 비비기 ➔ 안과 소개 ➔ 별 안경 |
 | **Step 2** | `Visual_Schedule` | **2D UI 픽토그램** (HUD) | 입구 ➔ 접수 ➔ 기계 ➔ 진료 ➔ 보상 |
-| **Step 3** | `Model_First_1~3` | **3D 캐주얼 시연** (45초) | 턱받침 ➔ 열기구/바람 ➔ 별 선글라스 |
+| **Step 3** | `Model_First_1~3` | **3D 캐주얼 시연** (45초) | 턱받침 ➔ 열기구 찾기 ➔ 별 선글라스 |
 | **Step 4 (C1)** | `C1_Arrive / HiPath / HidePath` | **1인칭 실사 POV** | [인사] / [숨기] PECS 그림 카드 |
 | **Step 4 (C2)** | `C2_Reception / WaitingRoom` | **1인칭 실사 POV** | [이름 말하기] PECS + 그림 찾기 터치 |
-| **Step 4 (C3)** | `C3_PreExamRoom / ChinRest / BalloonView / AirPuff` | **1인칭 실사 POV** + QTE | 턱 대기 3초 + 🎈 열기구 + 🌬️ 바람 칙! |
+| **Step 4 (C3)** | `C3_PreExamRoom / ChinRest / BalloonView` | **1인칭 실사 POV** + QTE | 턱 대기 3초 + 🎈 열기구 찾기 |
 | **Step 4 (C4)** | `C4_ChartMatch` | **1인칭 실사 POV** + 터치 | 🦆 오리 / 🦋 나비 / 🚗 차 PECS 매칭 |
 | **Step 4 (C5)** | `C5_DoctorGreet / C5A (2) / C5B (2) / C5C (2)` | **1인칭 실사 POV** + QTE | 💡 반짝 불빛 / 세극등 / 💧 안약 퐁! |
 | **Step 4 (C6)** | `C6_Reward / Farewell` | **1인칭 실사 POV** | [선글라스] 탭 + 작별 인사 & 배지 수여 |
