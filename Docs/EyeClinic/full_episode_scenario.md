@@ -104,24 +104,46 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 > **전환 나레이션:** *"보노보노 친구 코코가 이제 안과 의자에 앉았어요! 코코가 어떻게 하는지 같이 볼까요?"*
 
 ### 3-1. 곰돌이 턱받침에 턱 대기 (3D 시연)
-* **참조 에셋:** 🐻 [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/coco_bear_character_turnaround.png), 🎈 [`eyeclinic_3d_autorefrac_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/eyeclinic_3d_autorefrac_room.png)
-* **🎬 3D 프리비즈 영상 (Blender):** 🎥 [`Docs/EyeClinic/Blender/renders/3-1_chinrest.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-1_chinrest.mp4) (카메라 앵글 및 착석 모션 프리뷰)
-* **길이:** 10초 | **콘티:** 친숙한 귀여운 3D 아기 곰돌이 코코가 자동검사기 턱받침에 턱을 편안하게 착 올리고 이마를 댐. 간호사 토끼가 머리를 쓰다듬어 줌.
+* **참조 에셋:** 
+  * 🐻 **3D 코코:** [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/coco_bear_character_turnaround.png)
+  * 🐰 **3D 간호사 토끼:** [`nurse_rabbit_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/nurse_rabbit_character_turnaround.png)
+  * 🎈 **3D 검사실 배경:** [`eyeclinic_3d_autorefrac_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/eyeclinic_3d_autorefrac_room.png)
+* **🎬 3D 프리비즈 영상 (Blender):**
+  * 🎥 **[프리뷰 렌더]:** [`Docs/EyeClinic/Blender/renders/3-1_chinrest.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-1_chinrest.mp4) (카메라 앵글 및 모션)
+  * 🎭 **[3D Semantic Color ID 마스크]:** [`Docs/EyeClinic/Blender/renders/3-1_chinrest_id_mask.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-1_chinrest_id_mask.mp4) (AI 캐릭터/오브젝트 분별 마스크)
+* **💡 3D Semantic Color ID 지정 규칙 (AI Object Masking):**
+  * 🔴 **Pure Red (#FF0000) ➔ 🐻 3D 코코 곰돌이 (`coco_bear_character_turnaround.png`)**
+    * 3D 씬에서 빨간색 단색으로 렌더링된 영역 전체를 코코 곰돌이 캐릭터로 자동 치환 및 생성.
+  * 🟢 **Pure Green (#00FF00) ➔ 🐰 3D 간호사 토끼 (`nurse_rabbit_character_turnaround.png`)**
+    * 3D 씬에서 초록색 단색으로 렌더링된 영역(몸통, 귀, 머리를 토닥이는 팔)을 간호사 토끼로 치환 및 생성.
+  * 🔵 **Pure Blue (#0000FF) ➔ 🎈 3D 자동굴절검사기 (`eyeclinic_3d_autorefrac_room.png`)**
+    * 3D 씬에서 파란색 단색으로 렌더링된 영역을 안과 검사기 본체 및 턱받침 바로 치환 및 생성.
+  * 🟡 **Pure Yellow (#FFFF00) ➔ 🪑 검사 의자 & 책상 (가구/인터랙션 환경)**
+  * ⚫ **Pure Black (#000000) ➔ 🏥 검사실 배경 (바닥 및 벽면)**
+* **길이:** 10초 | **콘티:** 친숙한 귀여운 3D 아기 곰돌이 코코가 자동검사기 턱받침에 턱을 편안하게 착 올리고 이마를 댐. 곁에서 지켜보던 간호사 토끼 보미가 칭찬하며 다정하게 머리를 쓰다듬어 줌.
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
-    > `3D casual animated style, Mario 3D World aesthetic, smooth vinyl toy texture. A cute friendly brown teddy bear Coco (original 3D model) sits comfortably in front of a friendly 3D eye examination machine, resting chin gently on soft chinrest and forehead against band. Nurse rabbit pats Coco's head with praise, 10 seconds`
+    > `3D casual animated style, Mario 3D World aesthetic, smooth vinyl toy texture. A cute friendly brown teddy bear Coco (original 3D model) sits comfortably in front of a friendly 3D eye examination machine, resting chin gently on soft chinrest and forehead against band. Cute friendly female nurse rabbit Bomi in mint scrubs stands beside smiling and gently pats Coco's head with praise. Warm inviting lighting, 10 seconds`
   * **[한글 해석 및 전달 의미]:**
-    > `3D 캐주얼 애니메이션 스타일 (마리오 3D 월드 감성, 매끄러운 비닐 장난감 질감). 친숙한 귀여운 갈색 아기 곰돌이 코코가 친근한 3D 안과 검사기 턱받침에 턱을 올리고 이마를 댐. 간호사 토끼가 칭찬하며 머리를 쓰다듬어 줌, 10초`
+    > `3D 캐주얼 애니메이션 스타일 (마리오 3D 월드 감성, 매끄러운 비닐 장난감 질감). 친숙한 갈색 아기 곰돌이 코코가 3D 안과 검사기 턱받침에 턱을 편안하게 올리고 이마를 댐. 옆에 선 민트색 유니폼의 귀여운 간호사 토끼 보미가 미소 지으며 코코의 머리를 다정하게 쓰다듬어 칭찬함. 따뜻하고 안정적인 조명, 10초`
 
 ### 3-2. 곰돌이 열기구 보기 (3D 시연)
-* **참조 에셋:** 🎈 [`eyeclinic_3d_autorefrac_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/eyeclinic_3d_autorefrac_room.png), 🐻 [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/coco_bear_character_turnaround.png)
-* **🎬 3D 프리비즈 영상 (Blender):** 🎥 [`Docs/EyeClinic/Blender/renders/3-2_balloon.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-2_balloon.mp4) (기계 렌즈 속 열기구 시각 효과 프리뷰)
-* **길이:** 15초 | **콘티:** 3D 기계 렌즈 속 빨간 열기구를 바라보는 코코. 열기구가 또렷해지자 "우와! 빨간 열기구 찾았다!" 방긋 웃음.
+* **참조 에셋:** 🎈 [`eyeclinic_3d_balloon_viewfinder.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/eyeclinic_3d_balloon_viewfinder.png) (양쪽 눈 양안 Dual-Lens 뷰파인더 화면)
+* **🎬 3D 프리비즈 영상 (Blender):**
+  * 🎥 **[프리뷰 렌더]:** [`Docs/EyeClinic/Blender/renders/3-2_balloon.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-2_balloon.mp4) (양안 렌즈 뷰파인더 + 열기구 포커싱 프리뷰)
+  * 🎭 **[3D Semantic Color ID 마스크]:** [`Docs/EyeClinic/Blender/renders/3-2_balloon_id_mask.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-2_balloon_id_mask.mp4) (AI 양안 렌즈/열기구/십자선 분별 마스크)
+* **💡 3D Semantic Color ID 지정 규칙 (3-2 양안 열기구 보기):**
+  * 🔵 **Pure Blue (#0000FF) ➔ 🔍 좌/우 양안 원형 뷰파인더 렌즈 링 프레임 (2개)**
+  * 🔴 **Pure Red (#FF0000) ➔ 🎈 양쪽 렌즈 정중앙의 빨간 열기구 (2개)** (둥실 떠오르며 초점이 맞음)
+  * 🟡 **Pure Yellow (#FFFF00) ➔ 🎯 양쪽 렌즈 초점 십자선 UI 크로스헤어**
+  * ⚪ **Light Gray (#D9D9D9) ➔ ⚙️ 검사기 전면 하우징 바디**
+  * ⚫ **Pure Black (#000000) ➔ 🏞️ 렌즈 배경 (맑은 하늘과 푸른 초원)**
+* **길이:** 15초 | **콘티 (코코의 1인칭 POV 렌즈 시점):** 양안 검사기 렌즈 속 십자선 중앙으로 흐릿하던 빨간 열기구가 둥실 떠오르며 점점 선명하고 또렷해짐. (보이스오버: "우와! 빨간 열기구 찾았다!")
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
-    > `3D casual animated style. Teddy bear Coco looks inside 3D machine lens seeing a cute floating red hot air balloon. The balloon becomes clear and bright, Coco smiles happily. Fun and stress-free medical animation, 15 seconds`
+    > `3D casual animated style, eye clinic vision test POV. First-person POV view looking through dual circular binocular eyepieces of a pediatric auto-refractor. In each lens viewfinder with yellow crosshairs, a cute red hot air balloon floats upwards against a bright blue sky and green hills, gradually focusing from blurry to sharp and crystal clear. Cheerful, colorful, stress-free medical examination scene, 15 seconds`
   * **[한글 해석 및 전달 의미]:**
-    > `3D 캐주얼 애니메이션 스타일. 곰돌이 코코가 3D 기계 렌즈 속 둥실 떠 있는 빨간 열기구를 바라봄. 열기구가 또렷하고 밝아지자 코코가 기쁘게 방긋 웃음. 유쾌하고 편안한 검사 애니메이션, 15초`
+    > `3D 캐주얼 애니메이션 스타일, 안과 시력검사 1인칭 시점(POV). 소아용 자동굴절검사기 양안(쌍안경) 렌즈를 통해 바라본 1인칭 화면. 노란 십자선 가이드 안에서 파란 하늘과 초원을 배경으로 둥실 떠오르는 귀여운 빨간 열기구가 흐린 상태에서 점차 선명하고 또렷하게 초점이 맞춰짐. 밝고 경쾌한 무자극 검사 영상, 10초`
 
 ### 3-3. 곰돌이 멋진 별 선글라스 획득 (3D 시연)
 * **참조 에셋:** 🦉 [`doctor_owl_3d_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/doctor_owl_3d_turnaround.png), 🐻 [`coco_bear_character_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/coco_bear_character_turnaround.png)
