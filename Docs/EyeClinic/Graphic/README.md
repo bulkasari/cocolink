@@ -14,7 +14,11 @@
 
 2. **`3d_animation/` (Step 3: 3D 기계 관찰용)**
    - 장난감/비닐 질감의 3D 캐주얼 모델링 (마리오 3D 월드 감성)
-   - 기계(자동검사기, 턱받침, 안압 바람) 공간감 및 시연 적응 완충
+   - 주요 턴어라운드 에셋: `coco_bear_3d_turnaround.png`, `doctor_owl_3d_turnaround.png`, `nurse_rabbit_3d_turnaround.png`
+   - **🎬 Blender 프리비즈 영상 (`Docs/EyeClinic/Blender/renders/`):**
+     - [`3-1_chinrest.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-1_chinrest.mp4): 코코 턱받침 착석 및 자세 완충 씬
+     - [`3-2_balloon.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-2_balloon.mp4): 기계 렌즈 속 열기구 관찰 씬
+     - [`3-3_sunglasses.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-3_sunglasses.mp4): 별 선글라스 획득 및 축하 씬
 
 3. **`real/` (Step 4: 1인칭 실사 체험용)**
    - 실제 소아 안과 환경(검안사, 진료실, 펜라이트, 세극등) 1인칭 POV 실사

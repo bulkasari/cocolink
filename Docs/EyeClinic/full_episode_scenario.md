@@ -28,6 +28,9 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 * 🐰 **3D 간호사 토끼 '보미':** [`Graphic/eyeclinic/3d_animation/nurse_rabbit_3d_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/nurse_rabbit_3d_turnaround.png)
 * 🎈 **3D 자동굴절검사기 & 예비검사실:** [`Graphic/eyeclinic/3d_animation/eyeclinic_3d_autorefrac_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/eyeclinic_3d_autorefrac_room.png)
 * 👁️ **3D 안과 진료실:** [`Graphic/eyeclinic/3d_animation/eyeclinic_3d_doctor_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/eyeclinic_3d_doctor_room.png)
+* 🎬 **[프리비즈] 3-1 턱받침 착석 영상:** [`Docs/EyeClinic/Blender/renders/3-1_chinrest.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-1_chinrest.mp4)
+* 🎬 **[프리비즈] 3-2 열기구 관찰 영상:** [`Docs/EyeClinic/Blender/renders/3-2_balloon.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-2_balloon.mp4)
+* 🎬 **[프리비즈] 3-3 별 선글라스 축하 영상:** [`Docs/EyeClinic/Blender/renders/3-3_sunglasses.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-3_sunglasses.mp4)
 
 ### 3. 📸 Step 4 전용 (1인칭 실사 스타일: `Graphic/eyeclinic/real/`)
 * 👨‍⚕️ **실사 안과 의사 선생님:** [`Graphic/eyeclinic/real/real_eye_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Graphic/eyeclinic/real/real_eye_doctor_turnaround.png)
@@ -93,12 +96,14 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 
 ## 🎬 STEP 3: Model-First (3D 캐주얼 시연: 곰돌이의 입체 안과 기계 체험)
 
-> **목적:** 2D 동화에서 ➔ 1인칭 실사로 넘어가기 전, **입체 기계(자동검사기, 턱받침, 안압 바람)의 공간감과 부피감을 3D 장난감 그래픽으로 사전 체험(완충 브릿지).**  
+> **목적:** 2D 동화에서 ➔ 1인칭 실사로 넘어가기 전, **입체 기계(자동검사기, 턱받침, 열기구)의 공간감과 부피감을 3D 장난감 그래픽으로 사전 체험(완충 브릿지).**  
 > **형식:** 3인칭 3D 캐주얼 애니메이션 (Mario 3D World / Toy-like Vinyl Texture)  
+> **💡 3D 프리비즈 영상 지원:** 본 단계의 카메라 앵글, 타이밍, 모션은 [`Docs/EyeClinic/Blender/renders/`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/)의 프리비즈 영상(.mp4)을 기반으로 제작되었습니다.  
 > **전환 나레이션:** *"보노보노 친구 코코가 이제 안과 의자에 앉았어요! 코코가 어떻게 하는지 같이 볼까요?"*
 
 ### 3-1. 곰돌이 턱받침에 턱 대기 (3D 시연)
 * **참조 에셋:** 🐻 [`coco_bear_3d_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/coco_bear_3d_turnaround.png), 🎈 [`eyeclinic_3d_autorefrac_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/eyeclinic_3d_autorefrac_room.png)
+* **🎬 3D 프리비즈 영상 (Blender):** 🎥 [`Docs/EyeClinic/Blender/renders/3-1_chinrest.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-1_chinrest.mp4) (카메라 앵글 및 착석 모션 프리뷰)
 * **길이:** 10초 | **콘티:** 2D 동화 속 코코와 똑같은 노란 스카프를 맨 3D 아기 곰돌이 코코가 자동검사기 턱받침에 턱을 편안하게 착 올리고 이마를 댐. 간호사 토끼가 머리를 쓰다듬어 줌.
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
@@ -108,6 +113,7 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 
 ### 3-2. 곰돌이 열기구 보기 (3D 시연)
 * **참조 에셋:** 🎈 [`eyeclinic_3d_autorefrac_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/eyeclinic_3d_autorefrac_room.png)
+* **🎬 3D 프리비즈 영상 (Blender):** 🎥 [`Docs/EyeClinic/Blender/renders/3-2_balloon.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-2_balloon.mp4) (기계 렌즈 속 열기구 시각 효과 프리뷰)
 * **길이:** 15초 | **콘티:** 3D 기계 렌즈 속 빨간 열기구를 바라보는 코코. 열기구가 또렷해지자 "우와! 빨간 열기구 찾았다!" 방긋 웃음.
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
@@ -117,6 +123,7 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 
 ### 3-3. 곰돌이 멋진 별 선글라스 획득 (3D 시연)
 * **참조 에셋:** 🦉 [`doctor_owl_3d_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/doctor_owl_3d_turnaround.png), 🐻 [`coco_bear_3d_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/coco_bear_3d_turnaround.png)
+* **🎬 3D 프리비즈 영상 (Blender):** 🎥 [`Docs/EyeClinic/Blender/renders/3-3_sunglasses.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/3-3_sunglasses.mp4) (선글라스 착용 및 축하 바운스 모션 프리뷰)
 * **길이:** 20초 | **콘티:** 의사 부엉이 선생님이 "코코 정말 최고야!" 하며 반짝이는 금빛 별 선글라스를 씌워주고 하이파이브! 코코가 기뻐하며 브이(V) 포즈.
 * **AI 비디오 프롬프트:**
   * **[영문 입력용]:**
@@ -130,7 +137,7 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 ## 🎬 STEP 4: Interactive Simulation (1인칭 실사 6개 챕터 체험)
 
 > **목적:** 2D 동화와 3D 시연으로 완벽히 적응한 후, 실제 소아 안과 1인칭 POV 실사 비디오로 직접 검사를 수행하며 현실 안과 공포 제로화.  
-> **인터랙션 피처:** PECS 그림 카드 선택지 + 사전 감각 예고 (🎈열기구! / 🌬️바람 칙! / 💡반짝 불빛! / 💧시원한 물방울!)
+> **인터랙션 피처:** PECS 그림 카드 선택지 + 사전 감각 예고 (🎈열기구! / 💡반짝 불빛! / 💧시원한 물방울!)
 
 ---
 
