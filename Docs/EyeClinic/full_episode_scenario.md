@@ -17,10 +17,10 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 
 ### 1. 📖 Step 1 전용 (2D 미니멀 보노보노 스타일: `Graphic/eyeclinic/2d_storybook/`)
 * 🐻 **2D 아기 곰돌이 '코코' (보노보노 감성 점 눈 + 노란 스카프):** [`Graphic/eyeclinic/2d_storybook/coco_bear_bonobono_style.jpg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/coco_bear_bonobono_style.jpg)
-* 🐻 **2D 엄마 곰돌이 '엄마 코코' (온화한 보노보노풍 미니멀 라인):** [`Graphic/eyeclinic/2d_storybook/mother_bear_bonobono_style.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/mother_bear_bonobono_style.png)
-* 🦉 **2D 의사 부엉이 '눈빛 선생님' (동그란 안경 + 단순한 선):** [`Graphic/eyeclinic/2d_storybook/doctor_owl_bonobono_style.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/doctor_owl_bonobono_style.png)
-* 🏥 **2D 안과 건물 외관 (플랫 파스텔 하늘/잔디 + 단순한 건물):** [`Graphic/eyeclinic/2d_storybook/eyeclinic_2d_bonobono_exterior.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/eyeclinic_2d_bonobono_exterior.png)
-* 👁️ **2D 안과 진료실 풍경 (자극 없는 단색 플랫 배경):** [`Graphic/eyeclinic/2d_storybook/eyeclinic_2d_bonobono_interior.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/eyeclinic_2d_bonobono_interior.png)
+* 🐻 **2D 엄마 곰돌이 '엄마 코코' (온화한 보노보노풍 미니멀 라인):** [`Graphic/eyeclinic/2d_storybook/mother_bear_bonobono_style.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/mother_bear_bonobono_style.jpeg)
+* 🦉 **2D 의사 부엉이 '눈빛 선생님' (동그란 안경 + 흰 가운):** [`Graphic/eyeclinic/2d_storybook/doctor_owl_bonobono_style.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/doctor_owl_bonobono_style.jpeg)
+* 🏥 **2D 안과 건물 외관 (플랫 파스텔 무지개와 눈 간판):** [`Graphic/eyeclinic/2d_storybook/eyeclinic_2d_bonobono_exterior.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/eyeclinic_2d_bonobono_exterior.jpeg)
+* 👁️ **2D 안과 진료실 풍경 (따뜻한 시력표와 진료실 책상):** [`Graphic/eyeclinic/2d_storybook/eyeclinic_2d_bonobono_interior.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/eyeclinic_2d_bonobono_interior.jpeg)
 
 ### 2. 🧸 Step 3 전용 (3D 캐주얼/토이 모델링 스타일: `Graphic/eyeclinic/3d_animation/`)
 * 🐻 **3D 아기 곰돌이 '코코' (2D와 동일한 노란 스카프 + 갈색 털):** [`Graphic/eyeclinic/3d_animation/coco_bear_3d_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/3d_animation/coco_bear_3d_turnaround.png)
@@ -45,7 +45,7 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 > **형식:** 30초 3인칭 2D 미니멀 카툰 모션 애니메이션 (보노보노 감성: 단순한 선, 플랫 파스텔 단색 톤, 느긋한 템포)
 
 ### 1-1. 눈이 침침해요 (2D 보노보노풍)
-* **참조 에셋:** 🐻 [`coco_bear_bonobono_style.jpg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/coco_bear_bonobono_style.jpg)
+* **참조 에셋:** 🐻 [`coco_bear_bonobono_style.jpg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/coco_bear_bonobono_style.jpg), 🐻 [`mother_bear_bonobono_style.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/mother_bear_bonobono_style.jpeg)
 * **길이:** 8초 | **구도:** 3인칭 고정 미디엄 샷
 * **콘티:** 푸른 하늘과 잔디 언덕 위, 노란 스카프를 맨 둥글둥글한 곰돌이 코코가 동그란 점 눈을 깜빡거리며 작은 땀방울(💦)과 함께 눈을 살살 비빔. 엄마 곰돌이가 다가와 따뜻하게 토닥이며 "눈이 침침하네? 안과에 가보자~" 나직하고 다정하게 말함.
 * **AI 비디오 프롬프트:**
@@ -55,6 +55,7 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
     > `2D 미니멀 일본 카툰 애니메이션 스타일, 보노보노 애니메이션 감성. 단순한 검은 점 눈과 노란 목 스카프를 맨 귀엽고 둥글둥글한 갈색 아기 곰돌이 코코가 평화롭게 앉아 눈을 천천히 깜빡이고 작은 땀방울 아이콘과 함께 눈을 비빔. 다정한 엄마 곰돌이가 등을 따뜻하게 토닥여 줌. 매우 단순한 선, 플랫 파스텔 하늘색 배경, 차분하고 느긋한 템포, 8초`
 
 ### 1-2. 안과 건물의 모습 (2D 보노보노풍)
+* **참조 에셋:** 🏥 [`eyeclinic_2d_bonobono_exterior.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/eyeclinic_2d_bonobono_exterior.jpeg)
 * **길이:** 8초 | **구도:** 3인칭 와이드 샷
 * **콘티:** 심플하고 깔끔한 파스텔 톤의 안과 건물. 커다란 눈 모양 심볼이 둥실 떠 있고, 문이 부드럽게 열리며 의사 선생님과 간호사 캐릭터가 느긋하게 손을 흔들며 환영함.
 * **AI 비디오 프롬프트:**
@@ -64,6 +65,7 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
     > `2D 미니멀 애니메이션 스타일, 보노보노 풍. 친근하고 커다란 눈 간판이 있는 단순하고 귀여운 소아 안과 건물. 문이 부드럽게 열리고 의사 부엉이와 간호사 토끼가 천천히 여유롭게 손을 흔들며 맞이함. 깔끔한 플랫 파스텔 색감, 평화롭고 안심되는 분위기, 8초`
 
 ### 1-3. 눈이 반짝반짝 (2D 보노보노풍)
+* **참조 에셋:** 👁️ [`eyeclinic_2d_bonobono_interior.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/eyeclinic_2d_bonobono_interior.jpeg), 🦉 [`doctor_owl_bonobono_style.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/2d_storybook/doctor_owl_bonobono_style.jpeg)
 * **길이:** 14초 | **구도:** 3인칭 미디엄 샷
 * **콘티:** 의사 선생님이 반짝이는 작은 별 막대를 보여주자 코코의 점 눈이 반짝(✨) 빛남. 의사가 귀여운 노란 별 안경을 코코에게 씌워주자 코코가 입을 'ㅅ' 모양으로 앙다물고 방긋 웃음. "안과는 우리 눈을 시원하고 맑게 도와주는 곳이에요!"
 * **AI 비디오 프롬프트:**

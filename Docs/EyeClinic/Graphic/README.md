@@ -5,8 +5,12 @@
 ## 📂 폴더 구조 및 용도
 
 1. **`2d_storybook/` (Step 1: 사전 동화용)**
-   - 자극이 적고 따뜻한 2D 수채화/파스텔 그림책 스타일
-   - 주요 에셋: `coco_bear_2d_storybook.jpg` (노란 스카프를 매고 눈을 비비는 아기 곰돌이 코코)
+   - 자극이 적고 편안한 2D 미니멀 보노보노 스타일
+   - `coco_bear_bonobono_style.jpg`: 노란 스카프를 매고 앉아있는 아기 곰돌이 코코
+   - `mother_bear_bonobono_style.jpeg`: 온화한 미소를 짓는 엄마 곰돌이
+   - `doctor_owl_bonobono_style.jpeg`: 청진기와 흰 가운을 입은 의사 부엉이 '눈빛 선생님'
+   - `eyeclinic_2d_bonobono_exterior.jpeg`: 파스텔 무지개와 눈 간판이 있는 안과 외관
+   - `eyeclinic_2d_bonobono_interior.jpeg`: 따뜻한 소아 시력표와 책상이 있는 안과 진료실 풍경
 
 2. **`3d_animation/` (Step 3: 3D 기계 관찰용)**
    - 장난감/비닐 질감의 3D 캐주얼 모델링 (마리오 3D 월드 감성)
