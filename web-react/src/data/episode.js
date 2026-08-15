@@ -1,6 +1,7 @@
 import hospitalEvents from './hospital_events.json';
 
-export const MOVIE_BASE = `${import.meta.env.BASE_URL}Movie/Hospital/`;
+export const MOVIE_BASE = 
+  import.meta.env.VITE_MOVIE_BASE_URL || 'https://pub-3a895f08e79b4437bb379c105f960f7d.r2.dev/Movie/Hospital/';
 
 // Quick map for JSON events
 export const eventMap = {};
