@@ -1,7 +1,60 @@
 import hospitalEvents from './hospital_events.json';
 
-export const MOVIE_BASE = 
-  import.meta.env.VITE_MOVIE_BASE_URL || 'https://pub-3a895f08e79b4437bb379c105f960f7d.r2.dev/Movie/Hospital/';
+const R2_BASE = 'https://pub-3a895f08e79b4437bb379c105f960f7d.r2.dev/Movie/';
+
+export const EPISODE_TYPES = {
+  HOSPITAL: 'hospital',
+  EYECLINIC: 'eyeclinic'
+};
+
+export const EPISODE_META = {
+  hospital: {
+    id: 'hospital',
+    title: '소아과 병원',
+    sub: '소아과 병원 적응 인터랙티브 에피소드',
+    desc: '발달지연·자폐스펙트럼 아동을 위한 4단계 체험',
+    badge: '🐻',
+    tag: 'Hospital Episode (1~4단계)',
+    movieBase: import.meta.env.VITE_MOVIE_BASE_URL || `${R2_BASE}Hospital/`,
+    hudSteps: [
+      { id: 1, icon: '🏥', label: '입구' },
+      { id: 2, icon: '📋', label: '접수' },
+      { id: 3, icon: '🩺', label: '진료' },
+      { id: 4, icon: '💉', label: '주사' },
+      { id: 5, icon: '🎁', label: '보상' },
+    ],
+    scheduleCards: [
+      ['🏥', '1단계', '병원 입구'],
+      ['📋', '2단계', '접수 대기'],
+      ['🩺', '3단계', '의사 진료'],
+      ['💉', '4단계', '건강 주사'],
+      ['🎁', '5단계', '칭찬 보상']
+    ]
+  },
+  eyeclinic: {
+    id: 'eyeclinic',
+    title: '소아 안과',
+    sub: '소아 안과 적응 인터랙티브 에피소드',
+    desc: '시각 감각 완충 & 입체 기계 체험 (1~3단계)',
+    badge: '🦉',
+    tag: 'Eye Clinic Episode (1~3단계)',
+    movieBase: `${R2_BASE}EyeClinic/`,
+    hudSteps: [
+      { id: 1, icon: '🏥', label: '안과 입구' },
+      { id: 2, icon: '📋', label: '접수' },
+      { id: 3, icon: '🎈', label: '눈 검사' },
+      { id: 4, icon: '👁️', label: '진료실' },
+      { id: 5, icon: '🕶️', label: '보상' },
+    ],
+    scheduleCards: [
+      ['🏥', '1단계', '안과 입구'],
+      ['📋', '2단계', '접수 대기'],
+      ['🎈', '3단계', '눈 검사기'],
+      ['👁️', '4단계', '선생님 진료'],
+      ['🕶️', '5단계', '별 선글라스']
+    ]
+  }
+};
 
 // Quick map for JSON events
 export const eventMap = {};
@@ -9,7 +62,8 @@ hospitalEvents.hospital_events.forEach(ev => {
   eventMap[ev.id] = ev;
 });
 
-export const EPISODE = [
+// Hospital Episode Nodes (Step 1~4)
+export const HOSPITAL_EPISODE = [
   { type: 'stepLabel', icon: '🐻', num: '1단계', title: '병원 동화 미리보기', desc: '병원이 어떤 곳인지 따뜻한 동화로 먼저 만나요!' },
   { type: 'video', id: '1-1', file: '1-1.mp4', section: '📖 1단계 · 병원 동화 미리보기', subLabel: '기침과 열이 나요', skip: true },
   { type: 'video', id: '1-2', file: '1-2.mp4', section: '📖 1단계 · 병원 동화 미리보기', subLabel: '병원 건물 구경하기', skip: true },
@@ -40,8 +94,26 @@ export const EPISODE = [
   { type: 'video', id: 'C5C_Injection', file: 'C5C_Injection.mp4', section: '🌟 3단계 · 내가 직접 체험하기', subLabel: '예방 주사 맞기', hudActive: 4, skip: false, action: eventMap['C5C_Injection']?.action },
   { type: 'video', id: 'C5C_Bandage', file: 'C5C_Bandage.mp4', section: '🌟 3단계 · 내가 직접 체험하기', subLabel: '뽀로로 반창고', hudActive: 4, skip: false, action: eventMap['C5C_Bandage']?.action },
   { type: 'video', id: 'C6_Farewell', file: 'C6_Farewell.mp4', section: '🌟 3단계 · 내가 직접 체험하기', subLabel: '칭찬 스티커', hudActive: 5, skip: false, action: eventMap['C6_Farewell']?.action },
-  { type: 'ending' }
+  { type: 'ending', title: '병원 진료 성공!', desc: '오늘 정말 용감하고 멋졌어요! 🐻💕' }
 ];
+
+// Eye Clinic Episode Nodes (Step 1~3)
+export const EYECLINIC_EPISODE = [
+  { type: 'stepLabel', icon: '📖', num: '1단계', title: '안과 동화 미리보기', desc: '안과는 어떤 곳인지 따뜻하고 편안한 동화로 먼저 만나요!' },
+  { type: 'video', id: 'eye-1-1', file: '1-1.mp4', section: '📖 1단계 · 안과 동화 미리보기', subLabel: '눈이 침침해요', skip: true },
+  { type: 'video', id: 'eye-1-2', file: '1-2.mp4', section: '📖 1단계 · 안과 동화 미리보기', subLabel: '안과 건물의 모습', skip: true },
+  { type: 'video', id: 'eye-1-3', file: '1-3.mp4', section: '📖 1단계 · 안과 동화 미리보기', subLabel: '눈이 반짝반짝', skip: true },
+  { type: 'schedule' },
+  { type: 'stepLabel', icon: '🧸', num: '2단계', title: '곰돌이의 입체 안과 기계 체험', desc: '곰돌이 코코가 신기한 안과 검사기를 먼저 체험해요! 🎈' },
+  { type: 'video', id: 'eye-3-1', file: '3-1.mp4', section: '🧸 2단계 · 곰돌이의 안과 체험', subLabel: '턱받침에 턱 대기', skip: true },
+  { type: 'video', id: 'eye-3-2', file: '3-2.mp4', section: '🧸 2단계 · 곰돌이의 안과 체험', subLabel: '열기구 관찰하기', skip: true },
+  { type: 'video', id: 'eye-3-3', file: '3-3.mp4', section: '🧸 2단계 · 곰돌이의 안과 체험', subLabel: '멋진 별 선글라스 획득', skip: true },
+  { type: 'ending', title: '안과 체험 성공!', desc: '코코와 함께 안과 탐험을 멋지게 완료했어요! 🦉🕶️✨' }
+];
+
+// Backwards compatibility default
+export const EPISODE = HOSPITAL_EPISODE;
+export const MOVIE_BASE = EPISODE_META.hospital.movieBase;
 
 export const RESUME_AFTER_BRANCH = {
   'C1_HiPath': 'C2_Reception',
@@ -53,4 +125,4 @@ export const RESUME_AFTER_BRANCH = {
 };
 
 export const episodeById = {};
-EPISODE.forEach((node, i) => { if (node.id) episodeById[node.id] = i; });
+HOSPITAL_EPISODE.forEach((node, i) => { if (node.id) episodeById[node.id] = i; });

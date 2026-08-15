@@ -1,18 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { EPISODE, MOVIE_BASE, episodeById, RESUME_AFTER_BRANCH, eventMap } from './data/episode';
+import { 
+  EPISODE_TYPES, 
+  EPISODE_META, 
+  HOSPITAL_EPISODE, 
+  EYECLINIC_EPISODE, 
+  RESUME_AFTER_BRANCH, 
+  eventMap 
+} from './data/episode';
 import './App.css';
 
-const HUD_STEPS = [
-  { id: 1, icon: '🏥', label: '입구' },
-  { id: 2, icon: '📋', label: '접수' },
-  { id: 3, icon: '🩺', label: '진료' },
-  { id: 4, icon: '💉', label: '주사' },
-  { id: 5, icon: '🎁', label: '보상' },
-];
-
 export default function App() {
+  const [selectedEpisode, setSelectedEpisode] = useState(EPISODE_TYPES.HOSPITAL);
   const [screen, setScreen] = useState('intro'); // intro | stepLabel | schedule | video | ending
-  const [cursor, setCursor] = useState(0);
+  const [cursor, setCursor] = useState(-1);
   const [currentNode, setCurrentNode] = useState(null);
   const [hudActive, setHudActive] = useState(0);
   const [stepData, setStepData] = useState(null);
@@ -29,14 +29,24 @@ export default function App() {
   const activeRef = useRef(null);
   const inactiveRef = useRef(null);
   const sensoryTimer = useRef(null);
-  const labelTimer = useRef(null);
-  const scheduleTimer = useRef(null);
   const preloadDone = useRef(false);
   const actionDone = useRef(false);
-  const currentNodeRef = useRef(null); // stale closure 방지용 ref
+  const currentNodeRef = useRef(null);
+
+  // Active Episode Data
+  const currentEpisodeList = selectedEpisode === EPISODE_TYPES.EYECLINIC ? EYECLINIC_EPISODE : HOSPITAL_EPISODE;
+  const currentMeta = EPISODE_META[selectedEpisode] || EPISODE_META.hospital;
+  const episodeMovieBase = currentMeta.movieBase;
 
   // Build id->index map
-  const episodeMap = useRef(episodeById);
+  const episodeMap = useRef({});
+  useEffect(() => {
+    const map = {};
+    currentEpisodeList.forEach((node, i) => {
+      if (node.id) map[node.id] = i;
+    });
+    episodeMap.current = map;
+  }, [selectedEpisode, currentEpisodeList]);
 
   // ── Navigation helpers ──────────────────────────────────────────────
   const advance = useCallback((id) => {
@@ -50,10 +60,10 @@ export default function App() {
     if (RESUME_AFTER_BRANCH[node.id]) { advance(RESUME_AFTER_BRANCH[node.id]); return; }
     setCursor(prev => {
       let next = prev + 1;
-      while (next < EPISODE.length && EPISODE[next].type === 'choice') next++;
+      while (next < currentEpisodeList.length && currentEpisodeList[next].type === 'choice') next++;
       return next;
     });
-  }, [advance]);
+  }, [advance, currentEpisodeList]);
 
   const clearSensory = useCallback(() => {
     if (sensoryTimer.current) clearTimeout(sensoryTimer.current);
@@ -98,7 +108,7 @@ export default function App() {
     }
 
     if (node.type === 'video') {
-      // Dynamic merge from eventMap in hospital_events.json
+      // Dynamic merge from eventMap
       if (node.id && eventMap[node.id]) {
         const ev = eventMap[node.id];
         if (ev.action) node.action = ev.action;
@@ -126,12 +136,12 @@ export default function App() {
       const old = activeRef.current;
       if (!target) return;
 
-      const videoUrl = MOVIE_BASE + node.file;
+      const videoUrl = episodeMovieBase + node.file;
       console.log('[CocoLink Video] Loading:', videoUrl);
       target.src = videoUrl;
       target.load();
       target.currentTime = 0;
-      target.muted = false; // try unmuted playback since user interacted
+      target.muted = false;
       const p = target.play();
       if (p !== undefined) {
         p.catch((err) => {
@@ -149,64 +159,65 @@ export default function App() {
       target.style.pointerEvents = 'all';
       if (old) { old.style.opacity = '0'; old.style.pointerEvents = 'none'; }
 
-      activeRef.current = target;
-      inactiveRef.current = old;
+      // swap
+      const temp = activeRef.current;
+      activeRef.current = inactiveRef.current;
+      inactiveRef.current = temp;
     }
-  }, [clearSensory, showSensoryMsg]);
+  }, [clearSensory, episodeMovieBase, showSensoryMsg]);
 
-  // currentNode가 바뀔 때마다 ref 동기화
-  useEffect(() => { currentNodeRef.current = currentNode; }, [currentNode]);
-
-  // ── Advance cursor → play node ───────────────────────────────────────
+  // Sync ref
   useEffect(() => {
-    if (cursor < 0) return;
-    if (cursor >= EPISODE.length) {
-      playNode({ type: 'ending' });
-      return;
-    }
-    const node = EPISODE[cursor];
-    playNode(node);
-  }, [cursor]); // eslint-disable-line
+    currentNodeRef.current = currentNode;
+  }, [currentNode]);
 
-  // ── Init video refs ─────────────────────────────────────────────────
+  // Init dual video refs
   useEffect(() => {
-    if (videoARef.current && videoBRef.current) {
-      activeRef.current = videoARef.current;
-      inactiveRef.current = videoBRef.current;
-      // Initialize opacity
-      videoARef.current.style.opacity = '0';
-      videoBRef.current.style.opacity = '0';
-    }
+    activeRef.current = videoARef.current;
+    inactiveRef.current = videoBRef.current;
   }, []);
 
-  // ── Video event handlers ────────────────────────────────────────────
+  // Cursor change trigger
+  useEffect(() => {
+    if (cursor < 0 || cursor >= currentEpisodeList.length) return;
+    playNode(currentEpisodeList[cursor]);
+  }, [cursor, playNode, currentEpisodeList]);
+
+  // Video End / TimeUpdate handlers
   const handleVideoEnded = useCallback((v) => {
     if (v !== activeRef.current) return;
-    clearSensory();
-    setActionPrompt(null);
-    nextAfterNode(currentNodeRef.current); // ref로 최신 값 참조
-  }, [clearSensory, nextAfterNode]);
+    const node = currentNodeRef.current;
+    if (!node) return;
+
+    if (node.afterEnd) { advance(node.afterEnd); return; }
+    if (RESUME_AFTER_BRANCH[node.id]) { advance(RESUME_AFTER_BRANCH[node.id]); return; }
+
+    setCursor(prev => {
+      let next = prev + 1;
+      while (next < currentEpisodeList.length && currentEpisodeList[next].type === 'choice') next++;
+      return next;
+    });
+  }, [advance, currentEpisodeList]);
 
   const handleTimeUpdate = useCallback((v) => {
-    if (v !== activeRef.current) return;
-    if (v.duration) {
-      const pct = (v.currentTime / v.duration) * 100;
-      setProgress(pct);
+    if (v !== activeRef.current || !v.duration) return;
+    const pct = (v.currentTime / v.duration) * 100;
+    setProgress(pct);
 
-      const node = currentNodeRef.current;
-      // Check interactive action prompt pause
-      if (node && node.actions && Array.isArray(node.actions) && !actionDone.current) {
-        const trigger = node.actions.find(a => !a.triggered && v.currentTime >= a.at);
-        if (trigger) {
-          v.pause();
-          trigger.triggered = true;
-          // check if all actions triggered
-          if (node.actions.every(a => a.triggered)) {
-            actionDone.current = true;
+    const node = currentNodeRef.current;
+    if (node) {
+      // Multiple Actions
+      if (node.actions && Array.isArray(node.actions)) {
+        node.actions.forEach(act => {
+          if (!act.triggered && v.currentTime >= act.at) {
+            act.triggered = true;
+            v.pause();
+            setActionPrompt(act);
           }
-          setActionPrompt(trigger);
-        }
-      } else if (node && node.action && node.action.enabled && !actionDone.current) {
+        });
+      }
+      // Single Action
+      else if (node.action && !actionDone.current && typeof node.action.at === 'number') {
         if (v.currentTime >= node.action.at) {
           v.pause();
           actionDone.current = true;
@@ -217,16 +228,16 @@ export default function App() {
       // Preload at 50%
       if (!preloadDone.current && pct >= 50) {
         preloadDone.current = true;
-        const cur = EPISODE.findIndex(n => n.file && v.src.endsWith(n.file));
+        const cur = currentEpisodeList.findIndex(n => n.file && v.src.endsWith(n.file));
         let next = cur + 1;
-        while (next < EPISODE.length && EPISODE[next].type !== 'video') next++;
-        if (next < EPISODE.length && inactiveRef.current) {
-          inactiveRef.current.src = MOVIE_BASE + EPISODE[next].file;
+        while (next < currentEpisodeList.length && currentEpisodeList[next].type !== 'video') next++;
+        if (next < currentEpisodeList.length && inactiveRef.current) {
+          inactiveRef.current.src = episodeMovieBase + currentEpisodeList[next].file;
           inactiveRef.current.load();
         }
       }
     }
-  }, []);
+  }, [currentEpisodeList, episodeMovieBase]);
 
   const skipVideo = useCallback(() => {
     activeRef.current?.pause();
@@ -235,34 +246,29 @@ export default function App() {
     setCurrentNode(prev => { nextAfterNode(prev); return prev; });
   }, [clearSensory, nextAfterNode]);
 
-  // ── Keyboard Test Shortcuts ─────────────────────────────────────────
+  // Keyboard Shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // 오른쪽 화살표 또는 N키: 다음 단계로 강제 이동
       if (e.key === 'ArrowRight' || e.key === 'n' || e.key === 'N') {
         e.preventDefault();
         activeRef.current?.pause();
         clearSensory();
         setActionPrompt(null);
-        setCursor(prev => Math.min(prev + 1, EPISODE.length - 1));
-      }
-      // 왼쪽 화살표 또는 P키: 이전 단계로 이동
-      else if (e.key === 'ArrowLeft' || e.key === 'p' || e.key === 'P') {
+        setCursor(prev => Math.min(prev + 1, currentEpisodeList.length - 1));
+      } else if (e.key === 'ArrowLeft' || e.key === 'p' || e.key === 'P') {
         e.preventDefault();
         activeRef.current?.pause();
         clearSensory();
         setActionPrompt(null);
         setCursor(prev => Math.max(prev - 1, 0));
-      }
-      // 스페이스바: 현재 영상 건너뛰기
-      else if (e.key === ' ' || e.key === 'Spacebar') {
+      } else if (e.key === ' ' || e.key === 'Spacebar') {
         e.preventDefault();
         skipVideo();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [clearSensory, skipVideo]);
+  }, [clearSensory, skipVideo, currentEpisodeList]);
 
   const handleRestart = useCallback(() => {
     setCurrentNode(null);
@@ -270,24 +276,38 @@ export default function App() {
     setProgress(0);
     setChoices(null);
     setSensory(null);
+    setCursor(-1);
     setScreen('intro');
   }, []);
 
-  const handleStart = useCallback(() => {
+  const handleStart = useCallback((episodeType) => {
+    setSelectedEpisode(episodeType);
     if (videoARef.current) videoARef.current.muted = false;
     if (videoBRef.current) videoBRef.current.muted = false;
-    setCursor(-1);
-    setTimeout(() => setCursor(0), 10);
-  }, []);
+    
+    // Select episode list based on clicked type
+    const targetList = episodeType === EPISODE_TYPES.EYECLINIC ? EYECLINIC_EPISODE : HOSPITAL_EPISODE;
+    setCursor(0);
+    playNode(targetList[0]);
+  }, [playNode]);
 
-  // ── Render ──────────────────────────────────────────────────────────
   return (
-    <div id="app" onClick={screen === 'intro' ? handleStart : undefined} style={screen === 'intro' ? { cursor: 'pointer' } : {}}>
+    <div id="app">
+      {/* Top Floating Home Button on Step Screens */}
+      {(screen === 'stepLabel' || screen === 'schedule') && (
+        <button className="btn-home-floating" onClick={handleRestart} title="처음 메뉴로 돌아가기">
+          🏠 처음으로
+        </button>
+      )}
+
       {/* HUD Bar (Top Navigation) */}
       {screen === 'video' && (
         <div id="hud">
           <div className="hud-left">
-            <span className="hud-logo">🐻 CocoLink</span>
+            <button className="hud-home-btn" onClick={handleRestart} title="처음 메뉴로 돌아가기">
+              🏠
+            </button>
+            <span className="hud-logo">{currentMeta.badge} CocoLink</span>
             {typeof clipLabel === 'object' && clipLabel.section && (
               <div className="hud-current-info">
                 <span className="hud-section-badge">{clipLabel.section}</span>
@@ -296,13 +316,13 @@ export default function App() {
             )}
           </div>
           <div className="hud-steps">
-            {HUD_STEPS.map((s, i) => (
-              <>
-                {i > 0 && <span key={`arrow-${s.id}`} className="hud-arrow">›</span>}
-                <div key={s.id} className={`hud-step ${hudActive === s.id ? 'active' : hudActive > s.id ? 'done' : ''}`}>
+            {currentMeta.hudSteps.map((s, i) => (
+              <span key={s.id} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                {i > 0 && <span className="hud-arrow">›</span>}
+                <div className={`hud-step ${hudActive === s.id ? 'active' : hudActive > s.id ? 'done' : ''}`}>
                   <span>{s.icon}</span> <span className="hud-step-text">{s.label}</span>
                 </div>
-              </>
+              </span>
             ))}
           </div>
         </div>
@@ -311,14 +331,40 @@ export default function App() {
       {/* Progress bar */}
       <div id="progress-bar" style={{ width: `${progress}%` }} />
 
-      {/* Intro */}
+      {/* Intro & Episode Selector */}
       {screen === 'intro' && (
         <div id="screen-intro" className="screen active">
-          <div className="intro-badge">🐻</div>
+          <div className="intro-badge">✨</div>
           <h1 className="intro-title">CocoLink</h1>
-          <p className="intro-sub">소아과 병원 적응 인터랙티브 에피소드<br />발달지연·자폐스펙트럼 아동을 위한 4단계 체험</p>
-          <div className="tap-hint">👆 화면을 터치하세요</div>
-          <div className="version-tag">v1.2 · Hospital Episode</div>
+          <p className="intro-sub">아이들의 편안하고 즐거운 병원 적응을 돕는 인터랙티브 체험</p>
+          
+          <div className="episode-selector">
+            <div 
+              className={`episode-card ${selectedEpisode === EPISODE_TYPES.HOSPITAL ? 'selected' : ''}`}
+              onClick={() => setSelectedEpisode(EPISODE_TYPES.HOSPITAL)}
+            >
+              <div className="card-badge">🐻</div>
+              <div className="card-title">소아과 병원</div>
+              <div className="card-desc">1~4단계 풀 에피소드<br/>(동화 ➔ 관찰 ➔ 1인칭 실사)</div>
+              <button className="btn-play-card" onClick={(e) => { e.stopPropagation(); handleStart(EPISODE_TYPES.HOSPITAL); }}>
+                소아과 시작하기 ▶
+              </button>
+            </div>
+
+            <div 
+              className={`episode-card ${selectedEpisode === EPISODE_TYPES.EYECLINIC ? 'selected' : ''}`}
+              onClick={() => setSelectedEpisode(EPISODE_TYPES.EYECLINIC)}
+            >
+              <div className="card-badge">🦉</div>
+              <div className="card-title">소아 안과 (신규)</div>
+              <div className="card-desc">1~3단계 적응 에피소드<br/>(2D 동화 ➔ 3D 기계 시연)</div>
+              <button className="btn-play-card" onClick={(e) => { e.stopPropagation(); handleStart(EPISODE_TYPES.EYECLINIC); }}>
+                안과 시작하기 ▶
+              </button>
+            </div>
+          </div>
+
+          <div className="version-tag">v1.3 · Hospital & EyeClinic Multi-Episode</div>
         </div>
       )}
 
@@ -338,9 +384,9 @@ export default function App() {
       {/* Visual Schedule */}
       {screen === 'schedule' && (
         <div id="screen-schedule" className="screen active">
-          <div className="schedule-title">🗓️ 오늘 병원에서는요~</div>
+          <div className="schedule-title">🗓️ 오늘 {currentMeta.title}에서는요~</div>
           <div className="schedule-cards">
-            {[['🏥','1단계','병원 입구'],['📋','2단계','접수 대기'],['🩺','3단계','의사 진료'],['💉','4단계','건강 주사'],['🎁','5단계','칭찬 보상']].map(([icon, step, label]) => (
+            {currentMeta.scheduleCards.map(([icon, step, label]) => (
               <div key={step} className="sched-card">
                 <div className="sched-icon">{icon}</div>
                 <div className="sched-label">{step}<br />{label}</div>
@@ -353,7 +399,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Video Container (always mounted so refs are non-null) */}
+      {/* Video Container */}
       <div id="screen-video" className={`screen ${screen === 'video' ? 'active' : ''}`} style={screen !== 'video' ? { display: 'none' } : {}}>
         <div id="player-wrap">
           <video
@@ -414,7 +460,6 @@ export default function App() {
             </div>
           )}
 
-
           {showSkip && <button id="skip-btn" onClick={skipVideo}>건너뛰기 ›</button>}
           {showTap && (
             <div
@@ -437,10 +482,12 @@ export default function App() {
       {/* Ending */}
       {screen === 'ending' && (
         <div id="screen-ending" className="screen active">
-          <div className="ending-badge">🏅</div>
-          <div className="ending-title">진료 성공!</div>
-          <p style={{ color: 'var(--text-dim)', fontSize: '18px' }}>오늘 정말 용감하고 멋졌어요! 🐻💕</p>
-          <button className="btn-restart" onClick={handleRestart}>처음부터 다시 🔄</button>
+          <div className="ending-badge">{selectedEpisode === EPISODE_TYPES.EYECLINIC ? '🕶️' : '🏅'}</div>
+          <div className="ending-title">{currentNode?.title || '진료 성공!'}</div>
+          <p style={{ color: 'var(--text-dim)', fontSize: '18px' }}>
+            {currentNode?.desc || '오늘 정말 용감하고 멋졌어요! 🐻💕'}
+          </p>
+          <button className="btn-restart" onClick={handleRestart}>다른 에피소드 선택 🔄</button>
         </div>
       )}
     </div>
