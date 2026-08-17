@@ -255,7 +255,17 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 
 #### 🎬 C3_ChinRest — 턱받침에 턱 대기 (5초)
 
-- **카메라 워크:** Static Close-Up on Machine
+- **카메라 워크:** Approaching Dolly-In & Close-Up on Chinrest (1인칭 POV)
+- **참조 에셋:** 🎈 [`real_eyeclinic_exam_room.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_eyeclinic_exam_room.jpeg), 👩‍⚕️ [`real_optometrist_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_optometrist_nurse_turnaround.png), 👁️ [`C3_chinrest_concept.jpg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/real/C3_chinrest_concept.jpg)
+- **🎬 3D 실사 프리비즈 영상 (Blender):**
+    - 🎥 **[1인칭 POV 3D 프리뷰]:** [`Docs/EyeClinic/Blender/renders/real/C3_chinrest.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/real/C3_chinrest.mp4) (카메라 눈높이 전진 및 안착 모션)
+    - 🎭 **[Semantic Color ID 마스크]:** [`Docs/EyeClinic/Blender/renders/real/C3_chinrest_id_mask.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/real/C3_chinrest_id_mask.mp4) (AI 비디오 생성용 마스킹)
+- **💡 3D Semantic Color ID 규칙:**
+    - 🔴 **Pure Red (#FF0000):** 턱받침 및 이마받침 패드 (Chinrest / Forehead Band)
+    - 🔵 **Pure Blue (#0000FF):** 자동굴절검사기 본체 하우징 (Autorefractor Housing)
+    - 🟢 **Pure Green (#00FF00):** 곁에서 안내하는 검안사 선생님 손길/팔 (Optometrist Nurse Guiding Hand)
+    - 🟡 **Pure Yellow (#FFFF00):** 검사 테이블/책상 (Desk)
+    - 🩵 **Cyan (#00FFFF):** 양안 뷰파인더 렌즈 (Optical Lenses)
 - **콘티:** 의자에 앉아 검사기 턱받침이 시야에 다가옴. 검안사 선생님이 부드러운 손길로 "턱을 콕! 이마를 착! 대볼까?" 안내.
 - **AI 비디오 프롬프트:**
     - **[영문 입력용]:**
@@ -267,7 +277,17 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 #### 🎬 C3_BalloonView — 열기구 보기 자동굴절검사 (6초)
 
 - **감각 사전 예고 팝업:** 🎈 `열기구 찾기!`
-- **카메라 워크:** Machine Lens POV (렌즈 속 시야)
+- **카메라 워크:** Machine Lens POV (양안 렌즈 속 시야 & 크로스헤어 타깃)
+- **참조 에셋:** 🎈 [`real_c3_balloon_view.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c3_balloon_view.jpeg), 👍 [`real_optometrist_thumbs_up.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_optometrist_thumbs_up.jpeg)
+- **🎬 3D 실사 프리비즈 영상 (Blender):**
+    - 🎥 **[렌즈 POV 3D 프리뷰]:** [`Docs/EyeClinic/Blender/renders/real/C3_balloon_view.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/real/C3_balloon_view.mp4) (양안 렌즈 십자선 & 열기구 부유 모션)
+    - 🎭 **[Semantic Color ID 마스크]:** [`Docs/EyeClinic/Blender/renders/real/C3_balloon_view_id_mask.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/real/C3_balloon_view_id_mask.mp4) (AI 비디오 생성용 마스킹)
+- **💡 3D Semantic Color ID 규칙:**
+    - 🔵 **Pure Blue (#0000FF):** 좌/우 2개 원형 렌즈 아이피스 링 (Dual Lens Eyepieces)
+    - 🟡 **Pure Yellow (#FFFF00):** 좌/우 렌즈 초점 십자선 및 가이드 링 (Crosshair Reticle)
+    - 🔴 **Pure Red (#FF0000):** 중앙 타깃 열기구 및 바구니 (Hot Air Balloon)
+    - ⚪ **Light Gray (#D9D9D9):** 검사기 본체 전면 하우징 (Autorefractor Housing)
+    - ⚫ **Pure Black (#000000):** 배경 하늘과 초원 풍경 (Background Meadow / Sky)
 - **콘티:** 렌즈 안으로 붉은 열기구와 푸른 초원이 보임. 초점이 흐려졌다 선명해지는 연출. "열기구가 둥실둥실~ 가만히 3초만 바라보자!" ➔ 검안사 선생님이 "열기구 정말 잘 봤어요! 백 점!" 환하게 칭찬.
 - **AI 비디오 프롬프트:**
     - **[영문 입력용]:**
@@ -280,86 +300,88 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 
 ### 📍 챕터 4: 그림 시력 검사
 
-- **참조 에셋:** 🎈 [`real_eyeclinic_exam_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_eyeclinic_exam_room.png), 👩‍⚕️ [`real_optometrist_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_optometrist_nurse_turnaround.png)
+- **참조 에셋:** 🎈 [`real_eyeclinic_exam_room.jpeg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_eyeclinic_exam_room.jpeg), 👩‍⚕️ [`real_optometrist_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_optometrist_nurse_turnaround.png), 👁️ [`B5276385504_41125294488.jpg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/B5276385504_41125294488.jpg) (한식표준 3M용 시력표 실물), 🖼️ [`real_c4_chart_match.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c4_chart_match.png)
 
-#### 🎬 C4_ChartMatch — PECS 그림 시력표 맞추기 (6초)
+#### 🎬 C4_ChartMatch — PECS 한식표준 시력표 맞추기 (6초)
 
-- **카메라 워크:** Eye-Level toward Digital Screen
-- **콘티:** 검안사 선생님이 지시봉으로 화면 속 그림(🦆 오리, 🦋 나비, 🚗 자동차)을 가리킴. "어떤 그림인지 손으로 콕 찔러볼까요?"
+- **참조 실물 시력표:** [`Docs/EyeClinic/Graphic/real/B5276385504_41125294488.jpg`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/B5276385504_41125294488.jpg) (대한안과학회 제정 한식표준 3M용 시력표)
+- **카메라 워크:** Eye-Level toward Korean Standard Eye Chart (한식표준 3M용 시력표)
+- **🎬 3D 실사 프리비즈 영상 (Blender):**
+    - 🎥 **[1인칭 POV 3D 프리뷰]:** [`Docs/EyeClinic/Blender/renders/real/C4_chart_match.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/real/C4_chart_match.mp4) (지시봉 포인팅 & 아이 맞춤 시선 모션)
+    - 🎭 **[Semantic Color ID 마스크]:** [`Docs/EyeClinic/Blender/renders/real/C4_chart_match_id_mask.mp4`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Blender/renders/real/C4_chart_match_id_mask.mp4) (AI 비디오 생성용 마스킹)
+- **💡 3D Semantic Color ID 규칙:**
+    - 🔵 **Pure Blue (#0000FF):** 한식표준 조명 시력표 판 (Korean Standard Light Box Eye Chart)
+    - 🟡 **Pure Yellow (#FFFF00):** 타깃 그림 기호 (Target Symbol: ✈️ 비행기)
+    - 🔴 **Pure Red (#FF0000):** 기타 그림 기호 (Other Symbols: 🦋 나비, 🐦 새, 🚗 자동차)
+    - 🟢 **Pure Green (#00FF00):** 검안사 선생님 (Optometrist Nurse)
+    - 🟣 **Magenta (#FF00FF):** 지시봉 (Pointer Stick)
+    - ⚫ **Pure Black (#000000):** 검사실 배경 및 벽면 (Background Room / Wall)
+- **콘티:** 검안사 선생님이 지시봉으로 벽에 걸린 실제 **한식표준 시력표** 속 그림(✈️ 비행기, 🦋 나비, 🐦 새, 🚗 자동차)을 가리킴. "선생님이 가리키는 그림이 무엇일까요? 손으로 콕 찔러볼까요?"
 - **AI 비디오 프롬프트:**
     - **[영문 입력용]:**
-        > `First-person POV child's eye level. Friendly female optometrist holding a cute pointer stick points to a digital eye chart displaying clear simple icons (a duck, a butterfly, a car). She smiles warmly at camera waiting for answer. Bright lighting, photorealistic, 6 seconds`
+        > `First-person POV child's eye level in Korean pediatric eye clinic. Friendly Korean female optometrist nurse holding a cute character pointer stick points to a Korean standard illuminated wall-mounted eye chart (한식표준시력표) displaying picture symbols on the right column (an airplane, a butterfly, a bird, a car). She smiles warmly at camera waiting for answer. Bright reassuring clinic lighting, photorealistic, 6 seconds`
     - **[한글 해석 및 전달 의미]:**
-        > `아이 눈높이 1인칭 시점. 친근한 여성 검안사가 귀여운 지시봉으로 디지털 시력표의 선명한 그림 아이콘(오리, 나비, 자동차)을 가리키며 카메라를 보고 따뜻하게 미소 지음. 실사 화질, 6초`
-- **PECS 터치 인터랙션:** 화면 하단 `[🦆 오리]` / `[🦋 나비]` / `[🚗 자동차]` 그림 카드 중 일치하는 카드 탭 ➔ 딩동댕 칭찬 사운드!
+        > `한국 소아 안과 검사실 아이 눈높이 1인칭 시점. 친근한 여성 검안사가 귀여운 캐릭터 지시봉으로 벽에 걸린 한식표준 조명 시력표의 우측 그림 기호(비행기, 나비, 새, 자동차)를 가리키며 카메라를 보고 따뜻하게 미소 지음. 밝고 따뜻한 클리닉 조명, 실사 화질, 6초`
+- **PECS 터치 인터랙션:** 화면 하단 `[✈️ 비행기]` / `[🦋 나비]` / `[🐦 새]` / `[🚗 자동차]` 그림 카드 중 일치하는 카드 탭 ➔ 딩동댕 칭찬 사운드!
 
 ---
 
-### 📍 챕터 5: 안과 진료실 & 정밀 검사
+### 📍 챕터 5: 안과 진료실 & 맞춤 안경 검사 (시험 안경 착용)
 
 - **[일정표 상태]:** `[ 👁️ 4. 진료실 ]` 하이라이트
-- **참조 에셋:** 👁️ [`real_eyeclinic_doctor_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_eyeclinic_doctor_room.png), 👨‍⚕️ [`real_eye_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_eye_doctor_turnaround.png)
+- **참조 에셋:** 👨‍⚕️ [`real_c5_doctor_greet.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c5_doctor_greet.png) (진료실 문열림 & 의사 인사 키프레임), 👓 [`real_c5_trial_frame.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c5_trial_frame.png) (소아용 동그란 시험 안경 착용), ✨ [`real_c5_lens_change.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c5_lens_change.png) (시험 안경 렌즈 너머 선명해지는 시야), 👁️ [`real_eyeclinic_doctor_room.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_eyeclinic_doctor_room.png), 👨‍⚕️ [`real_eye_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_eye_doctor_turnaround.png)
 
-#### 🎬 C5_DoctorGreet — 의사 선생님 인사 & 암실 안내 (5초)
+#### 🎬 C5_DoctorGreet — 의사 선생님 인사 & 시험 안경 안내 (5초)
 
+- **참조 키프레임:** 👨‍⚕️ [`Docs/EyeClinic/Graphic/real/real_c5_doctor_greet.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c5_doctor_greet.png)
 - **카메라 워크:** Dolly-In ➔ Static
-- **콘티:** 진료실 문이 열리고 둥근 안경을 쓴 친절한 안과 전문의 선생님이 맞이함. "어서 오세요! 방이 조금 어두워지지만 선생님이랑 재밌는 불빛 놀이 할 거예요!"
+- **콘티:** 진료실 문이 열리고 둥근 안경을 쓴 친절한 안과 전문의 선생님이 맞이함. "어서 오세요! 오늘 우리 친구 눈에 딱 맞는 안경을 찾아볼 거예요!"
 - **AI 비디오 프롬프트:**
     - **[영문 입력용]:**
-        > `First-person POV entering warm Korean pediatric ophthalmology exam room. Friendly male eye doctor in 30s with round glasses and white lab coat looks into camera with reassuring smile, gently gesturing to child's exam chair. Dimmer cozy exam room lighting, photorealistic, 5 seconds`
+        > `First-person POV entering warm Korean pediatric ophthalmology exam room. Friendly male eye doctor in 30s with round glasses and white lab coat looks into camera with reassuring smile, gently welcoming child into the exam chair. Bright cozy pediatric clinic lighting, photorealistic, 5 seconds`
     - **[한글 해석 및 전달 의미]:**
-        > `1인칭 시점. 아늑한 한국 소아 안과 진료실 입장. 둥근 안경과 흰 가운의 30대 남성 안과 의사가 안심시키는 미소로 카메라를 보며 진료 의자를 가리킴. 살짝 어둡고 아늑한 조명, 실사 영화 화질, 5초`
+        > `1인칭 시점. 아늑한 한국 소아 안과 진료실 입장. 둥근 안경과 흰 가운의 30대 남성 안과 의사가 안심시키는 미소로 카메라를 보며 진료 의자로 반갑게 맞이함. 밝고 아늑한 소아 진료실 조명, 실사 화질, 5초`
 
-#### 5-A: 신뢰 루트 (불빛 & 현미경 검사)
+#### 🎬 C5A_TrialFrame — 소아용 동그란 시험 안경 써보기 (5초)
 
-- **감각 사전 예고 팝업:** 💡 `반짝 불빛!`
-- `C5A_Penlight` (5초): 펜라이트로 눈 좌우 따라보기
-    - **콘티:** 의사 선생님이 귀여운 동물 달린 작은 불빛을 좌우로 천천히 움직임. "불빛을 눈으로 쓱 따라가 볼까?"
-    - **[영문]:** `First-person POV static shot. Friendly Korean male eye doctor holds a small gentle penlight with a cute toy tip, moving it slowly left and right in front of camera lens with kind smiling eye contact. Photorealistic, 5s`
-    - **[한글]:** `1인칭 시점 고정 샷. 친절한 한국인 남성 안과 의사가 작은 장난감 팁이 달린 부드러운 펜라이트를 카메라 렌즈 앞에서 천천히 좌우로 움직이며 다정한 미소를 지음. 실사 화질, 5초`
-- `C5A_SlitLamp` (6초): 세극등 현미경으로 눈 관찰
-    - **콘티:** 세극등 현미경 너머로 의사 선생님의 눈이 보이고, 부드러운 푸른/황색 슬릿 빛이 눈을 비춤. "선생님 귀여운 눈동자 구경 다 했다! 백 점 만점!"
-    - **[영문]:** `First-person POV looking closely at slit lamp biomicroscope. Kind doctor visible on other side of instrument, a gentle warm vertical beam of light softly illuminates center view. Doctor smiles warmly nodding in approval. Photorealistic, 6s`
-    - **[한글]:** `세극등 현미경을 정면으로 마주하는 1인칭 시점. 기계 너머로 친절한 의사의 눈이 보이고, 부드럽고 따뜻한 수직 슬릿 불빛이 시야를 비춤. 의사가 만족스럽게 고개를 끄덕이며 웃음. 실사 화질, 6초`
+- **참조 키프레임:** 👓 [`Docs/EyeClinic/Graphic/real/real_c5_trial_frame.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c5_trial_frame.png)
+- **감각 사전 예고 팝업:** 👓 `동글동글 시험 안경 써보기!`
+- **카메라 워크:** Eye-Level Static POV
+- **콘티:** 의사 선생님이 알록달록한 동그란 시험 안경(Trial Frame)을 보여주며 카메라에 부드럽게 씌워줌. "짜잔! 동글동글 멋진 안경 써볼까? 귀 뒤에 쏙 걸쳐줄게~"
+- **AI 비디오 프롬프트:**
+    - **[영문 입력용]:**
+        > `First-person POV static shot. Friendly Korean male eye doctor gently brings a colorful pediatric round trial frame (test glasses) toward camera lens with warm reassuring smile, fitting it comfortably on the child's perspective. Photorealistic, 5 seconds`
+    - **[한글 해석 및 전달 의미]:**
+        > `1인칭 시점 고정 샷. 친절한 한국인 남성 안과 의사가 알록달록한 소아용 동그란 시험 안경을 카메라 렌즈 앞으로 부드럽게 가져와 편안하게 씌워주는 연출. 실사 화질, 5초`
 
-#### 5-B: 달래기 루트 (곰돌이 시연 + 눈 깜빡 호흡)
+#### 🎬 C5A_LensChange — 렌즈 쏙쏙 맞춤 교체 & 시야 선명화 (6초)
 
-- `C5B_BearEyeCheck` (6초): 곰돌이 인형 눈 검사 먼저 시연
-    - **콘티:** 의사 선생님이 노란 스카프를 맨 곰돌이 인형의 눈에 불빛을 비추며 "곰돌이도 눈이 반짝반짝하네! 전혀 안 눈부시대!" 시연.
-    - **[영문]:** `First-person POV static medium shot. Kind Korean male eye doctor gently shines small penlight on teddy bear plush toy with yellow scarf first, smiling and turning bear toward camera lens saying 'The bear did it so well!'. Photorealistic, 6s`
-    - **[한글]:** `1인칭 시점 고정 샷. 친절한 안과 의사가 노란 스카프를 맨 곰돌이 인형 눈에 작은 불빛을 먼저 비추며 시연한 뒤, 카메라 쪽으로 인형을 돌려주며 안심시킴. 실사 화질, 6초`
-- `C5B_BlinkBreathing` (5초): 눈 깜빡깜빡 심호흡 QTE
-    - **콘티:** 의사 선생님과 함께 "깜빡깜빡~ 후~" 호흡하며 긴장 풀기.
-    - **[영문]:** `First-person POV static shot. Friendly eye doctor playfully blinks both eyes and takes a deep breath exhaling gently, encouraging camera to follow along with warm smile. Photorealistic, 5s`
-    - **[한글]:** `1인칭 시점 고정 샷. 친근한 안과 의사가 장난스럽게 두 눈을 깜빡이고 깊게 숨을 들이쉬고 내쉬며 따라 하도록 유도. 실사 화질, 5초`
-
-#### 5-C: 안약 점안 (선택/심화)
-
-- **감각 사전 예고 팝업:** 💧 `시원한 물방울 퐁!`
-- `C5C_EyeDropNotice` (4초): "시원한 물방울 하나 똑 떨어질 거야" 사전 예고
-    - **[영문]:** `First-person POV static shot. Friendly Korean female nurse holds a small eyedrop bottle showing it clearly to camera with reassuring gentle smile saying 'Just one cool drop~'. Direct eye contact, photorealistic, 4s`
-    - **[한글]:** `1인칭 시점 고정 샷. 친절한 간호사가 작은 안약 병을 카메라에 보여주며 "시원한 물방울 한 방울 톡~" 하고 안심시키는 미소를 지음. 실사 화질, 4초`
-- `C5C_EyeDrop` (5초): 안약 톡 ➔ 눈 깜빡이기
-    - **콘티:** 시야 위쪽에서 안약 병이 다가와 "톡!" ➔ "눈을 감았다가 깜빡깜빡!" 의사/간호사 엄지척!
-    - **[영문]:** `First-person POV upward angle. A clean eyedrop tip gently approaches top edge of frame. Soft blur effect. Cut to: doctor and nurse smiling brightly giving big double thumbs up clapping. Photorealistic, 5s`
-    - **[한글]:** `1인칭 시점 위쪽 앵글. 깨끗한 안약 팁이 화면 상단으로 부드럽게 다가옴. 컷: 의사와 간호사가 환하게 웃으며 양손 엄지척을 하고 박수를 쳐줌. 실사 화질, 5초`
+- **참조 키프레임:** ✨ [`Docs/EyeClinic/Graphic/real/real_c5_lens_change.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c5_lens_change.png)
+- **카메라 워크:** POV through Trial Frame (안경 렌즈 너머 시야)
+- **콘티:** 의사 선생님이 동그란 도수 렌즈를 시험 안경에 쏙 끼워 넣음 ➔ 살짝 흐릿했던 시야가 반짝하고 선명하고 또렷해짐! "와, 세상이 훨씬 선명하고 또렷하게 보이지? 최고야!"
+- **AI 비디오 프롬프트:**
+    - **[영문 입력용]:**
+        > `First-person POV through trial frame eyeglasses. Friendly eye doctor smiles as he clicks a round optical test lens into the frame. Instant shift from slight soft blur to crisp crystal-clear vision with bright twinkle effect. Doctor gives a cheerful thumbs up. Photorealistic, 6 seconds`
+    - **[한글 해석 및 전달 의미]:**
+        > `시험 안경을 쓴 1인칭 시점. 의사가 동그란 광학 테스트 렌즈를 안경테에 쏙 끼움. 살짝 흐릿했던 시야가 반짝하는 효과와 함께 선명하고 또렷하게 맑아짐. 의사가 밝게 엄지척을 해줌. 실사 화질, 6초`
 
 ---
 
-### 📍 챕터 6: 보상 & 귀가
+### 📍 챕터 6: 안경 처방전 발급 & 귀가
 
-- **[일정표 상태]:** `[ 🕶️ 5. 보상 ]` 하이라이트
-- **참조 에셋:** 👨‍⚕️ [`real_eye_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_eye_doctor_turnaround.png), 👩‍⚕️ [`real_optometrist_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_optometrist_nurse_turnaround.png)
+- **[일정표 상태]:** `[ 📄 5. 완료 ]` 하이라이트
+- **참조 에셋:** 📄 [`real_c6_reward.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c6_reward.png) (접수처 안경 처방전 발급 키프레임), 👨‍⚕️ [`real_eye_doctor_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_eye_doctor_turnaround.png), 👩‍⚕️ [`real_optometrist_nurse_turnaround.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_optometrist_nurse_turnaround.png)
 
-#### 🎬 C6_Reward — 멋진 선글라스/스티커 수여 (5초)
+#### 🎬 C6_Reward — 안경 처방전 전달 (5초)
 
-- **콘티:** 간호사 선생님이 반짝이는 별 선글라스와 귀여운 캐릭터 칭찬 스티커 판을 카메라 렌즈 앞으로 내밈. "오늘 정말 용감했어! 마음에 드는 선물을 골라봐!"
+- **참조 키프레임:** 📄 [`Docs/EyeClinic/Graphic/real/real_c6_reward.png`](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/Graphic/real/real_c6_reward.png)
+- **콘티:** 검안사 간호사 선생님이 대기실/접수처에서 오늘 완성된 **진짜 안경 처방전**을 양손으로 공손히 내밈. "오늘 검사 정말 씩씩하게 잘 받았어요! 이 처방전으로 안경원에 가서 멋진 안경 맞추세요!"
 - **AI 비디오 프롬프트:**
     - **[영문 입력용]:**
-        > `First-person POV static shot. Friendly Korean female nurse in mint scrubs presents colorful cool toy sunglasses and a shiny reward sticker sheet directly toward camera lens with joyful proud smile. Photorealistic, 5 seconds`
+        > `First-person POV static shot in warm Korean pediatric eye clinic waiting room. Friendly Korean female optometrist nurse in mint scrubs (matching turnaround reference) warmly holds out an official eyeglasses prescription folder (안경 처방전) with both hands toward camera lens with a proud cheerful smile. Photorealistic, 5 seconds`
     - **[한글 해석 및 전달 의미]:**
-        > `1인칭 시점 고정 샷. 민트 스크럽의 친절한 한국인 간호사가 알록달록한 멋진 장난감 선글라스와 반짝이는 칭찬 스티커 판을 카메라 렌즈 쪽으로 내밀며 대견한 미소를 지음. 실사 화질, 5초`
-- **보상 선택 인터랙션:** `[🕶️ 별 선글라스]` / `[⭐ 반짝 스티커]` / `[🦕 공룡 스티커]` 탭!
+        > `따뜻한 소아 안과 대기실/접수처 1인칭 시점 고정 샷. 민트 스크럽의 친절한 한국인 검안사 간호사(턴어라운드 일치)가 안경 처방전을 양손으로 정중히 카메라 렌즈 쪽으로 내밀며 대견하고 밝은 미소를 지음. 실사 화질, 5초`
+- **보상 터치 인터랙션:** 화면 중앙 `[📄 안경 처방전 받기]` 카드 탭 ➔ 딩동댕 칭찬 사운드!
 
 #### 🎬 C6_Farewell — 의료진 작별 인사 (5초)
 
@@ -374,14 +396,14 @@ Graphic/2d_storybook/               Graphic/3d_animation/              Graphic/r
 
 ## 📋 전체 클립 및 파이프라인 요약표
 
-| 단계            | 클립 ID                                        |          시각 스타일          | 인터랙션 / 주요 연출                  |
-| :-------------- | :--------------------------------------------- | :---------------------------: | :------------------------------------ |
-| **Step 1**      | `PreStory_1~3`                                 | **2D 보노보노풍 동화** (30초) | 눈 비비기 ➔ 안과 소개 ➔ 별 안경       |
-| **Step 2**      | `Visual_Schedule`                              |   **2D UI 픽토그램** (HUD)    | 입구 ➔ 접수 ➔ 기계 ➔ 진료 ➔ 보상      |
-| **Step 3**      | `Model_First_1~3`                              |   **3D 캐주얼 시연** (45초)   | 턱받침 ➔ 열기구 찾기 ➔ 별 선글라스    |
-| **Step 4 (C1)** | `C1_Arrive / HiPath / HidePath`                |      **1인칭 실사 POV**       | [인사] / [숨기] PECS 그림 카드        |
-| **Step 4 (C2)** | `C2_Reception / WaitingRoom`                   |      **1인칭 실사 POV**       | [이름 말하기] PECS + 그림 찾기 터치   |
-| **Step 4 (C3)** | `C3_PreExamRoom / ChinRest / BalloonView`      |   **1인칭 실사 POV** + QTE    | 턱 대기 3초 + 🎈 열기구 찾기          |
-| **Step 4 (C4)** | `C4_ChartMatch`                                |   **1인칭 실사 POV** + 터치   | 🦆 오리 / 🦋 나비 / 🚗 차 PECS 매칭   |
-| **Step 4 (C5)** | `C5_DoctorGreet / C5A (2) / C5B (2) / C5C (2)` |   **1인칭 실사 POV** + QTE    | 💡 반짝 불빛 / 세극등 / 💧 안약 퐁!   |
-| **Step 4 (C6)** | `C6_Reward / Farewell`                         |      **1인칭 실사 POV**       | [선글라스] 탭 + 작별 인사 & 배지 수여 |
+| 단계            | 클립 ID                                        |          시각 스타일          | 인터랙션 / 주요 연출                          |
+| :-------------- | :--------------------------------------------- | :---------------------------: | :-------------------------------------------- |
+| **Step 1**      | `PreStory_1~3`                                 | **2D 보노보노풍 동화** (30초) | 눈 비비기 ➔ 안과 소개 ➔ 별 안경               |
+| **Step 2**      | `Visual_Schedule`                              |   **2D UI 픽토그램** (HUD)    | 입구 ➔ 접수 ➔ 기계 ➔ 진료 ➔ 보상              |
+| **Step 3**      | `Model_First_1~3`                              |   **3D 캐주얼 시연** (45초)   | 턱받침 ➔ 열기구 찾기 ➔ 별 선글라스            |
+| **Step 4 (C1)** | `C1_Arrive / HiPath / HidePath`                |      **1인칭 실사 POV**       | [인사] / [숨기] PECS 그림 카드                |
+| **Step 4 (C2)** | `C2_Reception / WaitingRoom`                   |      **1인칭 실사 POV**       | [이름 말하기] PECS + 그림 찾기 터치           |
+| **Step 4 (C3)** | `C3_PreExamRoom / ChinRest / BalloonView`      |   **1인칭 실사 POV** + QTE    | 턱 대기 3초 + 🎈 열기구 찾기                  |
+| **Step 4 (C4)** | `C4_ChartMatch`                                |   **1인칭 실사 POV** + 터치   | ✈️ 비행기 / 🦋 나비 / 🐦 새 / 🚗 차 PECS 매칭 |
+| **Step 4 (C5)** | `C5_DoctorGreet / C5A_TrialFrame / C5A_LensChange` |   **1인칭 실사 POV** + 터치   | 👓 동그란 시험 안경 착용 & 도수 렌즈 맞춤    |
+| **Step 4 (C6)** | `C6_Reward / Farewell`                         |      **1인칭 실사 POV**       | [안경 처방전 받기] 탭 + 작별 인사             |

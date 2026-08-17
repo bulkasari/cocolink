@@ -48,8 +48,8 @@
    * `C1_Arrive`: 안과 입장 & 검안사 손인사 (선택: 인사 vs 숨기)
    * `C2_Reception & WaitingRoom`: 접수 & 그림 시력표 동물 찾기 탐색
    * `C3_ChinRest & BalloonView`: 턱 대기 3초 유지 QTE & 🎈 열기구 보기
-   * `C4_ChartMatch`: PECS 그림 시력표 맞추기 (🦆 오리 / 🦋 나비 / 🚗 차)
-   * `C5_DoctorGreet & SlitLamp`: 진료실 입장 & 💡 불빛/세극등 검사
-   * `C6_Reward & Farewell`: 멋진 별 선글라스 스티커 획득 & 작별 인사
+   * `C4_ChartMatch`: PECS 한식표준 시력표 맞추기 (✈️ 비행기 / 🦋 나비 / 🐦 새 / 🚗 차)
+   * `C5_DoctorGreet & TrialFrame`: 진료실 입장 & 👓 동그란 시험 안경 착용 & 도수 렌즈 맞춤
+   * `C6_Reward & Farewell`: 📄 안경 처방전 발급 & 의료진 작별 인사
 
 상세 프롬프트 및 비디오 대본은 [full_episode_scenario.md](file:///d:/Github/Unity/cocolink/Docs/EyeClinic/full_episode_scenario.md) 참조.
