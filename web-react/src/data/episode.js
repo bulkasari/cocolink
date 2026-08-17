@@ -1,4 +1,5 @@
 import hospitalEvents from './hospital_events.json';
+import eyeclinicEvents from './eyeclinic_events.json';
 
 const R2_BASE = 'https://pub-3a895f08e79b4437bb379c105f960f7d.r2.dev/Movie/';
 
@@ -35,23 +36,23 @@ export const EPISODE_META = {
     id: 'eyeclinic',
     title: '소아 안과',
     sub: '소아 안과 적응 인터랙티브 에피소드',
-    desc: '시각 감각 완충 & 입체 기계 체험 (1~3단계)',
+    desc: '시각 감각 완충 & 입체 기계 체험 & 1인칭 실사 (1~4단계)',
     badge: '🦉',
-    tag: 'Eye Clinic Episode (1~3단계)',
+    tag: 'Eye Clinic Episode (1~4단계)',
     movieBase: `${R2_BASE}EyeClinic/`,
     hudSteps: [
       { id: 1, icon: '🏥', label: '안과 입구' },
       { id: 2, icon: '📋', label: '접수' },
       { id: 3, icon: '🎈', label: '눈 검사' },
       { id: 4, icon: '👁️', label: '진료실' },
-      { id: 5, icon: '🕶️', label: '보상' },
+      { id: 5, icon: '📄', label: '처방전' },
     ],
     scheduleCards: [
       ['🏥', '1단계', '안과 입구'],
       ['📋', '2단계', '접수 대기'],
       ['🎈', '3단계', '눈 검사기'],
       ['👁️', '4단계', '선생님 진료'],
-      ['🕶️', '5단계', '별 선글라스']
+      ['📄', '5단계', '안경 처방전']
     ]
   }
 };
@@ -59,6 +60,9 @@ export const EPISODE_META = {
 // Quick map for JSON events
 export const eventMap = {};
 hospitalEvents.hospital_events.forEach(ev => {
+  eventMap[ev.id] = ev;
+});
+eyeclinicEvents.eyeclinic_events.forEach(ev => {
   eventMap[ev.id] = ev;
 });
 
@@ -97,18 +101,36 @@ export const HOSPITAL_EPISODE = [
   { type: 'ending', title: '병원 진료 성공!', desc: '오늘 정말 용감하고 멋졌어요! 🐻💕' }
 ];
 
-// Eye Clinic Episode Nodes (Step 1~3)
+// Eye Clinic Episode Nodes (Step 1~4)
 export const EYECLINIC_EPISODE = [
+  // ── Step 1: 2D 동화 ──
   { type: 'stepLabel', icon: '📖', num: '1단계', title: '안과 동화 미리보기', desc: '안과는 어떤 곳인지 따뜻하고 편안한 동화로 먼저 만나요!' },
   { type: 'video', id: 'eye-1-1', file: '1-1.mp4', section: '📖 1단계 · 안과 동화 미리보기', subLabel: '눈이 침침해요', skip: true },
   { type: 'video', id: 'eye-1-2', file: '1-2.mp4', section: '📖 1단계 · 안과 동화 미리보기', subLabel: '안과 건물의 모습', skip: true },
   { type: 'video', id: 'eye-1-3', file: '1-3.mp4', section: '📖 1단계 · 안과 동화 미리보기', subLabel: '눈이 반짝반짝', skip: true },
+  
+  // ── Step 2: 일정표 ──
   { type: 'schedule' },
+  
+  // ── Step 3: 3D 시연 ──
   { type: 'stepLabel', icon: '🧸', num: '2단계', title: '곰돌이의 입체 안과 기계 체험', desc: '곰돌이 코코가 신기한 안과 검사기를 먼저 체험해요! 🎈' },
   { type: 'video', id: 'eye-3-1', file: '3-1.mp4', section: '🧸 2단계 · 곰돌이의 안과 체험', subLabel: '턱받침에 턱 대기', skip: true },
   { type: 'video', id: 'eye-3-2', file: '3-2.mp4', section: '🧸 2단계 · 곰돌이의 안과 체험', subLabel: '열기구 관찰하기', skip: true },
   { type: 'video', id: 'eye-3-3', file: '3-3.mp4', section: '🧸 2단계 · 곰돌이의 안과 체험', subLabel: '멋진 별 선글라스 획득', skip: true },
-  { type: 'ending', title: '안과 체험 성공!', desc: '코코와 함께 안과 탐험을 멋지게 완료했어요! 🦉🕶️✨' }
+  
+  // ── Step 4: 1인칭 실사 체험 ──
+  { type: 'stepLabel', icon: '🦉', num: '3단계', title: '내가 직접 안과 체험하기', desc: '이제 내가 주인공! 안과에서 시력 검사를 받고 안경 처방전을 받아요 🌟' },
+  { type: 'video', id: 'C1_Arrive', file: 'C1_arrive.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '안과 입구 도착', hudActive: 1, skip: false, action: eventMap['C1_Arrive']?.action },
+  { type: 'video', id: 'C2_Reception', file: 'C2_reception.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '접수 창구', hudActive: 2, skip: false, action: eventMap['C2_Reception']?.action },
+  { type: 'video', id: 'C2_WaitingRoom', file: 'C2_waiting_room.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '대기실 둘러보기', hudActive: 2, skip: false, action: eventMap['C2_WaitingRoom']?.action },
+  { type: 'video', id: 'C3_PreExamRoom', file: 'C3_pre_exam_room.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '검사실 입장', hudActive: 3, skip: false, action: eventMap['C3_PreExamRoom']?.action },
+  { type: 'video', id: 'C3_ChinRest', file: 'C3_chinrest.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '턱받침에 턱 대기', hudActive: 3, skip: false, action: eventMap['C3_ChinRest']?.action, sensory: eventMap['C3_ChinRest']?.sensory, at: eventMap['C3_ChinRest']?.sensory?.at || 1 },
+  { type: 'video', id: 'C3_BalloonView', file: 'C3_balloon_view.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '열기구 바라보기', hudActive: 3, skip: false, action: eventMap['C3_BalloonView']?.action, sensory: eventMap['C3_BalloonView']?.sensory, at: eventMap['C3_BalloonView']?.sensory?.at || 0.5 },
+  { type: 'video', id: 'C5_DoctorGreet', file: 'C5_doctor_greet.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '의사 선생님 인사', hudActive: 4, skip: false, action: eventMap['C5_DoctorGreet']?.action },
+  { type: 'video', id: 'C5A_TrialFrame', file: 'C5A_trial_frame.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '동그란 시험 안경 써보기', hudActive: 4, skip: false, action: eventMap['C5A_TrialFrame']?.action, sensory: eventMap['C5A_TrialFrame']?.sensory, at: eventMap['C5A_TrialFrame']?.sensory?.at || 0.5 },
+  { type: 'video', id: 'C5A_LensChange', file: 'C5A_lens_change.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '도수 렌즈 맞춤 교체', hudActive: 4, skip: false, action: eventMap['C5A_LensChange']?.action, sensory: eventMap['C5A_LensChange']?.sensory, at: eventMap['C5A_LensChange']?.sensory?.at || 0.5 },
+  { type: 'video', id: 'C6_Reward', file: 'C6_reward.mp4', section: '🌟 3단계 · 내가 직접 안과 체험하기', subLabel: '안경 처방전 발급', hudActive: 5, skip: false, action: eventMap['C6_Reward']?.action },
+  { type: 'ending', title: '안과 검사 & 처방 완료!', desc: '안과에서 씩씩하게 검사를 마치고 멋진 안경 처방전을 받았어요! 🦉👓✨' }
 ];
 
 // Backwards compatibility default

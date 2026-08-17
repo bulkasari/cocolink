@@ -1,0 +1,164 @@
+{
+  "eyeclinic_events": [
+    {
+      "id": "C1_Arrive",
+      "file": "C1_arrive.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "안과 입구 도착",
+      "hudActive": 1,
+      "action": {
+        "enabled": true,
+        "at": 3.0,
+        "icon": "👋",
+        "label": "선생님께 인사하기"
+      },
+      "sensory": null
+    },
+    {
+      "id": "C2_Reception",
+      "file": "C2_reception.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "접수 창구",
+      "hudActive": 2,
+      "action": {
+        "enabled": true,
+        "at": 3.5,
+        "icon": "🗣️",
+        "label": "이름 말하기"
+      },
+      "sensory": null
+    },
+    {
+      "id": "C2_WaitingRoom",
+      "file": "C2_waiting_room.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "대기실 둘러보기",
+      "hudActive": 2,
+      "action": {
+        "enabled": true,
+        "at": 4.0,
+        "icon": "🧸",
+        "label": "곰돌이 찾기"
+      },
+      "sensory": null
+    },
+    {
+      "id": "C3_PreExamRoom",
+      "file": "C3_pre_exam_room.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "검사실 입장",
+      "hudActive": 3,
+      "action": {
+        "enabled": true,
+        "at": 2.5,
+        "icon": "🚪",
+        "label": "검사실 들어가기"
+      },
+      "sensory": null
+    },
+    {
+      "id": "C3_ChinRest",
+      "file": "C3_chinrest.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "턱받침에 턱 대기",
+      "hudActive": 3,
+      "action": {
+        "enabled": true,
+        "at": 3.0,
+        "icon": "🪑",
+        "label": "턱 콕! 이마 착!"
+      },
+      "sensory": {
+        "enabled": true,
+        "at": 1.0,
+        "icon": "🎈",
+        "text": "턱을 콕 대고 3초만 기다려요!"
+      }
+    },
+    {
+      "id": "C3_BalloonView",
+      "file": "C3_balloon_view.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "열기구 바라보기",
+      "hudActive": 3,
+      "action": {
+        "enabled": true,
+        "at": 3.0,
+        "icon": "🎈",
+        "label": "열기구 보기 완료!"
+      },
+      "sensory": {
+        "enabled": true,
+        "at": 0.5,
+        "icon": "🎈",
+        "text": "빨간 열기구를 3초 동안 바라봐요!"
+      }
+    },
+    {
+      "id": "C5_DoctorGreet",
+      "file": "C5_doctor_greet.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "의사 선생님 인사",
+      "hudActive": 4,
+      "action": {
+        "enabled": true,
+        "at": 3.0,
+        "icon": "👋",
+        "label": "선생님 안녕하세요!"
+      },
+      "sensory": null
+    },
+    {
+      "id": "C5A_TrialFrame",
+      "file": "C5A_trial_frame.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "동그란 시험 안경 써보기",
+      "hudActive": 4,
+      "action": {
+        "enabled": true,
+        "at": 3.0,
+        "icon": "👓",
+        "label": "요술 안경 써보기"
+      },
+      "sensory": {
+        "enabled": true,
+        "at": 0.5,
+        "icon": "👓",
+        "text": "동글동글 시험 안경 써보기!"
+      }
+    },
+    {
+      "id": "C5A_LensChange",
+      "file": "C5A_lens_change.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "도수 렌즈 맞춤 교체",
+      "hudActive": 4,
+      "action": {
+        "enabled": true,
+        "at": 3.5,
+        "icon": "✨",
+        "label": "우와! 선명해졌어요!"
+      },
+      "sensory": {
+        "enabled": true,
+        "at": 0.5,
+        "icon": "✨",
+        "text": "렌즈를 끼우면 눈이 또렷해져요!"
+      }
+    },
+    {
+      "id": "C6_Reward",
+      "file": "C6_reward.mp4",
+      "section": "🌟 3단계 · 내가 직접 체험하기",
+      "subLabel": "안경 처방전 발급",
+      "hudActive": 5,
+      "action": {
+        "enabled": true,
+        "at": 3.0,
+        "icon": "📄",
+        "label": "처방전 받기"
+      },
+      "sensory": null
+    }
+  ]
+}
