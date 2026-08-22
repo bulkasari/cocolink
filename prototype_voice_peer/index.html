@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CocoLink - Google Gemini 실시간 음성 AI 또래 친구 [지호]</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #181828 0%, #0d0d18 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: #ffcc00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .gemini-badge {
+            background: linear-gradient(135deg, #4285f4 0%, #9b51e0 100%);
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        header p {
+            font-size: 13px;
+            color: #a0a0c0;
+            margin-top: 4px;
+        }
+
+        /* API Key Bar */
+        .api-key-bar {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(66, 133, 244, 0.12);
+            border: 1px solid rgba(66, 133, 244, 0.3);
+            border-radius: 14px;
+            padding: 10px 16px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .api-key-bar input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .api-key-bar button {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .engine-status {
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Avatar Section */
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .avatar-canvas-container {
+            width: 240px;
+            height: 240px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        canvas#avatarCanvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #3a3a5c 0%, #1c1c2b 100%);
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);
+        }
+
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #2a2a40;
+            color: #00ffcc;
+            margin-top: 10px;
+        }
+
+        .speech-bubble {
+            margin-top: 15px;
+            background: #ffffff;
+            color: #1a1a2e;
+            padding: 16px 20px;
+            border-radius: 20px;
+            border-bottom-left-radius: 4px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            min-height: 75px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .speech-bubble::before {
+            content: '💭 7세 지호의 말:';
+            position: absolute;
+            top: -12px;
+            left: 12px;
+            background: #ffaa00;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* Controls & Logs Section */
+        .controls-section {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .hud-metrics {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 14px;
+        }
+
+        .metric-card {
+            flex: 1;
+            text-align: center;
+        }
+
+        .metric-card .label {
+            font-size: 11px;
+            color: #8f8fa8;
+        }
+
+        .metric-card .value {
+            font-size: 15px;
+            font-weight: bold;
+            color: #00ffcc;
+            margin-top: 3px;
+        }
+
+        .chat-log {
+            flex: 1;
+            min-height: 160px;
+            max-height: 190px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 14px;
+            padding: 12px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .chat-msg {
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+
+        .chat-msg.user {
+            align-self: flex-end;
+            background: #0088ff;
+            color: #fff;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-msg.jiho {
+            align-self: flex-start;
+            background: #33334d;
+            color: #ffdd88;
+            border-bottom-left-radius: 2px;
+        }
+
+        .input-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mic-btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mic-btn {
+            background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+            border: none;
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+            outline: none;
+        }
+
+        .mic-btn.recording {
+            background: linear-gradient(135deg, #00cc88 0%, #008855 100%);
+            box-shadow: 0 0 30px rgba(0, 204, 136, 0.8);
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        .text-input-box {
+            display: flex;
+            gap: 8px;
+        }
+
+        .text-input-box input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .text-input-box button {
+            background: #ffaa00;
+            border: none;
+            color: #111;
+            font-weight: bold;
+            padding: 0 16px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .quick-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip:hover {
+            background: #ffaa00;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>
+            <span>🤖 CocoLink 실시간 음성 AI 또래 친구 [지호]</span>
+            <span class="gemini-badge">Gemini Powered</span>
+        </h1>
+        <p>Google Gemini AI 두뇌와 음성 합성으로 살아 움직이는 7세 친구와 직접 대화해 보세요!</p>
+    </header>
+
+    <!-- Gemini API Key Settings Bar -->
+    <div class="api-key-bar">
+        <span style="font-size: 18px;">✨</span>
+        <input type="password" id="geminiApiKey" placeholder="Google Gemini API Key를 입력하세요 (AI Studio 무료 키 지원)" onchange="saveGeminiKey()">
+        <button onclick="saveGeminiKey()">연동 저장</button>
+        <div class="engine-status" id="engineStatusIndicator">
+            <span style="color: #ffaa00;">⚡ 로컬 룰 모드</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Avatar Column -->
+        <div class="avatar-section">
+            <div class="avatar-canvas-container">
+                <canvas id="avatarCanvas" width="300" height="300"></canvas>
+            </div>
+            <div class="status-badge" id="emotionBadge">😊 평온한 상태 (빨간 미니카 굴리는 중)</div>
+            <div class="speech-bubble" id="jihoSpeechText">
+                "안녕! 난 7살 지호야! 지금 빨간 미니카로 속도 대결할 건데, 너는 무슨 놀이 할 거야?"
+            </div>
+        </div>
+
+        <!-- Controls Column -->
+        <div class="controls-section">
+            <div class="hud-metrics">
+                <div class="metric-card">
+                    <div class="label">친밀도 (Rapport)</div>
+                    <div class="value" id="rapportValue">50 / 100</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">지호의 감정</div>
+                    <div class="value" id="emotionStateValue">호기심 🚗</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">협상 결과</div>
+                    <div class="value" id="dealSuccessValue">준비됨 🤝</div>
+                </div>
+            </div>
+
+            <div class="chat-log" id="chatLog">
+                <div class="chat-msg jiho">지호: 안녕! 난 7살 지호야! 지금 빨간 미니카로 속도 대결할 건데, 너는 무슨 놀이 할 거야?</div>
+            </div>
+
+            <div class="input-controls">
+                <div class="quick-chips">
+                    <span class="chip" onclick="sendQuickText('야! 그 미니카 이리 내놔! 내가 할 거야!')">😡 1. 소리 지르며 뺏기 (오답 테스트)</span>
+                    <span class="chip" onclick="sendQuickText('지호야, 우리 블록으로 터널 만들어서 미니카 통과시키자!')">🤝 2. 블록 터널 딜 제안 (정답 테스트)</span>
+                    <span class="chip" onclick="sendQuickText('가위바위보 해서 이긴 사람이 먼저 1판 하자!')">✌️ 3. 가위바위보 순서 딜</span>
+                    <span class="chip" onclick="sendQuickText('너 양말 짝짝이로 신었대요 바보래요~')">😜 4. 짓궂은 놀림 (쿨방어 테스트)</span>
+                </div>
+
+                <div class="mic-btn-container">
+                    <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="마이크 누르고 말하기">
+                        🎤
+                    </button>
+                    <span style="font-size: 12px; color: #8f8fa8;">← 버튼 누르고 마이크로 말씀하세요</span>
+                </div>
+
+                <div class="text-input-box">
+                    <input type="text" id="textInput" placeholder="마이크로 말하거나, 여기에 입력 후 엔터를 누르세요..." onkeypress="handleKeyPress(event)">
+                    <button onclick="sendUserText()">전송</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State variables
+        let isRecording = false;
+        let recognition = null;
+        let jihoEmotion = 'NEUTRAL'; // NEUTRAL, HAPPY, ANGRY, COOL, CURIOUS
+        let rapport = 50;
+        let isTalking = false;
+        let conversationHistory = [];
+
+        // Load Gemini API Key from localStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedKey = localStorage.getItem('COCOLINK_GEMINI_API_KEY');
+            if (savedKey) {
+                document.getElementById('geminiApiKey').value = savedKey;
+                updateEngineStatus(true);
+            }
+        });
+
+        function saveGeminiKey() {
+            const key = document.getElementById('geminiApiKey').value.trim();
+            if (key) {
+                localStorage.setItem('COCOLINK_GEMINI_API_KEY', key);
+                updateEngineStatus(true);
+                alert('✨ Gemini API 키가 저장되었습니다! 이제 제미나이 AI 두뇌로 자유롭게 실시간 대화합니다.');
+            } else {
+                localStorage.removeItem('COCOLINK_GEMINI_API_KEY');
+                updateEngineStatus(false);
+            }
+        }
+
+        function updateEngineStatus(isGemini) {
+            const ind = document.getElementById('engineStatusIndicator');
+            if (isGemini) {
+                ind.innerHTML = '<span style="color: #00ffcc;">🧠 Gemini 1.5 Flash 연동 중</span>';
+            } else {
+                ind.innerHTML = '<span style="color: #ffaa00;">⚡ 로컬 룰 모드 (API 키 미입력)</span>';
+            }
+        }
+
+        // Canvas Avatar Drawing
+        const canvas = document.getElementById('avatarCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawAvatar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+
+            // Head
+            ctx.fillStyle = '#ffdfb8';
+            ctx.beginPath();
+            ctx.arc(cx, cy + 10, 85, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Hair
+            ctx.fillStyle = '#4a2e18';
+            ctx.beginPath();
+            ctx.arc(cx, cy - 25, 90, Math.PI, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(cx - 80, cy - 20);
+            ctx.lineTo(cx - 40, cy + 5);
+            ctx.lineTo(cx - 10, cy - 15);
+            ctx.lineTo(cx + 30, cy + 10);
+            ctx.lineTo(cx + 80, cy - 20);
+            ctx.closePath();
+            ctx.fill();
+
+            // Eyes
+            const eyeY = cy;
+            const eyeOffset = 32;
+
+            ctx.fillStyle = '#222';
+            if (jihoEmotion === 'ANGRY') {
+                ctx.beginPath();
+                ctx.arc(cx - eyeOffset, eyeY, 8, 0, Math.PI * 2);
+                ctx.arc(cx + eyeOffset, eyeY, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#331c0a';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(cx - 45, eyeY - 12);
+                ctx.lineTo(cx - 20, eyeY - 4);
+                ctx.moveTo(cx + 45, eyeY - 12);
+                ctx.lineTo(cx + 20, eyeY - 4);
+                ctx.stroke();
+            } else if (jihoEmotion === 'HAPPY') {
+                ctx.strokeStyle = '#222';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.arc(cx - eyeOffset, eyeY + 2, 10, Math.PI, Math.PI * 2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(cx + eyeOffset, eyeY + 2, 10, Math.PI, Math.PI * 2);
+                ctx.stroke();
+            } else if (jihoEmotion === 'COOL') {
+                ctx.fillStyle = '#111';
+                ctx.fillRect(cx - 50, eyeY - 10, 40, 20);
+                ctx.fillRect(cx + 10, eyeY - 10, 40, 20);
+                ctx.strokeStyle = '#ffaa00';
+                ctx.lineWidth = 3;
+                ctx.strokeRect(cx - 50, eyeY - 10, 40, 20);
+                ctx.strokeRect(cx + 10, eyeY - 10, 40, 20);
+                ctx.beginPath();
+                ctx.moveTo(cx - 10, eyeY);
+                ctx.lineTo(cx + 10, eyeY);
+                ctx.stroke();
+            } else {
+                ctx.beginPath();
+                ctx.arc(cx - eyeOffset, eyeY, 8, 0, Math.PI * 2);
+                ctx.arc(cx + eyeOffset, eyeY, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#4a2e18';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(cx - eyeOffset, eyeY - 12, 14, Math.PI * 1.2, Math.PI * 1.8);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(cx + eyeOffset, eyeY - 12, 14, Math.PI * 1.2, Math.PI * 1.8);
+                ctx.stroke();
+            }
+
+            // Cheeks
+            ctx.fillStyle = 'rgba(255, 120, 120, 0.4)';
+            ctx.beginPath();
+            ctx.arc(cx - 45, cy + 25, 12, 0, Math.PI * 2);
+            ctx.arc(cx + 45, cy + 25, 12, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Mouth
+            const mouthY = cy + 45;
+            ctx.fillStyle = '#aa3333';
+            ctx.strokeStyle = '#aa3333';
+            ctx.lineWidth = 3;
+
+            if (isTalking) {
+                const mHeight = 6 + Math.sin(Date.now() * 0.025) * 10;
+                ctx.beginPath();
+                ctx.ellipse(cx, mouthY, 14, Math.max(3, mHeight), 0, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                if (jihoEmotion === 'ANGRY') {
+                    ctx.beginPath();
+                    ctx.arc(cx, mouthY + 8, 12, Math.PI * 1.1, Math.PI * 1.9);
+                    ctx.stroke();
+                } else if (jihoEmotion === 'HAPPY') {
+                    ctx.beginPath();
+                    ctx.arc(cx, mouthY - 4, 16, 0, Math.PI);
+                    ctx.fill();
+                } else if (jihoEmotion === 'COOL') {
+                    ctx.beginPath();
+                    ctx.moveTo(cx - 10, mouthY);
+                    ctx.lineTo(cx + 14, mouthY - 5);
+                    ctx.stroke();
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(cx, mouthY, 10, 0, Math.PI);
+                    ctx.stroke();
+                }
+            }
+
+            requestAnimationFrame(drawAvatar);
+        }
+
+        drawAvatar();
+
+        // Gemini AI LLM Persona Request
+        async function queryGeminiPersona(userText) {
+            const apiKey = localStorage.getItem('COCOLINK_GEMINI_API_KEY');
+            if (!apiKey) {
+                return fallbackLocalRuleEngine(userText);
+            }
+
+            const systemInstruction = `
+너는 유치원에서 빨간 미니카를 가지고 놀고 있는 7세 장난꾸러기 남자아이 '지호'야.
+대화 상대는 같은 반 또래 친구(발달지연/자폐스펙트럼 아동)야.
+
+[지호의 성격 및 사회성 훈련 규칙]
+1. 7세 아이 말투로 짧게 1~2문장(35자 이내)으로 신나게 또는 뾰루퉁하게 대답해. 절대 어른이나 인공지능처럼 길게 설명하지 마!
+2. 상대방이 무조건 명령하거나 장난감을 뺏으려 하면(예: "내놔", "빨리 줘", "소리치기"):
+   - 뾰루퉁하게 거절해: "싫어! 내가 먼저 잡았단 말이야! 너랑 안 놀아!"
+   - EMOTION: ANGRY, RAPPORT_CHANGE: -20, DEAL_STATUS: 거절 ❌
+3. 상대방이 '블록 터널 만들기', '가위바위보 순서 정하기', '시간 나누기' 등 타협안(Deal)을 제안하면:
+   - 아주 신나고 기쁘게 수락해: "우와 진짜? 블록 터널? 대박! 그럼 내가 차 굴려볼게!"
+   - EMOTION: HAPPY, RAPPORT_CHANGE: +30, DEAL_STATUS: 딜 성공 🤝
+4. 상대방이 놀리거나 장난치면(예: "짝짝이 양말 바보"):
+   - 어깨를 으쓱하며 쿨하게 유머로 무시해: "그래서 뭐? 짝짝이 양말이 요즘 유행이거든~"
+   - EMOTION: COOL, RAPPORT_CHANGE: 0, DEAL_STATUS: 쿨방어 🛡️
+5. 상대방이 자기 관심사(공룡 등)만 일방적으로 너무 길게 말하면:
+   - 살짝 지루해하며 질문을 던져: "음... 근데 너는 만화 주인공 중에 누구 좋아해?"
+   - EMOTION: CURIOUS, RAPPORT_CHANGE: +5, DEAL_STATUS: 핑퐁토크 🏓
+6. 일반적인 인사나 대화:
+   - EMOTION: NEUTRAL, RAPPORT_CHANGE: +10, DEAL_STATUS: 대화 중 💬
+
+[반드시 아래 4줄 형식으로만 출력할 것]
+EMOTION: [HAPPY / ANGRY / COOL / CURIOUS / NEUTRAL]
+RESPONSE: (지호의 실제 7세 대사)
+RAPPORT_CHANGE: (+30 / -20 등)
+DEAL_STATUS: (결과 요약)
+`;
+
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [
+                            { role: 'user', parts: [{ text: systemInstruction + "\n\n[친구의 말]: " + userText }] }
+                        ],
+                        generationConfig: {
+                            temperature: 0.7,
+                            maxOutputTokens: 150
+                        }
+                    })
+                });
+
+                const data = await response.json();
+                const textOutput = data.candidates[0].content.parts[0].text;
+
+                // Parse Structured Output
+                let emotion = 'NEUTRAL';
+                let responseText = textOutput;
+                let rapportDelta = 0;
+                let dealStatus = '대화 중 💬';
+
+                const lines = textOutput.split('\n');
+                lines.forEach(line => {
+                    if (line.startsWith('EMOTION:')) emotion = line.replace('EMOTION:', '').trim();
+                    if (line.startsWith('RESPONSE:')) responseText = line.replace('RESPONSE:', '').trim();
+                    if (line.startsWith('RAPPORT_CHANGE:')) rapportDelta = parseInt(line.replace('RAPPORT_CHANGE:', '').trim()) || 0;
+                    if (line.startsWith('DEAL_STATUS:')) dealStatus = line.replace('DEAL_STATUS:', '').trim();
+                });
+
+                jihoEmotion = emotion;
+                rapport = Math.max(0, Math.min(100, rapport + rapportDelta));
+
+                return {
+                    text: responseText,
+                    emotionDesc: getEmotionDesc(emotion),
+                    dealDesc: dealStatus
+                };
+
+            } catch (err) {
+                console.error('Gemini API Error, falling back to local rules:', err);
+                return fallbackLocalRuleEngine(userText);
+            }
+        }
+
+        function getEmotionDesc(emotion) {
+            switch(emotion) {
+                case 'HAPPY': return '😄 신남 (협동 모드)';
+                case 'ANGRY': return '😡 토라짐 (방어 모드)';
+                case 'COOL': return '😎 쿨함 (놀림 무력화)';
+                case 'CURIOUS': return '🤔 호기심 (질문 토스)';
+                default: return '😊 평온함 (대화 중)';
+            }
+        }
+
+        // Fallback Local Rule Engine
+        function fallbackLocalRuleEngine(userText) {
+            const text = userText.trim();
+            if (text.includes('내놔') || text.includes('뺏') || text.includes('줘') && (text.includes('야') || text.includes('빨리'))) {
+                jihoEmotion = 'ANGRY';
+                rapport = Math.max(10, rapport - 20);
+                return { text: "싫어! 내가 먼저 잡았단 말이야! 왜 소리 질러? 너랑 안 놀아!", emotionDesc: "😡 토라짐 (방어 모드)", dealDesc: "실패 ❌" };
+            }
+            if ((text.includes('블록') || text.includes('터널')) && (text.includes('같이') || text.includes('만들') || text.includes('통과') || text.includes('합치'))) {
+                jihoEmotion = 'HAPPY';
+                rapport = Math.min(100, rapport + 30);
+                return { text: "우와 진짜? 블록으로 터널 만든다고? 대박! 그럼 내가 만든 터널로 차 슝- 통과시킬게!", emotionDesc: "😄 신남 (협동 모드)", dealDesc: "성공! 🤝 (결합 딜)" };
+            }
+            if (text.includes('가위바위보') || text.includes('순서') || text.includes('차례')) {
+                jihoEmotion = 'HAPPY';
+                rapport = Math.min(100, rapport + 25);
+                return { text: "좋아! 가위바위보 하자! 안 내면 진 거 가위 바위 보! 내가 이기면 나 먼저 1판 할게!", emotionDesc: "😃 승부욕 (공정 모드)", dealDesc: "성공! ✌️ (순서 딜)" };
+            }
+            if (text.includes('바보') || text.includes('짝짝이') || text.includes('놀림')) {
+                jihoEmotion = 'COOL';
+                return { text: "흥, 양말 짝짝이가 요즘 유행이거든? 그래서 뭐? 난 내 차 굴릴 거야~", emotionDesc: "😎 쿨함 (놀림 무력화)", dealDesc: "방어 성공! 🛡️" };
+            }
+            jihoEmotion = 'NEUTRAL';
+            return { text: "응 안녕! 난 7살 지호야. 나 지금 새로 산 빨간 레이싱카 굴리는 중이야!", emotionDesc: "😊 친근함", dealDesc: "대화 중 💬" };
+        }
+
+        // Voice Synthesis (TTS)
+        function speakJihoVoice(textToSpeak) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.lang = 'ko-KR';
+            utterance.pitch = 1.45; // 7yo child pitch
+            utterance.rate = 1.05;
+
+            isTalking = true;
+            utterance.onend = () => { isTalking = false; };
+            utterance.onerror = () => { isTalking = false; };
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Process User Input
+        async function processUserDialogue(userText) {
+            if (!userText.trim()) return;
+
+            const chatLog = document.getElementById('chatLog');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-msg user';
+            userMsg.textContent = '나: ' + userText;
+            chatLog.appendChild(userMsg);
+            chatLog.scrollTop = chatLog.scrollHeight;
+
+            document.getElementById('emotionBadge').textContent = '🧠 지호가 생각하는 중...';
+
+            const res = await queryGeminiPersona(userText);
+
+            document.getElementById('jihoSpeechText').textContent = '"' + res.text + '"';
+            document.getElementById('emotionBadge').textContent = res.emotionDesc;
+            document.getElementById('rapportValue').textContent = rapport + ' / 100';
+            document.getElementById('emotionStateValue').textContent = res.emotionDesc.split(' ')[0];
+            document.getElementById('dealSuccessValue').textContent = res.dealDesc;
+
+            const jihoMsg = document.createElement('div');
+            jihoMsg.className = 'chat-msg jiho';
+            jihoMsg.textContent = '지호: ' + res.text;
+            chatLog.appendChild(jihoMsg);
+            chatLog.scrollTop = chatLog.scrollHeight;
+
+            speakJihoVoice(res.text);
+        }
+
+        function sendUserText() {
+            const input = document.getElementById('textInput');
+            const val = input.value;
+            if (val) {
+                processUserDialogue(val);
+                input.value = '';
+            }
+        }
+
+        function sendQuickText(text) {
+            processUserDialogue(text);
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendUserText();
+            }
+        }
+
+        // Web Speech Recognition (STT)
+        function toggleMic() {
+            const micBtn = document.getElementById('micBtn');
+
+            if (isRecording) {
+                if (recognition) recognition.stop();
+                isRecording = false;
+                micBtn.classList.remove('recording');
+                micBtn.textContent = '🎤';
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert('이 브라우저는 음성 인식을 지원하지 않습니다. Chrome 브라우저를 사용해 주세요!');
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.lang = 'ko-KR';
+            recognition.interimResults = false;
+
+            recognition.onstart = () => {
+                isRecording = true;
+                micBtn.classList.add('recording');
+                micBtn.textContent = '⏹️';
+                document.getElementById('emotionBadge').textContent = '👂 아이 목소리 듣는 중...';
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                processUserDialogue(transcript);
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                isRecording = false;
+                micBtn.classList.remove('recording');
+                micBtn.textContent = '🎤';
+            };
+
+            recognition.onend = () => {
+                isRecording = false;
+                micBtn.classList.remove('recording');
+                micBtn.textContent = '🎤';
+            };
+
+            recognition.start();
+        }
+    </script>
+</body>
+</html>
