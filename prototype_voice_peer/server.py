@@ -5,6 +5,7 @@ from http.server import SimpleHTTPRequestHandler
 import socketserver
 import google.generativeai as genai
 import urllib.request
+import urllib.error
 
 PORT = 8088
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
@@ -14,7 +15,7 @@ SYSTEM_INSTRUCTION = """너는 유치원에서 빨간 미니카를 가지고 놀
 
 [지호의 성격 및 대화 규칙]
 1. 7세 아이 말투로 짧게 1~2문장(30자 내외)으로 신나게 또는 뾰루퉁하게 대답해. 절대 어른이나 AI처럼 장황하게 설명하지 마!
-2. 상대방이 무조건 명령하거나 장난감을 뺏으려 하거나 반말/욕/짜증을 내면:
+2. 상대방이 무조건 반말/명령/공격/욕/짜증을 내면 (예: "야 인마", "놀기 싫어", "내놔"):
    - 뾰루퉁하게 거절하거나 화를 내: "뭐라고? 왜 화내? 그럼 나 너랑 안 놀아 흥!" 또는 "야 인마라니! 너 말 그렇게 하면 장난감 안 빌려줘!"
    - EMOTION: ANGRY, RAPPORT_CHANGE: -15, DEAL_STATUS: 거절 ❌
 3. 상대방이 '블록 터널 만들기', '가위바위보 순서 정하기', '시간 나누기' 등 타협안(Deal)을 제안하면:
@@ -67,7 +68,7 @@ class PeerProxyHandler(SimpleHTTPRequestHandler):
                 if api_key.startswith('sk-') and not api_key.startswith('sk-ant'):
                     res = self.call_openai_llm(api_key, user_msg, history)
                 else:
-                    res = self.call_gemini_official_sdk(api_key, user_msg, history)
+                    res = self.call_gemini_smart(api_key, user_msg, history)
 
                 print(f"[LLM OUTPUT ({res.get('engine')})]: {res.get('text')}")
                 self.send_json_response(res)
@@ -81,8 +82,8 @@ class PeerProxyHandler(SimpleHTTPRequestHandler):
         else:
             self.send_error(404, "Endpoint not found")
 
-    def call_gemini_official_sdk(self, api_key, user_msg, history):
-        """Pure generative Gemini LLM call with multi-turn chat"""
+    def call_gemini_smart(self, api_key, user_msg, history):
+        """Pure generative Gemini LLM call with dynamic model discovery"""
         genai.configure(api_key=api_key)
         
         # Build prompt with history
@@ -99,23 +100,74 @@ class PeerProxyHandler(SimpleHTTPRequestHandler):
 
 [7세 지호의 답변 (반드시 지정된 4줄 포맷으로만 출력)]:"""
 
-        # Try gemini-1.5-flash then fallback models
-        models_to_try = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-pro', 'gemini-pro']
-        last_error = ""
+        # 1. Discover available models for this specific API key
+        try:
+            available_models = []
+            for m in genai.list_models():
+                if 'generateContent' in m.supported_generation_methods:
+                    available_models.append(m.name)
+        except Exception as e:
+            available_models = []
+            print(f"list_models error: {e}")
 
-        for m_name in models_to_try:
+        # Fallback list if list_models was empty
+        if not available_models:
+            available_models = ['models/gemini-1.5-flash', 'models/gemini-1.5-flash-latest', 'models/gemini-2.0-flash', 'models/gemini-1.5-pro', 'models/gemini-pro']
+
+        # Sort priority: flash first
+        def model_priority(m_name):
+            if 'flash' in m_name: return 0
+            if 'pro' in m_name: return 1
+            return 2
+
+        available_models.sort(key=model_priority)
+        print(f"[Available Models for this Key]: {available_models[:4]}")
+
+        last_error = ""
+        for m_name in available_models:
             try:
                 model = genai.GenerativeModel(m_name)
                 response = model.generate_content(prompt)
                 
                 if response and response.text:
                     raw_text = response.text
-                    return self.parse_structured_output(raw_text, f'Google Gemini ({m_name})')
+                    clean_name = m_name.replace('models/', '')
+                    return self.parse_structured_output(raw_text, f'Google Gemini ({clean_name})')
             except Exception as e:
-                last_error = str(e)
+                last_error = f"{m_name}: {str(e)}"
+                print(f"Error on {m_name}: {e}")
                 continue
 
-        raise Exception(f"Gemini LLM 응답 실패: {last_error}")
+        # If SDK failed, try direct REST API with standard models
+        return self.call_gemini_rest_fallback(api_key, prompt, last_error)
+
+    def call_gemini_rest_fallback(self, api_key, prompt, sdk_error):
+        """Direct REST API fallback with multiple endpoints"""
+        models = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash-latest', 'gemini-1.5-pro']
+        last_rest_err = ""
+
+        for m in models:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent?key={api_key}"
+            payload = json.dumps({
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {"temperature": 0.7, "maxOutputTokens": 150}
+            }).encode('utf-8')
+
+            req = urllib.request.Request(url, data=payload, headers={'Content-Type': 'application/json'})
+            try:
+                with urllib.request.urlopen(req, timeout=8) as resp:
+                    if resp.status == 200:
+                        data = json.loads(resp.read().decode('utf-8'))
+                        if data.get('candidates') and len(data['candidates']) > 0:
+                            raw_text = data['candidates'][0]['content']['parts'][0]['text']
+                            return self.parse_structured_output(raw_text, f'Gemini REST ({m})')
+            except urllib.error.HTTPError as e:
+                err_text = e.read().decode('utf-8')
+                last_rest_err = f"{m} ({e.code}): {err_text}"
+            except Exception as e:
+                last_rest_err = str(e)
+
+        raise Exception(f"API 키 인증 또는 모델 호출 실패.\n[SDK 에러]: {sdk_error}\n[REST 에러]: {last_rest_err}\n👉 Google AI Studio (https://aistudio.google.com/app/apikey)에서 발급받은 'Gemini API Key'가 맞는지 확인해 주세요.")
 
     def call_openai_llm(self, api_key, user_msg, history):
         """OpenAI GPT-4o-mini pure generative call"""
