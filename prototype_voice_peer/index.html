@@ -47,6 +47,12 @@
             font-weight: bold;
         }
 
+        header p {
+            font-size: 13px;
+            color: #a0a0c0;
+            margin-top: 4px;
+        }
+
         /* SUPER PROMINENT API KEY CARD */
         .api-key-container {
             width: 100%;
@@ -95,10 +101,12 @@
         .api-input-group {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .api-input-group input {
-            flex: 1;
+            flex: 2;
+            min-width: 250px;
             background: #000000;
             border: 2px solid #334155;
             border-radius: 10px;
@@ -110,9 +118,17 @@
             transition: all 0.2s;
         }
 
-        .api-input-group input:focus {
-            border-color: #00ffcc;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        .api-input-group select {
+            flex: 1;
+            min-width: 160px;
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
         }
 
         .api-input-group button {
@@ -399,7 +415,7 @@
     <header>
         <h1>
             <span>🤖 CocoLink 실시간 음성 AI 또래 친구 [지호]</span>
-            <span class="gemini-badge">Gemini Flash AI</span>
+            <span class="gemini-badge">Gemini AI</span>
         </h1>
         <p>Google Gemini AI 두뇌와 실시간 음성으로 7세 친구와 대화해 보세요!</p>
     </header>
@@ -408,7 +424,7 @@
     <div class="api-key-container">
         <div class="api-key-header">
             <div class="title">
-                <span>🔑 Google Gemini API Key 입력 설정</span>
+                <span>🔑 Google Gemini API Key 및 모델 자동 감지</span>
             </div>
             <div id="engineStatusTag" class="status-tag status-inactive">
                 ⚡ API 키를 아래에 입력해 주세요
@@ -416,11 +432,18 @@
         </div>
         <div class="api-input-group">
             <input type="text" id="geminiApiKey" placeholder="여기에 Gemini API Key (AIzaSy...)를 붙여넣으세요" onchange="saveGeminiKey()">
-            <button onclick="saveGeminiKey()">연동 및 저장</button>
-            <button onclick="testGeminiConnection()" style="background: #10b981;">연결 테스트</button>
+            <select id="geminiModelSelect">
+                <option value="gemini-1.5-flash-latest">gemini-1.5-flash-latest (추천)</option>
+                <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+                <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+                <option value="gemini-2.0-flash-exp">gemini-2.0-flash-exp</option>
+                <option value="gemini-pro">gemini-pro (v1 레거시)</option>
+            </select>
+            <button onclick="testAndDetectGemini()" style="background: #10b981;">연동 & 자동 감지</button>
         </div>
         <div class="api-guide-text">
-            💡 키가 없으시면 <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio (무료 발급)</a>에서 생성 후 붙여넣으시면 됩니다. 키는 고객님 브라우저에만 안전하게 보관됩니다.
+            💡 키가 없으시면 <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio (무료 발급)</a>에서 키를 복사해 붙여넣고 [연동 & 자동 감지]를 누르세요.
         </div>
     </div>
 
@@ -487,13 +510,19 @@
         let jihoEmotion = 'NEUTRAL';
         let rapport = 50;
         let isTalking = false;
+        let activeModel = 'gemini-1.5-flash-latest';
 
         // Auto load saved Gemini API key
         window.addEventListener('DOMContentLoaded', () => {
             const savedKey = localStorage.getItem('COCOLINK_GEMINI_API_KEY');
+            const savedModel = localStorage.getItem('COCOLINK_GEMINI_MODEL');
             if (savedKey) {
                 document.getElementById('geminiApiKey').value = savedKey;
-                updateEngineStatus(true);
+                if (savedModel) {
+                    activeModel = savedModel;
+                    document.getElementById('geminiModelSelect').value = savedModel;
+                }
+                updateEngineStatus(true, activeModel);
             } else {
                 updateEngineStatus(false);
             }
@@ -501,55 +530,135 @@
 
         function saveGeminiKey() {
             const key = document.getElementById('geminiApiKey').value.trim();
+            const model = document.getElementById('geminiModelSelect').value;
             if (key) {
                 localStorage.setItem('COCOLINK_GEMINI_API_KEY', key);
-                updateEngineStatus(true);
-                alert('✨ Gemini API 키가 성공적으로 저장되었습니다! 이제 제미나이 AI 두뇌로 자유롭게 실시간 대화합니다.');
+                localStorage.setItem('COCOLINK_GEMINI_MODEL', model);
+                activeModel = model;
+                updateEngineStatus(true, model);
             } else {
                 localStorage.removeItem('COCOLINK_GEMINI_API_KEY');
                 updateEngineStatus(false);
-                alert('API 키가 삭제되어 기본 로컬 룰 모드로 동작합니다.');
             }
         }
 
-        async function testGeminiConnection() {
+        // Test and auto-detect available models from Google API
+        async function testAndDetectGemini() {
             const key = document.getElementById('geminiApiKey').value.trim();
             if (!key) {
                 alert('먼저 Gemini API Key를 입력창에 넣어주세요!');
                 return;
             }
 
-            document.getElementById('engineStatusTag').textContent = '🔄 연결 확인 중...';
+            document.getElementById('engineStatusTag').textContent = '🔄 지원 모델 검색 중...';
 
             try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
-                const res = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: "안녕 지호야! 짧게 한마디로 인사해줘" }] }]
-                    })
-                });
+                // 1. First, fetch available models for this specific API key
+                const listUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${key}`;
+                const listRes = await fetch(listUrl);
+                const listData = await listRes.json();
 
-                const data = await res.json();
-                if (data.candidates && data.candidates[0]) {
+                if (listData.models && listData.models.length > 0) {
+                    const select = document.getElementById('geminiModelSelect');
+                    select.innerHTML = ''; // reset options
+
+                    // Filter only models supporting generateContent
+                    const availableModels = listData.models.filter(m => 
+                        m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent')
+                    );
+
+                    availableModels.forEach(m => {
+                        const mName = m.name.replace('models/', '');
+                        const opt = document.createElement('option');
+                        opt.value = mName;
+                        opt.textContent = mName + (m.displayName ? ` (${m.displayName})` : '');
+                        select.appendChild(opt);
+                    });
+
+                    // Pick best default model
+                    const priorityList = ['gemini-1.5-flash', 'gemini-1.5-flash-latest', 'gemini-2.0-flash', 'gemini-1.5-pro', 'gemini-pro'];
+                    let chosen = availableModels[0].name.replace('models/', '');
+                    for (let p of priorityList) {
+                        if (availableModels.some(m => m.name.includes(p))) {
+                            chosen = availableModels.find(m => m.name.includes(p)).name.replace('models/', '');
+                            break;
+                        }
+                    }
+
+                    select.value = chosen;
+                    activeModel = chosen;
                     localStorage.setItem('COCOLINK_GEMINI_API_KEY', key);
-                    updateEngineStatus(true);
-                    alert('🎉 Gemini 1.5 Flash 연결 성공!\n지호의 답변: "' + data.candidates[0].content.parts[0].text.trim() + '"');
-                } else {
-                    alert('⚠️ API 키 연결 오류: ' + JSON.stringify(data.error || data));
+                    localStorage.setItem('COCOLINK_GEMINI_MODEL', chosen);
+
+                    // 2. Test generation with chosen model
+                    const testUrl = `https://generativelanguage.googleapis.com/v1beta/models/${chosen}:generateContent?key=${key}`;
+                    const testRes = await fetch(testUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: "안녕 지호야! 반갑게 한마디만 인사해줘" }] }]
+                        })
+                    });
+                    const testData = await testRes.json();
+                    
+                    if (testData.candidates && testData.candidates[0]) {
+                        updateEngineStatus(true, chosen);
+                        alert(`🎉 Gemini API 연동 대성공!\n\n선택된 모델: ${chosen}\n지호의 답변: "${testData.candidates[0].content.parts[0].text.trim()}"`);
+                        return;
+                    }
                 }
+                
+                // Fallback direct test if model list query fails
+                await fallbackDirectTest(key);
+
             } catch (err) {
-                alert('⚠️ 네트워크 또는 키 오류: ' + err.message);
-                updateEngineStatus(false);
+                console.warn('Model list query failed, trying direct fallbacks:', err);
+                await fallbackDirectTest(key);
             }
         }
 
-        function updateEngineStatus(isGemini) {
+        async function fallbackDirectTest(key) {
+            const candidateModels = [
+                'gemini-1.5-flash-latest',
+                'gemini-1.5-flash',
+                'gemini-2.0-flash',
+                'gemini-1.5-pro-latest',
+                'gemini-1.5-pro',
+                'gemini-pro'
+            ];
+
+            for (let m of candidateModels) {
+                try {
+                    const testUrl = `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${key}`;
+                    const res = await fetch(testUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: "안녕 지호야!" }] }]
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.candidates && data.candidates[0]) {
+                        activeModel = m;
+                        document.getElementById('geminiModelSelect').value = m;
+                        localStorage.setItem('COCOLINK_GEMINI_API_KEY', key);
+                        localStorage.setItem('COCOLINK_GEMINI_MODEL', m);
+                        updateEngineStatus(true, m);
+                        alert(`🎉 Gemini 연결 성공! (모델: ${m})\n지호: "${data.candidates[0].content.parts[0].text.trim()}"`);
+                        return;
+                    }
+                } catch (e) {}
+            }
+
+            alert('⚠️ API 키 연결 오류: 올바른 Google AI Studio API Key인지 확인해 주세요.');
+            updateEngineStatus(false);
+        }
+
+        function updateEngineStatus(isGemini, modelName = '') {
             const tag = document.getElementById('engineStatusTag');
             if (isGemini) {
                 tag.className = 'status-tag status-active';
-                tag.innerHTML = '🧠 Gemini 1.5 Flash 실시간 두뇌 활성화됨';
+                tag.innerHTML = `🧠 Gemini (${modelName}) 활성화됨`;
             } else {
                 tag.className = 'status-tag status-inactive';
                 tag.innerHTML = '⚡ 로컬 룰 모드 (API 키 미입력)';
@@ -684,12 +793,14 @@
 
         drawAvatar();
 
-        // Gemini AI LLM Persona Request
+        // Gemini AI Persona Query
         async function queryGeminiPersona(userText) {
             const apiKey = localStorage.getItem('COCOLINK_GEMINI_API_KEY');
             if (!apiKey) {
                 return fallbackLocalRuleEngine(userText);
             }
+
+            const model = activeModel || document.getElementById('geminiModelSelect').value || 'gemini-1.5-flash-latest';
 
             const systemInstruction = `
 너는 유치원에서 빨간 미니카를 가지고 놀고 있는 7세 장난꾸러기 남자아이 '지호'야.
@@ -720,7 +831,7 @@ DEAL_STATUS: (결과 요약)
 `;
 
             try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
                 
                 const response = await fetch(url, {
                     method: 'POST',
@@ -737,6 +848,12 @@ DEAL_STATUS: (결과 요약)
                 });
 
                 const data = await response.json();
+                
+                if (!data.candidates || !data.candidates[0]) {
+                    console.warn('API returned no candidate, using fallback:', data);
+                    return fallbackLocalRuleEngine(userText);
+                }
+
                 const textOutput = data.candidates[0].content.parts[0].text;
 
                 let emotion = 'NEUTRAL';
@@ -809,7 +926,7 @@ DEAL_STATUS: (결과 요약)
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(textToSpeak);
             utterance.lang = 'ko-KR';
-            utterance.pitch = 1.45; // 7yo child pitch
+            utterance.pitch = 1.45;
             utterance.rate = 1.05;
 
             isTalking = true;
